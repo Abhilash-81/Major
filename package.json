@@ -1,0 +1,22 @@
+{
+  "name": "major",
+  "version": "1.0.0",
+  "description": "The platform will promote a sense of community collaboration and foster mutual learning, making it both unique and service-oriented. The project has the potential to make a positive impact on the community by providing a convenient and efficient way for people to exchange skills, fostering a sense of community collaboration and mutual learning, offering opportunities for people to learn new skills and develop their talents .",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.10.3",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "browserslist": [
+    "last 2 version"
+  ]
+}
