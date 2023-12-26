@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const { ObjectId } = require("mongodb");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 
@@ -54,7 +55,6 @@ const createNewUser = asyncHandler(async (req, res) => {
   };
 
   const user = await User.create(userObject);
-  console.log(user);
 
   if (user) {
     res.status(201).json({ message: `New User ${username} created` });
@@ -105,14 +105,12 @@ const deleteUser = asyncHandler(async (req, res) => {
   if (!id) {
     return res.status(400).json({ message: "User ID required" });
   }
-  const user = await User.findOne(id).exec();
-  console.log(user);
+  const user = await User.findById(id.id).exec();
   if (!user) {
     return res.status(400).json({ message: "User Not Found" });
   }
-  const result = await User.deleteOne();
+  const result = await User.deleteOne({ _id: new ObjectId(id.id) });
   const reply = `Username ${user.username} with ID ${user._id} Deleted`;
-
   res.json(reply);
 });
 
