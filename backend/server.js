@@ -12,7 +12,11 @@ const mongoose = require("mongoose");
 const { logEvents } = require("./middleware/logger");
 const PORT = process.env.NODE_ENV;
 
+// console.log(PORT);
+// console.log("Started");
+
 connectDB();
+
 app.use(logger);
 
 app.use(cors(corsOptions));
@@ -24,6 +28,9 @@ app.use(cookieParser());
 app.use("/", express.static(path.join(__dirname, "public")));
 
 app.use("/", require("./routes/root"));
+
+app.use("/users", require("./routes/userRoutes"));
+app.use("/users/:id", require("./routes/userRoutes"));
 
 app.all("*", (req, res) => {
   res.status(404);

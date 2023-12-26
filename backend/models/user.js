@@ -12,11 +12,13 @@ const userSchema = new mongoose.Schema({
   Skills: [
     {
       type: String,
+      required: true,
     },
   ],
   Seeking: [
     {
       type: String,
+      required: true,
     },
   ],
 });
