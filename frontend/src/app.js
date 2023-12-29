@@ -1,13 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import Header from "./components/Header";
+import Body from "./components/Body";
+import Footer from "./components/Footer";
 
-const Heading = () => {
+const App = () => {
   return (
     <>
-      <h1 className="font-serif p-2 m-4">Hello abhilash</h1>
+      <Header />
+      <Body />
+      <Footer />
     </>
   );
 };
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-root.render(<Heading />);
+root.render(<App />);
