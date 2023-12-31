@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Card from "./Card";
 import mockData from "../assets/mock_data";
+import Shimmer from "./Shimmer";
 
 const Body = () => {
   let [totalData, settotalData] = useState(mockData);
@@ -16,8 +17,9 @@ const Body = () => {
           onChange={(e) => {
             setSearchText(e.target.value);
           }}
-          className="border border-solid border-black shadow-lg"
-        ></input>
+          className="border border-solid border-black shadow-lg bg-transparent "
+          placeholder=" Search..."
+        />
         <button
           onClick={() => {
             const filteredList = totalData?.filter(
@@ -30,28 +32,30 @@ const Body = () => {
                   ?.includes(searchText.toLowerCase())
             );
             setfilteredData(filteredList);
-            setSearchText("");
           }}
-          className="px-4 py-2 bg-blue-200 m-4 rounded-lg shadow-md"
+          className="px-4 py-2 bg-blue-200 m-0 rounded-lg shadow-md"
         >
           Search
         </button>
-        <button
+        {/* <button
           onClick={() => {
             const filteredList = totalData?.filter((res) => res?.Rating > 40);
-            console.log(filteredList);
             setfilteredData(filteredList);
             setSearchText("");
           }}
           className="px-4 py-2 bg-blue-200 m-4 border border-solid rounded-lg shadow-md"
         >
           Top Rated Users
-        </button>
+        </button> */}
       </div>
       <div className="flex flex-wrap justify-center align-middle">
-        {filteredData?.map((user) => (
-          <Card resData={user} key={user?.id} />
-        ))}
+        {filteredData.length === 0 ? (
+          <div>
+            <h1 className=" font-bold text-2xl">No Result Found 😔</h1>
+          </div>
+        ) : (
+          filteredData?.map((user) => <Card resData={user} key={user?.id} />)
+        )}
       </div>
     </>
   );
