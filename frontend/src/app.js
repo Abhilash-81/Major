@@ -8,6 +8,7 @@ import Contact from "./components/Contact";
 import Error from "./components/Error";
 import Login from "./components/Login";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import UserProfile from "./components/Userprofile";
 
 const App = () => {
   return (
@@ -40,8 +41,19 @@ const appRouter = createBrowserRouter([
     errorElement: <Error />,
   },
   {
+    path: "/users",
+    element: <Body />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/users/:userId",
+    element: <UserProfile />,
+    errorElement: <Error />,
+  },
+  {
     path: "/login",
     element: <Login />,
+    errorElement: <Error />,
   },
 ]);
 const root = ReactDOM.createRoot(document.getElementById("root"));

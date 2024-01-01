@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 import Card from "./Card";
 import mockData from "../assets/mock_data";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 
 const Body = () => {
-  let [totalData, settotalData] = useState(mockData);
+  let [totalData] = useState(mockData);
   let [filteredData, setfilteredData] = useState(mockData);
   let [searchText, setSearchText] = useState("");
   return (
@@ -17,7 +18,7 @@ const Body = () => {
           onChange={(e) => {
             setSearchText(e.target.value);
           }}
-          className="border border-solid border-black shadow-lg bg-transparent "
+          className="border border-solid border-black  shadow-lg bg-transparent "
           placeholder=" Search..."
         />
         <button
@@ -37,6 +38,11 @@ const Body = () => {
         >
           Search
         </button>
+        <Link to="/users">
+          <button className="px-4 py-2 bg-blue-200 m-4 border border-solid rounded-lg shadow-md ">
+            See All Users
+          </button>
+        </Link>
         {/* <button
           onClick={() => {
             const filteredList = totalData?.filter((res) => res?.Rating > 40);
@@ -54,7 +60,11 @@ const Body = () => {
             <h1 className=" font-bold text-2xl">No Result Found 😔</h1>
           </div>
         ) : (
-          filteredData?.map((user) => <Card resData={user} key={user?.id} />)
+          filteredData?.map((user) => (
+            <Link to={"/users/" + user.id} key={user?.id}>
+              <Card resData={user} />
+            </Link>
+          ))
         )}
       </div>
     </>

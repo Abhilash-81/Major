@@ -4,21 +4,11 @@ const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 
 const getUsers = asyncHandler(async (req, res) => {
-  const id = req.body;
-  if (!id || !id.id) {
-    const users = await User.find().lean();
-    if (!users?.length) {
-      return res.status(400).json({ message: "No Users Found" });
-    }
-    res.json(users);
-  } else {
-    const user = await User.findById(id.id).exec();
-    if (!user) {
-      return res.status(400).json({ message: "No User with given ID Found" });
-    }
-
-    res.json(user);
+  const users = await User.find().select("-password").lean().exec();
+  if (!users) {
+    return res.status(400).json({ message: "No Users Found" });
   }
+  res.json(users);
 });
 
 //Creating a New User
