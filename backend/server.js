@@ -11,11 +11,12 @@ const connectDB = require("./config/dbConnection");
 const mongoose = require("mongoose");
 const { logEvents } = require("./middleware/logger");
 const PORT = process.env.NODE_ENV;
+
 connectDB();
 
 app.use(logger);
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(express.json());
 

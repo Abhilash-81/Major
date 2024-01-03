@@ -1,8 +1,25 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import Axios from "axios";
 
 const Userprofile = () => {
-  const { userId } = useParams();
+  const [users, setUsers] = useState();
+  // const [user, setUser] = useState();
+  async function getData() {
+    try {
+      const response = await Axios.get("http://localhost:3000/users/:id");
+      console.log(response);
+      setUsers(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  if (!users) return null;
+
   return (
     <div className="m-4 p-4">
       <h1>Name of the user or id</h1>
