@@ -68,7 +68,6 @@ const Body = () => {
           Top Rated Users
         </button> */}
         </div>
-        (
         <div className="flex flex-wrap justify-center align-middle">
           {filteredData.length === 0 ? (
             <div>
@@ -76,13 +75,12 @@ const Body = () => {
             </div>
           ) : (
             filteredData?.map((user) => (
-              <Link to={"/users/" + user?.userId} key={user?.userId}>
+              <Link to={"/users/" + user?.username} key={user?.username}>
                 <Card resData={user} />
               </Link>
             ))
           )}
         </div>
-        )
       </>
     );
   }

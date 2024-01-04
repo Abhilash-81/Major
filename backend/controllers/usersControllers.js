@@ -2,16 +2,26 @@ const User = require("../models/user");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 
+const getUser = asyncHandler(async (req, res) => {
+  const username = req.params.username;
+  if (!username) {
+    return res.status(400).json({ message: "No User Found" });
+  }
+  const user = await User.findOne({ username })
+    .select("-password")
+    .lean()
+    .exec();
+  res.json(user);
+});
 const getUsers = asyncHandler(async (req, res) => {
-  const users = await User.find().select("-password").lean().exec();
-  if (!users) {
+  const user = await User.find().select("-password").lean().exec();
+  if (!user) {
     return res.status(400).json({ message: "No Users Found" });
   }
-  res.json(users);
+  res.json(user);
 });
 
 //Creating a New User
-
 const createNewUser = asyncHandler(async (req, res) => {
   const {
     username,
@@ -178,6 +188,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
+  getUser,
   getUsers,
   createNewUser,
   updateUser,

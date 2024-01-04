@@ -46,7 +46,7 @@ const appRouter = createBrowserRouter([
     errorElement: <Error />,
   },
   {
-    path: "/users/:id",
+    path: "/users/:username",
     element: <UserProfile />,
     errorElement: <Error />,
   },
