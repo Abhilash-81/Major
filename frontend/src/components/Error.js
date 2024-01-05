@@ -4,7 +4,7 @@ import { useRouteError } from "react-router-dom";
 const Error = () => {
   const err = useRouteError();
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
+    <div className="flex items-center justify-center h-screen bg-gray-100 ">
       <div className="bg-white p-8 rounded-md shadow-md">
         <h1 className="text-4xl text-red-600 font-bold mb-4">Oops!</h1>
         <p className="text-gray-700 mb-4">

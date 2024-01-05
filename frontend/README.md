@@ -1,4 +1,2 @@
 #There are many people who have valuable skills that they could implement practically, but they don't have a platform to connect. This can be frustrating for people who require some skill, and it can also be a missed opportunity for people who have skills that they could help others. Skill Share platform will provide a variety of features to support skill exchange, including user profiles, skill listing and search functionality, skill request system .
 The platform will promote a sense of community collaboration and foster mutual learning, making it both unique and service-oriented. The project has the potential to make a positive impact on the community by providing a convenient and efficient way for people to exchange skills, fostering a sense of community collaboration and mutual learning, offering opportunities for people to learn new skills and develop their talents .
-
-express , nodemon, tailwind css , postcss
