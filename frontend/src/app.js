@@ -3,12 +3,13 @@ import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
 import Footer from "./components/Footer";
-import About from "./components/About";
-import Contact from "./components/Contact";
+import About from "./Screens/About";
+import Contact from "./Screens/Contact";
 import Error from "./components/Error";
-import Login from "./components/Login";
+import Login from "./Screens/Login";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import UserProfile from "./components/Userprofile";
+import HomeScreen from "./Screens/HomeScreen";
 
 const App = () => {
   return (
@@ -27,7 +28,18 @@ const appRouter = createBrowserRouter([
     children: [
       {
         path: "/",
+        element: <HomeScreen />,
+      },
+      {
+        path: "/users",
         element: <Body />,
+        children: [
+          {
+            path: "/users/:username",
+            element: <UserProfile />,
+            errorElement: <Error />,
+          },
+        ],
       },
       {
         path: "/about",
@@ -41,17 +53,12 @@ const appRouter = createBrowserRouter([
     errorElement: <Error />,
   },
   {
-    path: "/users",
-    element: <Body />,
+    path: "/users/login",
+    element: <Login />,
     errorElement: <Error />,
   },
   {
-    path: "/users/:username",
-    element: <UserProfile />,
-    errorElement: <Error />,
-  },
-  {
-    path: "/login",
+    path: "/users/logout",
     element: <Login />,
     errorElement: <Error />,
   },

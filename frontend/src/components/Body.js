@@ -12,7 +12,7 @@ const Body = () => {
 
   async function getData() {
     try {
-      const response = await Axios.get("http://localhost:3000");
+      const response = await Axios.get("http://localhost:3000/users");
       settotalData(response.data);
       setfilteredData(response.data);
     } catch (error) {
@@ -52,21 +52,16 @@ const Body = () => {
           >
             Search
           </button>
-          <Link to="/users">
-            <button className="px-4 py-2 bg-blue-200 m-4 border border-solid rounded-lg shadow-md ">
-              See All Users
-            </button>
-          </Link>
           {/* <button
-          onClick={() => {
-            const filteredList = totalData?.filter((res) => res?.Rating > 40);
-            setfilteredData(filteredList);
-            setSearchText("");
-          }}
-          className="px-4 py-2 bg-blue-200 m-4 border border-solid rounded-lg shadow-md"
-        >
-          Top Rated Users
-        </button> */}
+            onClick={() => {
+              const filteredList = totalData?.filter((res) => res?.Rating > 40);
+              setfilteredData(filteredList);
+              setSearchText("");
+            }}
+            className="px-4 py-2 bg-blue-200 m-4 border border-solid rounded-lg shadow-md"
+          >
+            Top Rated Users
+          </button> */}
         </div>
         <div className="flex flex-wrap justify-center align-middle">
           {filteredData.length === 0 ? (

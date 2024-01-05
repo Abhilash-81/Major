@@ -4,6 +4,7 @@ import profilepic from "../assets/profilepic.png";
 const Card = (props) => {
   const { resData } = props;
   const { username, Skills } = resData;
+  console.log(Skills);
   return (
     <button className="m-4 p-4 max-w-xs bg-gray-100 border-2 border-slate-700 w-64 h-80 overflow-auto rounded-md shadow-md">
       <img src={profilepic} alt="Profile Pic" />

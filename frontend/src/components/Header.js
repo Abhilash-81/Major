@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import logo from "../assets/logo.jpg";
 import { Link } from "react-router-dom";
+// import { FaSign, FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 
 const Header = () => {
   let [searchText, setSearchText] = useState("login");
@@ -27,16 +28,18 @@ const Header = () => {
             <Link to="/contact">ContactUs</Link>
           </li>
         </ul>
-        <button
-          onClick={() => {
-            searchText === "login"
-              ? setSearchText("logout")
-              : setSearchText("login");
-          }}
-          className=" p-1 border-2 bg-green-200 border-black rounded-lg"
-        >
-          {searchText}
-        </button>
+        <Link to="/users/login">
+          <button
+            onClick={() => {
+              searchText === "login"
+                ? setSearchText("logout")
+                : setSearchText("login");
+            }}
+            className=" p-1 border-2 bg-green-200 border-black rounded-lg"
+          >
+            {searchText}
+          </button>
+        </Link>
       </div>
     </nav>
   );
