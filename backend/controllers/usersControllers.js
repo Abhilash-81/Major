@@ -3,17 +3,18 @@ const generateToken = require("../utils/generateToken");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 
-// const getUser = asyncHandler(async (req, res) => {
-//   const { username } = req.body;
-//   const user = await User.findOne({ username })
-//     .select("-password")
-//     .lean()
-//     .exec();
-//   if (!user) {
-//     return res.status(400).json({ message: "No Users Found" });
-//   }
-//   res.status(200).json(user);
-// });
+const getUser = asyncHandler(async (req, res) => {
+  const { username } = req.params;
+  console.log(username);
+  const user = await User.findOne({ username })
+    .select("-password")
+    .lean()
+    .exec();
+  if (!user) {
+    return res.status(400).json({ message: "No Users Found" });
+  }
+  res.status(200).json(user);
+});
 
 const getUsers = asyncHandler(async (req, res) => {
   const users = await User.find().select("-password").lean().exec();
@@ -214,7 +215,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
-  // getUser,
+  getUser,
   logoutUser,
   registerUser,
   getUsers,

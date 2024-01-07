@@ -1,26 +1,46 @@
+// Signup.js
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const Signup = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your login logic here
+    // Add your signup logic here
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-full sm:w-96">
-        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
         <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label
+              htmlFor="name"
+              className="block text-gray-600 text-sm font-semibold mb-2"
+            >
+              Your Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+              placeholder="Enter your name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </div>
           <div className="mb-4">
             <label
               htmlFor="email"
               className="block text-gray-600 text-sm font-semibold mb-2"
             >
-              Email
+              Your Email
             </label>
             <input
               type="email"
@@ -37,7 +57,7 @@ const Login = () => {
               htmlFor="password"
               className="block text-gray-600 text-sm font-semibold mb-2"
             >
-              Password
+              Your Password
             </label>
             <input
               type="password"
@@ -53,11 +73,11 @@ const Login = () => {
             type="submit"
             className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue"
           >
-            Log In
+            Sign Up
           </button>
-          <Link to="/users/signup">
+          <Link to="/users/login">
             <h3 className="p-2">
-              Do Not have an Account? <b>Signup</b>
+              Already,Have an Account? <b>Login</b>
             </h3>
           </Link>
         </form>
@@ -66,4 +86,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;

@@ -9,7 +9,7 @@ const Userprofile = () => {
   async function getData() {
     try {
       const response = await Axios.get(
-        "http://localhost:3000/users/profile" + username
+        "http://localhost:3000/users/" + username
       );
       setUser(response.data);
     } catch (error) {
