@@ -5,6 +5,7 @@ const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -67,6 +68,24 @@ const Signup = () => {
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="password"
+              className="block text-gray-600 text-sm font-semibold mb-2"
+            >
+              Your Password
+            </label>
+            <input
+              type="confirmpassword"
+              id="confirmpassword"
+              name="confirmpassword"
+              className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+              placeholder="ReEnter your password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
           </div>

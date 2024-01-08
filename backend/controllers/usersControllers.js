@@ -146,7 +146,6 @@ const getUserProfile = asyncHandler(async (req, res) => {
 
 const updateUserProfile = asyncHandler(async (req, res) => {
   const {
-    _id,
     username,
     password,
     skills,
