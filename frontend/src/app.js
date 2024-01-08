@@ -36,8 +36,8 @@ const appRouter = (
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
       </Route>
-      <Route path="/users/login" element={<Login />} />
-      <Route path="/users/signup" element={<Signup />} />
+      <Route path="/users/auth" element={<Login />} />
+      <Route path="/users/register" element={<Signup />} />
       <Route path="/users/logout" element={<Login />} />
       <Route path="/users/:username" element={<UserProfile />} />
       <Route path="*" element={<Error />} />

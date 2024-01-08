@@ -57,7 +57,6 @@ const registerUser = asyncHandler(async (req, res) => {
     password,
     skills,
     seeking,
-    userId,
     email,
     Job,
     Company,
@@ -72,21 +71,16 @@ const registerUser = asyncHandler(async (req, res) => {
     !Array.isArray(seeking) ||
     !skills.length ||
     !seeking.length ||
-    !userId ||
     !email
   ) {
     return res.status(400).json({ message: "All Fields Are Required" });
   }
   //Checking for Duplicates
   const duplicate = await User.findOne({ username }).lean().exec();
-  const duplicateId = await User.findOne({ userId }).lean().exec();
   const duplicateEmail = await User.findOne({ email }).lean().exec();
 
   if (duplicate) {
     return res.status(409).json({ message: "Duplicate username " });
-  }
-  if (duplicateId) {
-    return res.status(409).json({ message: "Duplicate ID " });
   }
   if (duplicateEmail) {
     return res.status(409).json({ message: "Duplicate Email ID " });
@@ -97,7 +91,6 @@ const registerUser = asyncHandler(async (req, res) => {
     password: hashedPassword,
     Skills: skills,
     Seeking: seeking,
-    userId: userId,
     email: email,
   };
   // Job, Company, Address, Gender;
@@ -127,7 +120,7 @@ const registerUser = asyncHandler(async (req, res) => {
   res.status(200).json({ Message: "Register User" });
 });
 
-// @desc  logout USer
+// @desc  logout User
 //route   POST/users/logout
 //@access Public
 
@@ -154,7 +147,6 @@ const getUserProfile = asyncHandler(async (req, res) => {
 const updateUserProfile = asyncHandler(async (req, res) => {
   const {
     _id,
-    userId,
     username,
     password,
     skills,
@@ -205,7 +197,7 @@ const deleteUser = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: "Username required" });
   }
   const user = await User.findOne({ username }).exec();
-  console.log(user);
+  // console.log(user);
   if (!user) {
     return res.status(400).json({ message: "User Not Found" });
   }

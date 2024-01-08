@@ -24,7 +24,8 @@ const Login = () => {
             </label>
             <input
               type="email"
-              id="email"
+              id="email" // Add unique id attribute
+              name="email" // Add name attribute
               className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter your email"
               value={email}
@@ -41,7 +42,8 @@ const Login = () => {
             </label>
             <input
               type="password"
-              id="password"
+              id="password" // Add unique id attribute
+              name="password" // Add name attribute
               className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter your password"
               value={password}
@@ -55,7 +57,7 @@ const Login = () => {
           >
             Log In
           </button>
-          <Link to="/users/signup">
+          <Link to="/users/register">
             <h3 className="p-2">
               Do Not have an Account? <b>Signup</b>
             </h3>

@@ -27,9 +27,7 @@ const Body = () => {
   if (!filteredData) return <Shimmer />;
 
   {
-    return filteredData.length === 0 ? (
-      <Shimmer />
-    ) : (
+    return (
       <>
         <div className="m-4 px-4">
           <input
@@ -43,8 +41,14 @@ const Body = () => {
           />
           <button
             onClick={() => {
-              const filteredList = totalData?.filter((res) =>
-                res?.username?.toLowerCase()?.includes(searchText.toLowerCase())
+              const filteredList = totalData?.filter(
+                (res) =>
+                  res?.username
+                    ?.toLowerCase()
+                    ?.includes(searchText.toLowerCase()) ||
+                  res?.Skills?.some((skill) =>
+                    skill?.toLowerCase()?.includes(searchText.toLowerCase())
+                  )
               );
               setfilteredData(filteredList);
             }}

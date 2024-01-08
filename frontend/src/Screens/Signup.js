@@ -1,5 +1,3 @@
-// Signup.js
-
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -28,6 +26,7 @@ const Signup = () => {
             <input
               type="text"
               id="name"
+              name="name"
               className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter your name"
               value={name}
@@ -45,6 +44,7 @@ const Signup = () => {
             <input
               type="email"
               id="email"
+              name="email"
               className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter your email"
               value={email}
@@ -62,6 +62,7 @@ const Signup = () => {
             <input
               type="password"
               id="password"
+              name="password"
               className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter your password"
               value={password}
@@ -75,9 +76,9 @@ const Signup = () => {
           >
             Sign Up
           </button>
-          <Link to="/users/login">
+          <Link to="/users/auth">
             <h3 className="p-2">
-              Already,Have an Account? <b>Login</b>
+              Already have an Account? <b>Login</b>
             </h3>
           </Link>
         </form>

@@ -27,7 +27,7 @@ const Header = () => {
             <Link to="/contact">ContactUs</Link>
           </li>
         </ul>
-        <Link to="/users/login">
+        <Link to="/users/auth">
           <button
             onClick={() => {
               searchText === "login"
@@ -39,7 +39,7 @@ const Header = () => {
             {searchText}
           </button>
         </Link>
-        <Link to="/users/signup">
+        <Link to="/users/register">
           <button className=" p-1 m-2 border-2 bg-green-200 border-black rounded-lg">
             Signup
           </button>
