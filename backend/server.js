@@ -10,25 +10,24 @@ const corsOptions = require("./config/corsOptions");
 const connectDB = require("./config/dbConnection");
 const mongoose = require("mongoose");
 const { logEvents } = require("./middleware/logger");
-const PORT = process.env.NODE_ENV;
+const PORT = process.env.PORT;
 
 connectDB();
 
 app.use(logger);
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
-// app.use("/", express.static(path.join(__dirname, "public")));
+app.use("/", express.static(path.join(__dirname, "public")));
 
-app.use("/", require("./routes/root"));
+// app.use("/", require("./routes/root"));
 
 app.use("/users", require("./routes/userRoutes"));
-
-// app.use("/users/:username", require("./routes/userRoutes"));
 
 app.all("*", (req, res) => {
   res.status(404);

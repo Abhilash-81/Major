@@ -1,34 +1,62 @@
 const User = require("../models/user");
+const generateToken = require("../utils/generateToken");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 
 const getUser = asyncHandler(async (req, res) => {
-  const username = req.params.username;
-  if (!username) {
-    return res.status(400).json({ message: "No User Found" });
-  }
+  const { username } = req.params;
+  console.log(username);
   const user = await User.findOne({ username })
     .select("-password")
     .lean()
     .exec();
-  res.json(user);
-});
-const getUsers = asyncHandler(async (req, res) => {
-  const user = await User.find().select("-password").lean().exec();
   if (!user) {
     return res.status(400).json({ message: "No Users Found" });
   }
-  res.json(user);
+  res.status(200).json(user);
 });
 
-//Creating a New User
-const createNewUser = asyncHandler(async (req, res) => {
+const getUsers = asyncHandler(async (req, res) => {
+  const users = await User.find().select("-password").lean().exec();
+  if (!users) {
+    return res.status(400).json({ message: "No Users Found" });
+  }
+  res.status(200).json(users);
+});
+
+// @desc  Auth user/set token / login user
+//route   POST/users/auth
+//@access Public
+
+const authUser = asyncHandler(async (req, res) => {
+  const { password, email } = req.body;
+
+  if (!password || !email) {
+    return res.status(400).json({ message: "All Fields Are Required " });
+  }
+
+  const user = await User.findOne({ email });
+
+  if (user && (await user.matchPassword(password))) {
+    generateToken(res, user._id);
+    res
+      .status(201)
+      .json({ message: `User LogedIn Successfully with email-id ${email}` });
+  } else {
+    res.status(400).json({ message: "Invalid email or passwordx" });
+  }
+});
+
+// @desc  Register User
+//route   POST/users
+//@access Public
+
+const registerUser = asyncHandler(async (req, res) => {
   const {
     username,
     password,
     skills,
     seeking,
-    userId,
     email,
     Job,
     Company,
@@ -43,35 +71,26 @@ const createNewUser = asyncHandler(async (req, res) => {
     !Array.isArray(seeking) ||
     !skills.length ||
     !seeking.length ||
-    !userId ||
     !email
   ) {
     return res.status(400).json({ message: "All Fields Are Required" });
   }
   //Checking for Duplicates
   const duplicate = await User.findOne({ username }).lean().exec();
-  const duplicateId = await User.findOne({ userId }).lean().exec();
   const duplicateEmail = await User.findOne({ email }).lean().exec();
 
   if (duplicate) {
     return res.status(409).json({ message: "Duplicate username " });
   }
-  if (duplicateId) {
-    return res.status(409).json({ message: "Duplicate ID " });
-  }
   if (duplicateEmail) {
     return res.status(409).json({ message: "Duplicate Email ID " });
   }
-
-  //hash Password
-  const hashedPassword = await bcrypt.hash(password, 10);
 
   const userObject = {
     username: username,
     password: hashedPassword,
     Skills: skills,
     Seeking: seeking,
-    userId: userId,
     email: email,
   };
   // Job, Company, Address, Gender;
@@ -91,17 +110,43 @@ const createNewUser = asyncHandler(async (req, res) => {
   const user = await User.create(userObject);
 
   if (user) {
-    res.status(201).json({ message: `New User ${username} created` });
+    generateToken(res, user._id);
+    res
+      .status(201)
+      .json({ message: `New User Registered with username ${username}` });
   } else {
     res.status(400).json({ message: "Invalid UserData Received" });
   }
+  res.status(200).json({ Message: "Register User" });
 });
 
-//Update User
+// @desc  logout User
+//route   POST/users/logout
+//@access Public
 
-const updateUser = asyncHandler(async (req, res) => {
+const logoutUser = asyncHandler(async (req, res) => {
+  res.cookie("jwt", "", {
+    httpOnly: true,
+    expires: new Date(0),
+  });
+  res.status(200).json({ Message: "User Logged out" });
+});
+
+// @desc  Get User Profile
+//route   Get/users/profile
+//@access Private
+
+const getUserProfile = asyncHandler(async (req, res) => {
+  res.status(200).json(req.user);
+});
+
+//@desc Update User Profile
+// PUT /users/profile
+//@access Private
+
+const updateUserProfile = asyncHandler(async (req, res) => {
   const {
-    userId,
+    _id,
     username,
     password,
     skills,
@@ -113,18 +158,9 @@ const updateUser = asyncHandler(async (req, res) => {
     Gender,
   } = req.body;
 
-  if (
-    !username ||
-    !Array.isArray(skills) ||
-    !Array.isArray(seeking) ||
-    !skills.length ||
-    !seeking.length ||
-    !email ||
-    !userId
-  ) {
-    return res.status(400).json({ message: "All Fields are required" });
-  }
-  const user = await User.findOne({ username }).exec();
+  const user =
+    (await User.findOne({ username }).exec()) ||
+    (await User.findOne({ email }).exec());
 
   if (!user) {
     return res.status(400).json({ message: "User for given data Not Found" });
@@ -132,44 +168,27 @@ const updateUser = asyncHandler(async (req, res) => {
 
   //checking duplicates
   const duplicate = await User.findOne({ username }).lean().exec();
-  const duplicateId = await User.findOne({ userId }).lean().exec();
   const duplicateEmail = await User.findOne({ email }).lean().exec();
   //Allow updates to the original user
-  if (duplicate && user.username !== username) {
-    return res.status(400).json({ message: "Duplicate ID Found" });
-  }
-  if (duplicateId && user.userId !== userId) {
-    return res.status(400).json({ message: "Duplicate ID Found" });
-  }
-  if (duplicateEmail && user.email !== email) {
+  if (duplicate && user.username !== username)
+    return res
+      .status(400)
+      .json({ message: "Duplicate username Found,please change username" });
+
+  if (duplicateEmail && user.email !== email)
     return res.status(400).json({ message: "Duplicate EmailID Found" });
-  }
+
   user.username = username;
   user.Skills = skills;
   user.Seeking = seeking;
   user.email = email;
-  user.userId = userId;
-  if (Job) {
-    user.Job = Job;
-    console.log("Job");
-  }
-  if (Company) {
-    user.Company = Company;
-    console.log("Company");
-  }
-  if (Address) {
-    user.Address = Address;
-    console.log("Address");
-  }
-  if (Gender) {
-    user.Gender = Gender;
-    console.log("Gender");
-  }
-  if (password) {
-    user.password = await bcrypt.hash(password, 10);
-  }
+  if (Job) user.Job = Job;
+  if (Company) user.Company = Company;
+  if (Address) user.Address = Address;
+  if (Gender) user.Gender = Gender;
+  if (password) user.password = password;
   const updatedUser = await user.save();
-  res.json({ message: `${updatedUser.username} Updated` });
+  res.status(200).json({ message: `${updatedUser.username} Updated` });
 });
 
 const deleteUser = asyncHandler(async (req, res) => {
@@ -178,7 +197,7 @@ const deleteUser = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: "Username required" });
   }
   const user = await User.findOne({ username }).exec();
-  console.log(user);
+  // console.log(user);
   if (!user) {
     return res.status(400).json({ message: "User Not Found" });
   }
@@ -189,8 +208,11 @@ const deleteUser = asyncHandler(async (req, res) => {
 
 module.exports = {
   getUser,
+  logoutUser,
+  registerUser,
   getUsers,
-  createNewUser,
-  updateUser,
+  getUserProfile,
+  authUser,
+  updateUserProfile,
   deleteUser,
 };
