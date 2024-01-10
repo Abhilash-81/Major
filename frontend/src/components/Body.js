@@ -56,21 +56,13 @@ const Body = () => {
           >
             Search
           </button>
-          {/* <button
-            onClick={() => {
-              const filteredList = totalData?.filter((res) => res?.Rating > 40);
-              setfilteredData(filteredList);
-              setSearchText("");
-            }}
-            className="px-4 py-2 bg-blue-200 m-4 border border-solid rounded-lg shadow-md"
-          >
-            Top Rated Users
-          </button> */}
         </div>
-        <div className="flex flex-wrap justify-center align-middle">
+        <div className="flex flex-wrap grid-flow-row gap-2 align-middle justify-center">
           {filteredData.length === 0 ? (
             <div>
-              <h1 className=" font-bold text-2xl">No Result Found 😔</h1>
+              <h1 className="m-4 font-bold text-2xl text-pretty">
+                No Result Found 😔
+              </h1>
             </div>
           ) : (
             filteredData?.map((user) => (

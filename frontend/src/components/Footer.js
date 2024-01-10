@@ -1,29 +1,35 @@
 import React from "react";
+
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white py-4 flex">
-      <div className="container mx-auto flex justify-between items-center">
-        <div>
-          <p className="text-lg font-bold">Skill Share</p>
-          <p>&copy; 2023. All rights reserved.</p>
+    <footer className="bg-gray-800 text-white py-8">
+      <div className="container mx-auto flex flex-wrap justify-between items-center">
+        <div className="mb-4 lg:mb-0">
+          <p className="text-lg font-bold text-white">Skill Share</p>
+          <p className="text-sm text-gray-300">
+            &copy; 2024. All rights reserved.
+          </p>
         </div>
-        <div>
-          <p className="text-lg font-bold">Contact Us</p>
-          <ul>
+        <div className="mb-4 lg:mb-0">
+          <p className="text-lg font-bold text-white">Contact Us</p>
+          <ul className="text-sm text-gray-300">
             <li>Email: jampaniabhilash81@gmail.com</li>
             <li>Phone: 9191919191</li>
           </ul>
         </div>
         <div>
-          <p className="text-lg font-bold">Follow Us</p>
+          <p className="text-lg font-bold text-white mb-4">Follow Us</p>
           <div className="flex space-x-4">
             <a
               href="https://twitter.com/JampaniAbhi81"
-              className="text-gray-300 hover:text-white"
+              className="text-gray-300 hover:text-white transition duration-300"
             >
-              Twitter X<i className="fab fa-twitter"></i>
+              Twitter <i className="fab fa-twitter"></i>
             </a>
-            <a href="#" className="text-gray-300 hover:text-white">
+            <a
+              href="#"
+              className="text-gray-300 hover:text-white transition duration-300"
+            >
               <i className="fab fa-instagram"></i>
             </a>
           </div>
