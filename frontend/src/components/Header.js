@@ -7,13 +7,13 @@ const Header = () => {
   return (
     <nav className="flex flex-wrap w-90 h-90 items-center border-2 justify-between  bg-slate-100 shadow-md">
       <div className="m-2 p-2">
-        <a
-          href="/"
+        <Link
+          to="/"
           className="text-2xl font-semibold flex items-center space-x-3"
         >
           <img src={logo} alt="Skill Share logo" className="w-35 h-20 " />
           <span>SkillShare</span>
-        </a>
+        </Link>
       </div>
       <div className="m-2 p-2 text-xl font-semibold flex items-center ">
         <ul className="flex flex-wrap px-2">
