@@ -29,38 +29,47 @@ const Body = () => {
   {
     return (
       <>
-        <div className="m-4 px-4">
-          <input
-            type="text"
-            value={searchText}
-            onChange={(e) => {
-              setSearchText(e.target.value);
-            }}
-            className="border border-solid border-black  shadow-lg bg-transparent "
-            placeholder=" Search..."
-          />
-          <button
-            onClick={() => {
-              const filteredList = totalData?.filter(
-                (res) =>
-                  res?.username
-                    ?.toLowerCase()
-                    ?.includes(searchText.toLowerCase()) ||
-                  res?.Skills?.some((skill) =>
-                    skill?.toLowerCase()?.includes(searchText.toLowerCase())
-                  )
-              );
-              setfilteredData(filteredList);
-            }}
-            className="px-4 py-2 bg-blue-200 m-0 rounded-lg shadow-md"
-          >
-            Search
-          </button>
+        <div className="flex flex-wrap justify-between">
+          <div className="m-4 p-2">
+            <input
+              type="text"
+              value={searchText}
+              onChange={(e) => {
+                setSearchText(e.target.value);
+              }}
+              className="border border-solid border-black  shadow-lg bg-transparent "
+              placeholder=" Search..."
+            />
+            <button
+              onClick={() => {
+                const filteredList = totalData?.filter(
+                  (res) =>
+                    res?.username
+                      ?.toLowerCase()
+                      ?.includes(searchText.toLowerCase()) ||
+                    res?.Skills?.some((skill) =>
+                      skill?.toLowerCase()?.includes(searchText.toLowerCase())
+                    )
+                );
+                setfilteredData(filteredList);
+              }}
+              className="px-4 py-2 bg-blue-200 m-0 rounded-lg shadow-md"
+            >
+              Search
+            </button>
+          </div>
+          <div className="justify-end p-4">
+            <Link to="/communities">
+              <button className="bg-teal-300 text-white py-2 px-4 rounded-md hover:border-2 border-black focus:outline-none focus:shadow-outline-green align-middle">
+                Communities
+              </button>
+            </Link>
+          </div>
         </div>
         <div className="flex flex-wrap grid-flow-row gap-2 align-middle justify-center">
           {filteredData.length === 0 ? (
             <div>
-              <h1 className="m-4 font-bold text-2xl text-pretty">
+              <h1 className="m-4 p-4 font-bold text-2xl text-pretty">
                 No Result Found 😔
               </h1>
             </div>

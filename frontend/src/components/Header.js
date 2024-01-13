@@ -27,23 +27,25 @@ const Header = () => {
             <Link to="/contact">ContactUs</Link>
           </li>
         </ul>
-        <Link to="/users/auth">
-          <button
-            onClick={() => {
-              searchText === "login"
-                ? setSearchText("logout")
-                : setSearchText("login");
-            }}
-            className=" p-1 border-2 bg-green-200 border-black rounded-lg"
-          >
-            {searchText}
-          </button>
-        </Link>
-        <Link to="/users/register">
-          <button className=" p-1 m-2 border-2 bg-green-200 border-black rounded-lg">
-            Signup
-          </button>
-        </Link>
+        <div>
+          <Link to="/users/auth">
+            <button
+              onClick={() => {
+                searchText === "login"
+                  ? setSearchText("logout")
+                  : setSearchText("login");
+              }}
+              className=" px-1 m-2 border-2 bg-teal-200 border-black rounded-lg"
+            >
+              {searchText}
+            </button>
+          </Link>
+          <Link to="/users/register">
+            <button className=" px-1 m-2 border-2 bg-teal-200 border-black rounded-lg">
+              Signup
+            </button>
+          </Link>
+        </div>
       </div>
     </nav>
   );
