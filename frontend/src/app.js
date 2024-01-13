@@ -16,7 +16,7 @@ import Login from "./Screens/Login";
 import UserProfile from "./components/Userprofile";
 import HomeScreen from "./Screens/HomeScreen";
 import Signup from "./Screens/Signup";
-import Communities from "./components/Communities";
+import Communities from "./components/communities/Communities";
 
 const App = () => {
   return (
