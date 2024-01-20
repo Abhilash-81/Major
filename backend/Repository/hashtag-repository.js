@@ -13,6 +13,7 @@ class HashtagRepository {
   async bulkCreate(data) {
     try {
       const tags = await Hashtag.insertMany(data);
+      return tags;
     } catch (error) {
       console.log(error);
     }
@@ -39,7 +40,7 @@ class HashtagRepository {
     try {
       const tags = await Hashtag.find({
         title: titleList,
-      }).select("title -_id");
+      });
       return tags;
     } catch (error) {
       console.log(error);

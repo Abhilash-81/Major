@@ -19,18 +19,24 @@ class TweetService {
     let alreadyPresentTags = await this.hashtagRepository.findByName(tags);
 
     // Extract titles from alreadyPresentTags
-    alreadyPresentTags = alreadyPresentTags.map((tag) => tag.title);
+    let titleOfAlreadyPresentTags = alreadyPresentTags.map((tag) => tag.title);
 
     // Filter out existing tags to get newTags
-    let newTags = tags.filter((tag) => !alreadyPresentTags.includes(tag));
+    let newTags = tags.filter(
+      (tag) => !titleOfAlreadyPresentTags.includes(tag)
+    );
 
     // Prepare newTags with titles and associated tweet IDs
     newTags = newTags.map((tag) => {
-      return { title: tag, tweets: [tweet._id] };
+      return { title: tag, tweets: [tweet.id] };
     });
 
     // Bulk create newTags in the hashtagRepository
     const response = await this.hashtagRepository.bulkCreate(newTags);
+    alreadyPresentTags.forEach((tag) => {
+      tag.tweets.push(tweet.id);
+      tag.save();
+    });
     return tweet;
   }
 }
