@@ -41,11 +41,16 @@ app.all("*", (req, res) => {
 });
 
 app.use(errorHandler);
+const Tweet = require("./models/tweet");
 
 mongoose.connection.once("open", () => {
-  console.log("Connected to MongoDB");
-  app.listen(PORT, () => {
+  app.listen(PORT, async () => {
+    console.log("Connected to MongoDB");
     console.log("Server started at port", PORT);
+    const tweets = await Tweet.find({
+      content: ["First_tweet", "Happy", "joy"],
+    });
+    console.log(tweets);
   });
 });
 
