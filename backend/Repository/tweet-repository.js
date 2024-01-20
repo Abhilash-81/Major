@@ -46,3 +46,5 @@ class TweetRepository {
     }
   }
 }
+
+module.exports = TweetRepository;
