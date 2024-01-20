@@ -28,6 +28,7 @@ app.use("/", express.static(path.join(__dirname, "public")));
 // app.use("/", require("./routes/root"));
 
 app.use("/users", require("./routes/userRoutes"));
+app.use("/api", require("./routes/index"));
 
 app.all("*", (req, res) => {
   res.status(404);
@@ -42,16 +43,10 @@ app.all("*", (req, res) => {
 
 app.use(errorHandler);
 
-const service = require("./Services/tweet-service");
-
 mongoose.connection.once("open", () => {
   app.listen(PORT, async () => {
     console.log("Connected to MongoDB");
     console.log("Server started at port", PORT);
-    const ser = new service();
-    await ser.create({
-      content: "#reactjs is cool with its #tailwind",
-    });
   });
 });
 
