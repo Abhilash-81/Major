@@ -11,7 +11,7 @@ class TweetService {
     const content = data.content;
     let tags = content.match(/#[a-zA-Z0-9_]+/g);
     tags = tags.map((tag) => tag.substring(1));
-
+    tags = tags.map((tag) => tag.toLowerCase()); //Converting tags to lowercase
     // Create a tweet
     const tweet = await this.tweetRepository.create(data);
 
