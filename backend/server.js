@@ -43,10 +43,19 @@ app.all("*", (req, res) => {
 
 app.use(errorHandler);
 
+const UserRepository = require("./Repository/index");
+const LikeService = require("./Services/like-service");
 mongoose.connection.once("open", () => {
   app.listen(PORT, async () => {
     console.log("Connected to MongoDB");
     console.log("Server started at port", PORT);
+    this.userRepo = new UserRepository();
+    const user = await this.userRepo.create({
+      email: "hello@gmail.com",
+      password: "testing",
+      username: "Sagar50",
+    });
+    const likeservice = new LikeService();
   });
 });
 
