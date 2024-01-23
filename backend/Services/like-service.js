@@ -8,7 +8,7 @@ class LikeService {
 
   async toggleLike(modelId, modelType, userId) {
     if (modelType === "Tweet") {
-      var likeable = await this.tweetRepository.get(modelId).populate("likes");
+      var likeable = await this.tweetRepository.find(modelId);
     } else if (modelType === "Comment") {
       //TODO
     } else {
@@ -38,4 +38,4 @@ class LikeService {
   }
 }
 
-export default LikeService;
+module.exports = LikeService;
