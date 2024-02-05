@@ -6,6 +6,7 @@ const tweetService = new TweetService();
 const createTweet = asyncHandler(async (req, res) => {
   try {
     const response = await tweetService.create(req.body);
+    console.log(req.body);
     return res.status(201).json({
       sucess: true,
       message: "Sucessfully created a new Tweet",
@@ -13,7 +14,26 @@ const createTweet = asyncHandler(async (req, res) => {
       err: {},
     });
   } catch (error) {
-    return res.status(500).json({
+    return res.status(400).json({
+      sucess: false,
+      message: "Something went wrong",
+      data: {},
+      err: error,
+    });
+  }
+});
+
+const getAllTweets = asyncHandler(async (req, res) => {
+  try {
+    const response = await tweetService.getAll(req.body);
+    return res.status(201).json({
+      sucess: true,
+      message: "Sucessfully got all tweets",
+      data: response,
+      err: {},
+    });
+  } catch (error) {
+    return res.status(400).json({
       sucess: false,
       message: "Something went wrong",
       data: {},
@@ -24,4 +44,5 @@ const createTweet = asyncHandler(async (req, res) => {
 
 module.exports = {
   createTweet,
+  getAllTweets,
 };

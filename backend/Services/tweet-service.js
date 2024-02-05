@@ -39,6 +39,19 @@ class TweetService {
     });
     return tweet;
   }
+
+  async get(tweetId) {
+    const tweet = await this.tweetRepository.getWithComments(tweetId);
+    return tweet;
+  }
+
+  async getAll() {
+    const tweets = await this.tweetRepository.getAll(0, 5);
+    if (tweets) {
+      return tweets;
+    }
+    res.status(200).json(tweets);
+  }
 }
 
 module.exports = TweetService;
