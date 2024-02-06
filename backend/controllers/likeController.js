@@ -1,8 +1,8 @@
-const LikeService = require("../Services/like-service");
+import LikeService from "../services/like-service.js";
 
 const likeService = new LikeService();
 
-const toggleLike = async (req, res) => {
+export const toggleLike = async (req, res) => {
   try {
     const response = await likeService.toggleLike(
       req.query.modelId,
@@ -25,5 +25,3 @@ const toggleLike = async (req, res) => {
     });
   }
 };
-
-module.exports = toggleLike;

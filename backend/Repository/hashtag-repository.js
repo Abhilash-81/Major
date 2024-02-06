@@ -1,5 +1,4 @@
-const Hashtag = require("../models/hashtags");
-
+import Hashtag from "../models/hashtags.js";
 class HashtagRepository {
   async create(data) {
     try {
@@ -18,6 +17,7 @@ class HashtagRepository {
       console.log(error);
     }
   }
+
   async get(id) {
     try {
       const tag = await Hashtag.findById(id);
@@ -46,15 +46,6 @@ class HashtagRepository {
       console.log(error);
     }
   }
-
-  //   async getAll(offset, limit) {
-  //     try {
-  //       const tags = await Hashtag.find().skip(offset).limit(limit);
-  //       return tags;
-  //     } catch (error) {
-  //       conosle.log(error);
-  //     }
-  //   }
 }
 
-module.exports = HashtagRepository;
+export default HashtagRepository;

@@ -1,11 +1,10 @@
-const mongoose = require("mongoose");
-
+import mongoose from "mongoose";
 const tweetSchema = new mongoose.Schema(
   {
     content: {
       type: String,
       required: true,
-      max: [500, "Content cannot be more than 250 Characters"],
+      max: [250, "Tweet cannot be more than 250 characters"],
     },
     likes: [
       {
@@ -13,9 +12,18 @@ const tweetSchema = new mongoose.Schema(
         ref: "Like",
       },
     ],
+    comments: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment",
+      },
+    ],
+    image: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
 
 const Tweet = mongoose.model("Tweet", tweetSchema);
-module.exports = Tweet;
+export default Tweet;

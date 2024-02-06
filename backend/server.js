@@ -1,34 +1,29 @@
 require("dotenv").config();
-const express = require("express");
+import express from "express";
+import bodyParser from "body-parser";
+import passport from "passport";
+import mongoose from "mongoose";
 const app = express();
-const path = require("path");
-const { logger } = require("./middleware/logger");
-const errorHandler = require("./middleware/errorHandler");
-const cookieParser = require("cookie-parser");
-const cors = require("cors");
-const corsOptions = require("./config/corsOptions");
-const connectDB = require("./config/dbConnection");
-const mongoose = require("mongoose");
-const { logEvents } = require("./middleware/logger");
+import path from "path";
+import errorHandler from "./middleware/errorHandler";
+import cors from "cors";
+import corsOptions from "./config/corsOptions";
+import connectDB from "./config/dbConnection";
+import { passportAuth } from "./config/jwt-middleware.js";
+import apiRoutes from "./routes/index.js";
 const PORT = process.env.PORT;
 
 connectDB();
 
-app.use(logger);
-
 app.use(cors(corsOptions));
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(passport.initialize());
+passportAuth(passport);
 
-app.use(cookieParser());
-
-app.use("/", express.static(path.join(__dirname, "public")));
-
-// app.use("/", require("./routes/root"));
-
+app.use("/api", apiRoutes);
 app.use("/users", require("./routes/userRoutes"));
-app.use("/api", require("./routes/index"));
 
 app.all("*", (req, res) => {
   res.status(404);

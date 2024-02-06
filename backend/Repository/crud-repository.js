@@ -1,3 +1,4 @@
+import Tweet from "../models/tweet.js";
 class CrudRepository {
   constructor(model) {
     this.model = model;
@@ -5,10 +6,11 @@ class CrudRepository {
 
   async create(data) {
     try {
+      console.log(data);
       const result = await this.model.create(data);
       return result;
     } catch (error) {
-      console.log("Something Went Wrong in crud-repo");
+      console.log("Something went wrong in crud repo");
       throw error;
     }
   }
@@ -18,28 +20,31 @@ class CrudRepository {
       const result = await this.model.findByIdAndDelete(id);
       return result;
     } catch (error) {
-      console.log("Something Went Wrong in crud-repo");
+      console.log("Something went wrong in crud repo");
       throw error;
     }
   }
+
   async get(id) {
     try {
       const result = await this.model.findById(id);
       return result;
     } catch (error) {
-      console.log("Something Went Wrong in crud-repo");
+      console.log("Something went wrong in crud repo");
       throw error;
     }
   }
+
   async getAll() {
     try {
       const result = await this.model.find({});
       return result;
     } catch (error) {
-      console.log("Something Went Wrong in crud-repo");
+      console.log("Something went wrong in crud repo");
       throw error;
     }
   }
+
   async update(id, data) {
     try {
       const result = await this.model.findByIdAndUpdate(id, data, {
@@ -47,10 +52,10 @@ class CrudRepository {
       });
       return result;
     } catch (error) {
-      console.log("Something Went Wrong in crud-repo");
+      console.log("Something went wrong in crud repo");
       throw error;
     }
   }
 }
 
-module.exports = CrudRepository;
+export default CrudRepository;
