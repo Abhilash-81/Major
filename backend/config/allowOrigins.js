@@ -4,4 +4,4 @@ const allowOrigins = [
   "https://skillshare.com",
 ];
 
-module.exports = allowOrigins;
+export default allowOrigins;
