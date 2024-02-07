@@ -27,6 +27,15 @@ class HashtagRepository {
     }
   }
 
+  async getAll() {
+    try {
+      const hashtags = await Hashtag.find();
+      return hashtags;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async destroy(id) {
     try {
       const response = await Hashtag.findByIdAndRemove(id);

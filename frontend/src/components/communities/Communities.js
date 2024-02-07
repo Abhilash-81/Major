@@ -5,7 +5,6 @@ import CommunitySearch from "./CommunitySearch";
 const Communities = () => {
   return (
     <div className="m-2 p-2">
-      <CommunitySearch />
       <CommunityBody />
     </div>
   );

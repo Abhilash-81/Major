@@ -14,7 +14,21 @@ const CommunitySearch = () => {
           className="border border-solid border-black w-full lg:w-1/5 bg-blue-200 p-2 rounded-lg shadow-lg bg-transparent "
           placeholder=" Search for Communities.."
         />
-        <button className="px-4 py-2 bg-blue-200 align-middle rounded-lg shadow-md">
+        <button
+          onClick={() => {
+            const filteredList = totalData?.filter(
+              (res) =>
+                res?.username
+                  ?.toLowerCase()
+                  ?.includes(searchText.toLowerCase()) ||
+                res?.Skills?.some((skill) =>
+                  skill?.toLowerCase()?.includes(searchText.toLowerCase())
+                )
+            );
+            setfilteredData(filteredList);
+          }}
+          className="px-4 py-2 bg-blue-200 align-middle rounded-lg shadow-md"
+        >
           Search
         </button>
       </div>
