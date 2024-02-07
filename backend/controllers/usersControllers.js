@@ -1,4 +1,4 @@
-import User from "../models/user";
+import User from "../models/user.js";
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcrypt";
 
@@ -35,7 +35,7 @@ export const getUserProfile = asyncHandler(async (req, res) => {
 // PUT /users/profile
 //@access Private
 
-const updateUserProfile = asyncHandler(async (req, res) => {
+export const updateUserProfile = asyncHandler(async (req, res) => {
   const {
     username,
     password,
