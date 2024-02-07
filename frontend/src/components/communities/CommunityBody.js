@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
+import { Link } from "react-router-dom";
 
 function timeAgo(timestamp) {
   const now = new Date();
@@ -63,7 +64,6 @@ const communityBody = () => {
                 res?.title.includes(searchText)
               );
               setfilteredData(filteredList);
-              // console.log(filteredData?.length);
             }}
             className="px-4 py-2 bg-blue-200 align-middle rounded-lg shadow-md"
           >
@@ -84,7 +84,9 @@ const communityBody = () => {
                 .reverse()
                 .map((item) => (
                   <div key={item?._id} className="m-4 p-4 bg-gray-100 relative">
-                    <h1 className="mb-2 text-center">{item.title}</h1>
+                    <Link to={"/api/v1/hashtags/" + item?._id} key={item?._id}>
+                      <h1 className="mb-2 text-center">{item.title}</h1>
+                    </Link>
                     <h2 className="absolute bottom-0 right-0 p-2 text-xs text-gray-500">
                       Created {timeAgo(item.createdAt)}
                     </h2>

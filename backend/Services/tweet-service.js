@@ -28,8 +28,12 @@ class TweetService {
   }
 
   async get(tweetId) {
-    const tweet = await this.tweetRepository.getWithComments(tweetId);
-    return tweet;
+    try {
+      const tweet = await this.tweetRepository.find(tweetId);
+      return tweet;
+    } catch (error) {
+      console.log(error);
+    }
   }
   async getAllTweets() {
     try {

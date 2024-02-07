@@ -17,6 +17,7 @@ import UserProfile from "./components/Userprofile";
 import HomeScreen from "./Screens/HomeScreen";
 import Signup from "./Screens/Signup";
 import Communities from "./components/communities/Communities";
+import Community from "./components/communities/Community";
 
 const App = () => {
   return (
@@ -37,6 +38,7 @@ const appRouter = (
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/communities" element={<Communities />} />
+        <Route path="/api/v1/hashtags/:id" element={<Community />} />
       </Route>
       <Route path="/users/auth" element={<Login />} />
       <Route path="/users/register" element={<Signup />} />

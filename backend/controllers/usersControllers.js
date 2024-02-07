@@ -4,7 +4,6 @@ import bcrypt from "bcrypt";
 
 export const getUser = asyncHandler(async (req, res) => {
   const { username } = req.params;
-  console.log(username);
   const user = await User.findOne({ username })
     .select("-password")
     .lean()

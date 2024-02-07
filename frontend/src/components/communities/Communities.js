@@ -1,6 +1,5 @@
 import React from "react";
 import CommunityBody from "./CommunityBody";
-import CommunitySearch from "./CommunitySearch";
 
 const Communities = () => {
   return (

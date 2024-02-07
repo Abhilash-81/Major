@@ -13,6 +13,14 @@ class HashtagService {
       console.log(error);
     }
   }
+  async get(id) {
+    try {
+      const hashtag = await this.hashtagRepository.get(id);
+      return hashtag;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 export default HashtagService;
