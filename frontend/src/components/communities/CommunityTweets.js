@@ -8,7 +8,6 @@ const CommunityTweets = ({ id }) => {
       const response = await Axios.get(
         `http://localhost:3000/api/v1/tweets/${id}`
       );
-      console.log(response?.data?.data);
       setData(response?.data?.data);
     } catch (error) {
       console.log(error);

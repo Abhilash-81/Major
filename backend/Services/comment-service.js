@@ -8,7 +8,6 @@ class CommentService {
 
   async create(modelId, modelType, userId, content) {
     if (modelType == "Tweet") {
-      console.log("inside model type");
       var commentable = await this.tweetRepository.get(modelId);
     } else if (modelType == "Comment") {
       var commentable = await this.commentRepository.get(modelId);
