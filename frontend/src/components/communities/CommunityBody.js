@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import Shimmer from "../Shimmer";
 
 function timeAgo(timestamp) {
   const now = new Date();
