@@ -40,6 +40,14 @@ class TweetRepository extends CrudRepository {
       console.log(error);
     }
   }
+  async getAllTweets() {
+    try {
+      const tweets = await Tweet.find();
+      return tweets;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   async find(id) {
     try {

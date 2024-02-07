@@ -51,3 +51,21 @@ export const getTweet = async (req, res) => {
     });
   }
 };
+export const getAllTweets = async (req, res) => {
+  try {
+    const response = await tweetService.getAllTweets();
+    return res.status(200).json({
+      success: true,
+      message: "Successfully fetched a tweet from service",
+      data: response,
+      err: {},
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "something went wrong",
+      data: {},
+      err: error,
+    });
+  }
+};
