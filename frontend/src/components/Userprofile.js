@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Axios from "axios";
 import profilepic from "../assets/profilepic.png";
-import Error from "./Error";
+
 const Userprofile = () => {
   const { username } = useParams();
   const [user, setUser] = useState(null);
@@ -14,10 +14,7 @@ const Userprofile = () => {
       );
       setUser(response.data);
     } catch (error) {
-      console.log(error);
-      {
-        <Error />;
-      }
+      throw error;
     }
   }
 
@@ -28,11 +25,16 @@ const Userprofile = () => {
   if (!user) return null;
 
   return (
-    <div className="mx-auto p-6 bg-white rounded-md shadow-md max-w-screen-md">
+    <div className="mx-auto p-6 bg-white rounded-md shadow-md max-w-screen-md relative">
       <img src={profilepic} alt="Profile Pic" />
       <h1 className="text-3xl font-bold mb-4 justify-center">
         {user?.name || username}
       </h1>
+      <Link to="/api/v1/tweet">
+        <button className="absolute top-0 right-0 mt-2 mr-2 bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
+          Tweet
+        </button>
+      </Link>
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Skills</h2>
         <ul className="list-disc ml-6">

@@ -9,8 +9,6 @@ export const signup = async (req, res) => {
       password: req.body.password,
       username: req.body.username,
       userId: req.body.userId,
-      Skills: req.body.Skills,
-      Seeking: req.body.Seeking,
     });
     return res.status(201).json({
       success: true,
@@ -30,11 +28,11 @@ export const signup = async (req, res) => {
 
 export const login = async (req, res) => {
   try {
-    const token = await userService.signin(req.body);
+    const response = await userService.signin(req.body);
     return res.status(200).json({
       success: true,
       message: "Successfully logged in",
-      data: token,
+      data: response,
       err: {},
     });
   } catch (error) {

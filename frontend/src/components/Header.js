@@ -29,14 +29,7 @@ const Header = () => {
         </ul>
         <div>
           <Link to="/api/v1/login">
-            <button
-              onClick={() => {
-                searchText === "login"
-                  ? setSearchText("logout")
-                  : setSearchText("login");
-              }}
-              className=" px-1 m-2 border-2 bg-teal-200 border-black rounded-lg"
-            >
+            <button className=" px-1 m-2 border-2 bg-teal-200 border-black rounded-lg">
               {searchText}
             </button>
           </Link>

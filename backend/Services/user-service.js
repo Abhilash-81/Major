@@ -37,7 +37,10 @@ class UserService {
         };
       }
       const token = user.genJWT();
-      return token;
+      return {
+        data: user,
+        token: token,
+      };
     } catch (error) {
       throw error;
     }

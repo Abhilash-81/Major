@@ -14,15 +14,13 @@ const Login = () => {
         password,
       };
 
-      // Make a POST request to the backend login endpoint
       const response = await axios.post(
         "http://localhost:3000/api/v1/login",
         userData
       );
+      console.log("Login successful:", response?.data);
 
-      console.log("Login successful:", response.data);
-
-      navigate("/users");
+      navigate("/users/" + response?.data?.data?.data?.username);
     } catch (error) {
       console.error("Login error:", error);
     }
