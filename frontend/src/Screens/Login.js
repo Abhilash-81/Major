@@ -1,13 +1,31 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import axios from "axios"; // Import Axios for making HTTP requests
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your login logic here
+    try {
+      const userData = {
+        email,
+        password,
+      };
+
+      // Make a POST request to the backend login endpoint
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/login",
+        userData
+      );
+
+      console.log("Login successful:", response.data);
+
+      navigate("/users");
+    } catch (error) {
+      console.error("Login error:", error);
+    }
   };
 
   return (
@@ -24,8 +42,8 @@ const Login = () => {
             </label>
             <input
               type="email"
-              id="email" // Add unique id attribute
-              name="email" // Add name attribute
+              id="email"
+              name="email"
               className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter your email"
               value={email}
@@ -42,8 +60,8 @@ const Login = () => {
             </label>
             <input
               type="password"
-              id="password" // Add unique id attribute
-              name="password" // Add name attribute
+              id="password"
+              name="password"
               className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter your password"
               value={password}
@@ -57,7 +75,7 @@ const Login = () => {
           >
             Log In
           </button>
-          <Link to="/users/register">
+          <Link to="/api/v1/signup">
             <h3 className="p-2">
               Do Not have an Account? <b>Signup</b>
             </h3>

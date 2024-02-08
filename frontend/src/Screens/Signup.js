@@ -1,16 +1,40 @@
-// Signup.js
-
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import Axios from "axios";
+import Error from "../components/Error";
 
 const Signup = () => {
-  const [name, setName] = useState("");
+  const navigate = useNavigate();
+  const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [userId, setUserId] = useState([]);
+  const [skills, setSkills] = useState([]);
+  const [seeking, setSeeking] = useState([]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your signup logic here
+    try {
+      const userData = {
+        username,
+        email,
+        password,
+        userId,
+        skills,
+        seeking,
+      };
+
+      const response = await Axios.post(
+        "http://localhost:3000/api/v1/signup",
+        userData
+      );
+
+      console.log("Signup successful:", response.data);
+      navigate("/api/v1/login");
+    } catch (error) {
+      console.error("Signup error:", error);
+      throw error;
+    }
   };
 
   return (
@@ -20,7 +44,7 @@ const Signup = () => {
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
-              htmlFor="name"
+              htmlFor="username"
               className="block text-gray-600 text-sm font-semibold mb-2"
             >
               Your Name
@@ -30,8 +54,8 @@ const Signup = () => {
               id="name"
               className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter your name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={username}
+              onChange={(e) => setUserName(e.target.value)}
               required
             />
           </div>
@@ -69,13 +93,64 @@ const Signup = () => {
               required
             />
           </div>
+          <div className="mb-4">
+            <label
+              htmlFor="userId"
+              className="block text-gray-600 text-sm font-semibold mb-2"
+            >
+              User ID
+            </label>
+            <input
+              type="number"
+              id="userId"
+              className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+              placeholder="Enter your user ID"
+              value={userId}
+              onChange={(e) => setUserId(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="skills"
+              className="block text-gray-600 text-sm font-semibold mb-2"
+            >
+              Skills
+            </label>
+            <input
+              type="text"
+              id="skills"
+              className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+              placeholder="Enter your skills separated by commas"
+              value={skills}
+              onChange={(e) => setSkills(e.target.value.split(","))}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="seeking"
+              className="block text-gray-600 text-sm font-semibold mb-2"
+            >
+              Seeking
+            </label>
+            <input
+              type="text"
+              id="seeking"
+              className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+              placeholder="Enter what you are seeking separated by commas"
+              value={seeking}
+              onChange={(e) => setSeeking(e.target.value.split(","))}
+              required
+            />
+          </div>
           <button
             type="submit"
             className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue"
           >
             Sign Up
           </button>
-          <Link to="/users/auth">
+          <Link to="/api/v1/login">
             <h3 className="p-2">
               Already have an Account? <b>Login</b>
             </h3>

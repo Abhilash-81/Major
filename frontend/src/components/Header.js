@@ -28,7 +28,7 @@ const Header = () => {
           </li>
         </ul>
         <div>
-          <Link to="/users/auth">
+          <Link to="/api/v1/login">
             <button
               onClick={() => {
                 searchText === "login"
@@ -40,7 +40,7 @@ const Header = () => {
               {searchText}
             </button>
           </Link>
-          <Link to="/users/register">
+          <Link to="/api/v1/signup">
             <button className=" px-1 m-2 border-2 bg-teal-200 border-black rounded-lg">
               Signup
             </button>

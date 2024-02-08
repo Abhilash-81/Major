@@ -7,7 +7,6 @@ class TweetService {
   }
 
   async create(data) {
-    console.log(data);
     const content = data.content;
     const tags = content
       .match(/#[a-zA-Z0-9_]+/g)
@@ -46,7 +45,3 @@ class TweetService {
 }
 
 export default TweetService;
-
-/*
-    this is my #first #tweet . I am really #excited
-*/

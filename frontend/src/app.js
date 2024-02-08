@@ -38,11 +38,10 @@ const appRouter = (
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/communities" element={<Communities />} />
-        <Route path="/api/v1/hashtags/:id" element={<Community />} />
       </Route>
-      <Route path="/users/auth" element={<Login />} />
-      <Route path="/users/register" element={<Signup />} />
-      <Route path="/users/logout" element={<Login />} />
+      <Route path="/api/v1/hashtags/:id" element={<Community />} />
+      <Route path="/api/v1/signup" element={<Signup />} />
+      <Route path="api/v1/login" element={<Login />} />
       <Route path="/users/:username" element={<UserProfile />} />
       <Route path="*" element={<Error />} />
     </Routes>

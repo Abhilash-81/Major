@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Axios from "axios";
 import profilepic from "../assets/profilepic.png";
-
+import Error from "./Error";
 const Userprofile = () => {
   const { username } = useParams();
   const [user, setUser] = useState(null);
@@ -15,6 +15,9 @@ const Userprofile = () => {
       setUser(response.data);
     } catch (error) {
       console.log(error);
+      {
+        <Error />;
+      }
     }
   }
 
