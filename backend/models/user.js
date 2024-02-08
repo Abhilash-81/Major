@@ -13,6 +13,9 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    userId: {
+      type: String,
+    },
     Job: {
       type: String,
     },
@@ -42,13 +45,11 @@ const userSchema = new mongoose.Schema(
     Skills: [
       {
         type: String,
-        required: true,
       },
     ],
     Seeking: [
       {
         type: String,
-        required: true,
       },
     ],
   },
