@@ -59,23 +59,27 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
   const duplicate = await User.findOne({ username }).lean().exec();
   const duplicateEmail = await User.findOne({ email }).lean().exec();
   //Allow updates to the original user
-  if (duplicate && user.username !== username)
+  if (duplicate && user?.username !== username)
     return res
       .status(400)
       .json({ message: "Duplicate username Found,please change username" });
 
-  if (duplicateEmail && user.email !== email)
+  if (duplicateEmail && user?.email !== email)
     return res.status(400).json({ message: "Duplicate EmailID Found" });
 
-  user.username = username;
-  user.Skills = skills;
-  user.Seeking = seeking;
-  user.email = email;
+  if (username) user.username = username;
+  if (skills && skills?.length !== 0) user.Skills = skills;
+  if (seeking && seeking?.length !== 0) user.Seeking = seeking;
+  if (email) user.email = email;
   if (Job) user.Job = Job;
   if (Company) user.Company = Company;
   if (Address) user.Address = Address;
   if (Gender) user.Gender = Gender;
-  if (password) user.password = password;
+  if (password) {
+    const SALT = bcrypt.genSaltSync(9);
+    const encryptedPassword = bcrypt.hashSync(user.password, SALT);
+    user.password = encryptedPassword;
+  }
   const updatedUser = await user.save();
   res.status(200).json({ message: `${updatedUser.username} Updated` });
 });

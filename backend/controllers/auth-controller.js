@@ -9,6 +9,8 @@ export const signup = async (req, res) => {
       password: req.body.password,
       username: req.body.username,
       userId: req.body.userId,
+      Skills: req.body.skills,
+      Seeking: req.body.seeking,
     });
     return res.status(201).json({
       success: true,

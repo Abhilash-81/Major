@@ -110,6 +110,40 @@ const Signup = () => {
               required
             />
           </div>
+          <div className="mb-4">
+            <label
+              htmlFor="skills"
+              className="block text-gray-600 text-sm font-semibold mb-2"
+            >
+              Skills
+            </label>
+            <input
+              type="text"
+              id="skills"
+              className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+              placeholder="Enter your skills separated by commas"
+              value={skills}
+              onChange={(e) => setSkills(e.target.value.split(","))}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="seeking"
+              className="block text-gray-600 text-sm font-semibold mb-2"
+            >
+              Seeking
+            </label>
+            <input
+              type="text"
+              id="seeking"
+              className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+              placeholder="Enter what you are seeking separated by commas"
+              value={seeking}
+              onChange={(e) => setSeeking(e.target.value.split(","))}
+              required
+            />
+          </div>
           <button
             type="submit"
             className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue"

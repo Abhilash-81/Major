@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import Axios from "axios";
 import profilepic from "../assets/profilepic.png";
+import UpdateProfile from "./UpdateProfile";
+import ImageCard from "./ImageCard";
 
 const Userprofile = () => {
   const { username } = useParams();
@@ -26,15 +28,7 @@ const Userprofile = () => {
 
   return (
     <div className="mx-auto p-6 bg-white rounded-md shadow-md max-w-screen-md relative">
-      <img src={profilepic} alt="Profile Pic" />
-      <h1 className="text-3xl font-bold mb-4 justify-center">
-        {user?.name || username}
-      </h1>
-      <Link to="/api/v1/tweet">
-        <button className="absolute top-0 right-0 mt-2 mr-2 bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
-          Tweet
-        </button>
-      </Link>
+      <ImageCard name={user?.name || username} />
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Skills</h2>
         <ul className="list-disc ml-6">
@@ -42,6 +36,13 @@ const Userprofile = () => {
             <li key={index}>{skill}</li>
           ))}
         </ul>
+      </div>
+      <div className="absolute top-0 right-0 mt-4 mr-4">
+        <Link to="/users/profile">
+          <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
+            Update Profile
+          </button>
+        </Link>
       </div>
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Interested in Learning</h2>

@@ -19,6 +19,7 @@ import Signup from "./Screens/Signup";
 import Communities from "./components/communities/Communities";
 import Community from "./components/communities/Community";
 import Tweet from "./components/Tweet";
+import UpdateProfile from "./components/UpdateProfile";
 
 const App = () => {
   return (
@@ -44,6 +45,7 @@ const appRouter = (
       <Route path="/api/v1/signup" element={<Signup />} />
       <Route path="api/v1/login" element={<Login />} />
       <Route path="api/v1/tweet" element={<Tweet />} />
+      <Route path="/users/profile" element={<UpdateProfile />} />
       <Route path="/users/:username" element={<UserProfile />} />
       <Route path="*" element={<Error />} />
     </Routes>
