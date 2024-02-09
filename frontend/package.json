@@ -9,7 +9,7 @@
     "css": "npx parcel src/index.html",
     "build": "parcel build src/index.html"
   },
-  "author": "",
+  "author": "Abhilash",
   "license": "ISC",
   "devDependencies": {
     "autoprefixer": "^10.4.16",

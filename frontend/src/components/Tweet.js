@@ -21,14 +21,14 @@ const TweetForm = () => {
       <form onSubmit={handleTweetSubmit}>
         <textarea
           className="w-full h-32 px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-          placeholder="What's happening?"
+          placeholder="Create a Tweet with some communities starting with #"
           value={tweetText}
           onChange={handleInputChange}
-          maxLength={280}
+          maxLength={500}
           required
         ></textarea>
         <div className="flex justify-end mt-4">
-          <span className="text-gray-500 text-sm">{tweetText.length}/280</span>
+          <span className="text-gray-500 text-sm">{tweetText.length}/500</span>
           <button
             type="submit"
             className="ml-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:border-blue-300"

@@ -22,7 +22,7 @@ router.get("/tweets/:id", getTweet);
 router.get("/hashtags", getAllHashtags);
 router.get("/hashtags/:id", getHashtag);
 
-router.post("/likes/toggle", toggleLike);
+router.post("/likes/toggle", authenticate, toggleLike);
 
 router.post("/comments", authenticate, createComment);
 

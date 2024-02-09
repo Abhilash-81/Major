@@ -13,8 +13,7 @@ function Community() {
       const response = await Axios.get(
         `http://localhost:3000/api/v1/hashtags/${id}`
       );
-      console.log(response.data.data);
-      setData(response.data.data);
+      setData(response?.data?.data);
     } catch (error) {
       console.log(error);
     }
