@@ -1,11 +1,13 @@
 import axios from "axios"; // Import Axios for making HTTP requests
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { AiOutlineMail, AiOutlineLock } from "react-icons/ai";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -31,36 +33,34 @@ const Login = () => {
       <div className="bg-white p-8 rounded shadow-md w-full sm:w-96">
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
+          <div className="mb-4 flex items-center">
+            <AiOutlineMail className="text-gray-600 mr-2" />
             <label
               htmlFor="email"
               className="block text-gray-600 text-sm font-semibold mb-2"
-            >
-              Email
-            </label>
+            ></label>
             <input
               type="email"
               id="email"
               name="email"
-              className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+              className="w-full p-2 pl-8 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
-          <div className="mb-4">
+          <div className="mb-4 flex items-center">
+            <AiOutlineLock className="text-gray-600 mr-2" />
             <label
               htmlFor="password"
               className="block text-gray-600 text-sm font-semibold mb-2"
-            >
-              Password
-            </label>
+            ></label>
             <input
               type="password"
               id="password"
               name="password"
-              className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+              className="w-full p-2 pl-8 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

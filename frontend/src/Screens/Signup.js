@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Axios from "axios";
-import Error from "../components/Error";
+import { AiOutlineUser, AiOutlineMail, AiOutlineLock } from "react-icons/ai";
 
 const Signup = () => {
   const navigate = useNavigate();
   const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userId, setUserId] = useState([]);
-  const [skills, setSkills] = useState([]);
-  const [seeking, setSeeking] = useState([]);
+  const [userId, setUserId] = useState("");
+  const [skills, setSkills] = useState("");
+  const [seeking, setSeeking] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,8 +20,8 @@ const Signup = () => {
         email,
         password,
         userId,
-        skills,
-        seeking,
+        skills: skills.split(",").map((skill) => skill.trim()),
+        seeking: seeking.split(",").map((item) => item.trim()),
       };
 
       const response = await Axios.post(
@@ -47,11 +47,12 @@ const Signup = () => {
               htmlFor="username"
               className="block text-gray-600 text-sm font-semibold mb-2"
             >
+              <AiOutlineUser className="inline-block mr-2" />
               Your Name
             </label>
             <input
               type="text"
-              id="name"
+              id="username"
               className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter your name"
               value={username}
@@ -64,6 +65,7 @@ const Signup = () => {
               htmlFor="email"
               className="block text-gray-600 text-sm font-semibold mb-2"
             >
+              <AiOutlineMail className="inline-block mr-2" />
               Your Email
             </label>
             <input
@@ -81,6 +83,7 @@ const Signup = () => {
               htmlFor="password"
               className="block text-gray-600 text-sm font-semibold mb-2"
             >
+              <AiOutlineLock className="inline-block mr-2" />
               Your Password
             </label>
             <input
@@ -123,7 +126,7 @@ const Signup = () => {
               className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter your skills separated by commas"
               value={skills}
-              onChange={(e) => setSkills(e.target.value.split(","))}
+              onChange={(e) => setSkills(e.target.value)}
               required
             />
           </div>
@@ -140,7 +143,7 @@ const Signup = () => {
               className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter what you are seeking separated by commas"
               value={seeking}
-              onChange={(e) => setSeeking(e.target.value.split(","))}
+              onChange={(e) => setSeeking(e.target.value)}
               required
             />
           </div>

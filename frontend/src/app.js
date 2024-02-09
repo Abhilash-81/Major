@@ -44,7 +44,7 @@ const appRouter = (
       <Route path="/api/v1/hashtags/:id" element={<Community />} />
       <Route path="/api/v1/signup" element={<Signup />} />
       <Route path="api/v1/login" element={<Login />} />
-      <Route path="api/v1/tweet" element={<Tweet />} />
+      <Route path="/api/v1/tweets" element={<Tweet />} />
       <Route path="/users/profile" element={<UpdateProfile />} />
       <Route path="/users/:username" element={<UserProfile />} />
       <Route path="*" element={<Error />} />
