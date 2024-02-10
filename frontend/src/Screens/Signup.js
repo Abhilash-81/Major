@@ -1,40 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { AiOutlineUser, AiOutlineMail, AiOutlineLock } from "react-icons/ai";
+import { checkValidPassword } from "../utils/validate.js";
 
 const Signup = () => {
+  const [errMessage, setErrorMessage] = useState(null);
   const navigate = useNavigate();
-  const [username, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [userId, setUserId] = useState("");
-  const [skills, setSkills] = useState("");
-  const [seeking, setSeeking] = useState("");
+  const usernameRef = useRef(null);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+  const userIdRef = useRef(null);
+  const skillsRef = useRef(null);
+  const seekingRef = useRef(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const userData = {
-        username,
-        email,
-        password,
-        userId,
-        skills: skills.split(",").map((skill) => skill.trim()),
-        seeking: seeking.split(",").map((item) => item.trim()),
-      };
+    const username = usernameRef.current.value;
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+    const userId = userIdRef.current.value;
+    const skills = skillsRef.current.value;
+    const seeking = seekingRef.current.value;
 
-      const response = await Axios.post(
-        "http://localhost:3000/api/v1/signup",
-        userData
-      );
+    const errMessage = checkValidPassword(password);
+    setErrorMessage(errMessage);
 
-      console.log("Signup successful:", response.data);
-      navigate("/api/v1/login");
-    } catch (error) {
-      console.error("Signup error:", error);
-      throw error;
-    }
+    // try {
+    //   const userData = {
+    //     username,
+    //     email,
+    //     password,
+    //     userId,
+    //     skills: skills.split(",").map((skill) => skill.trim()),
+    //     seeking: seeking.split(",").map((item) => item.trim()),
+    //   };
+
+    //   const response = await Axios.post(
+    //     "http://localhost:3000/api/v1/signup",
+    //     userData
+    //   );
+
+    //   console.log("Signup successful:", response.data);
+    //   // navigate("/api/v1/login");
+    // } catch (error) {
+    //   console.error("Signup error:", error);
+    //   throw error;
+    // }
   };
 
   return (
@@ -53,10 +65,9 @@ const Signup = () => {
             <input
               type="text"
               id="username"
+              ref={usernameRef}
               className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter your name"
-              value={username}
-              onChange={(e) => setUserName(e.target.value)}
               required
             />
           </div>
@@ -71,10 +82,9 @@ const Signup = () => {
             <input
               type="email"
               id="email"
+              ref={emailRef}
               className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
@@ -89,10 +99,9 @@ const Signup = () => {
             <input
               type="password"
               id="password"
+              ref={passwordRef}
               className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
@@ -106,10 +115,9 @@ const Signup = () => {
             <input
               type="number"
               id="userId"
+              ref={userIdRef}
               className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter your user ID"
-              value={userId}
-              onChange={(e) => setUserId(e.target.value)}
               required
             />
           </div>
@@ -123,10 +131,9 @@ const Signup = () => {
             <input
               type="text"
               id="skills"
+              ref={skillsRef}
               className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter your skills separated by commas"
-              value={skills}
-              onChange={(e) => setSkills(e.target.value)}
               required
             />
           </div>
@@ -140,13 +147,13 @@ const Signup = () => {
             <input
               type="text"
               id="seeking"
+              ref={seekingRef}
               className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter what you are seeking separated by commas"
-              value={seeking}
-              onChange={(e) => setSeeking(e.target.value)}
               required
             />
           </div>
+          <p className="text-red-600 font-bold text-lg ">{errMessage}</p>
           <button
             type="submit"
             className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue"

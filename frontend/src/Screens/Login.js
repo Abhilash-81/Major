@@ -1,19 +1,25 @@
-import axios from "axios"; // Import Axios for making HTTP requests
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { AiOutlineMail, AiOutlineLock } from "react-icons/ai";
+import { checkValidPassword } from "../utils/validate.js";
+import { toast } from "react-toastify";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [errMessage, setErrorMessage] = useState(null);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // const errMessage = checkValidPassword(passwordRef.current.value);
+    // setErrorMessage(errMessage);
     try {
       const userData = {
-        email,
-        password,
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
       };
 
       const response = await axios.post(
@@ -21,10 +27,17 @@ const Login = () => {
         userData
       );
       console.log("Login successful:", response?.data);
+      toast.success("Login successful!", {
+        autoClose: 3000,
+      });
 
-      navigate("/users/" + response?.data?.data?.data?.username);
+      // navigate("/users/" + response?.data?.data?.data?.username);
     } catch (error) {
       console.error("Login error:", error);
+      const errorMessage = error.response?.data?.message || "Login failed.";
+      toast.error(errorMessage, {
+        autoClose: 3000,
+      });
     }
   };
 
@@ -43,10 +56,9 @@ const Login = () => {
               type="email"
               id="email"
               name="email"
+              ref={emailRef}
               className="w-full p-2 pl-8 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
@@ -60,13 +72,13 @@ const Login = () => {
               type="password"
               id="password"
               name="password"
+              ref={passwordRef}
               className="w-full p-2 pl-8 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
+          <p className="text-red-600 font-bold text-lg ">{errMessage}</p>
           <button
             type="submit"
             className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue"
