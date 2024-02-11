@@ -22,6 +22,7 @@ import Community from "./components/communities/Community";
 import Tweet from "./components/Tweet";
 import UpdateProfile from "./components/UpdateProfile";
 import appStore from "./utils/appStore";
+import Logout from "./Screens/Logout";
 
 const App = () => {
   return (
@@ -38,18 +39,18 @@ const appRouter = (
     <Routes>
       <Route path="/" element={<App />}>
         <Route index element={<HomeScreen />} />
-        <Route path="/users" element={<Body />}>
-          <Route path=":username" element={<UserProfile />} />
-          <Route path="profile" element={<UpdateProfile />} />
-        </Route>
+        <Route path="/users" element={<Body />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/communities" element={<Communities />} />
-        <Route path="/api/v1/hashtags/:id" element={<Community />} />
-        <Route path="/api/v1/signup" element={<Signup />} />
-        <Route path="/api/v1/login" element={<Login />} />
-        <Route path="/api/v1/tweets" element={<Tweet />} />
       </Route>
+      <Route path="/api/v1/hashtags/:id" element={<Community />} />
+      <Route path="/api/v1/signup" element={<Signup />} />
+      <Route path="/api/v1/login" element={<Login />} />
+      <Route path="/api/v1/logout" element={<Logout />} />
+      <Route path="/api/v1/tweets" element={<Tweet />} />
+      <Route path="/users/profile" element={<UpdateProfile />} />
+      <Route path="/users/:username" element={<UserProfile />} />
       <Route path="*" element={<Error />} />
     </Routes>
   </Router>

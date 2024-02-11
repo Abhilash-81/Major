@@ -29,7 +29,7 @@ const Login = () => {
       const { username } = data;
       dispatch(addUser({ username, token }));
       setErrorMessage("Login Successful");
-      navigate("/users/" + response?.data?.data?.data?.username);
+      navigate("/users/" + username);
     } catch (error) {
       const errorMessage =
         error.response?.data?.err?.message || "Login failed.";
