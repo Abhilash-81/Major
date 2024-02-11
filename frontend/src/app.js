@@ -26,11 +26,13 @@ import Logout from "./Screens/Logout";
 
 const App = () => {
   return (
-    <Provider store={appStore}>
-      <Header />
-      <Outlet />
-      <Footer />
-    </Provider>
+    <React.StrictMode>
+      <Provider store={appStore}>
+        <Header />
+        <Outlet />
+        <Footer />
+      </Provider>
+    </React.StrictMode>
   );
 };
 

@@ -1,9 +1,9 @@
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { useRef, useState } from "react";
-import { AiOutlineMail, AiOutlineLock } from "react-icons/ai";
 import { useDispatch } from "react-redux";
+import { AiOutlineMail, AiOutlineLock } from "react-icons/ai";
 import { addUser } from "../utils/userSlice";
+import { useState, useRef } from "react";
 
 const Login = () => {
   const dispatch = useDispatch();
