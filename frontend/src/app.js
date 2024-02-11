@@ -6,6 +6,7 @@ import {
   Route,
   Outlet,
 } from "react-router-dom";
+import { Provider } from "react-redux";
 import Header from "./components/Header";
 import Body from "./components/Body";
 import Footer from "./components/Footer";
@@ -20,14 +21,15 @@ import Communities from "./components/communities/Communities";
 import Community from "./components/communities/Community";
 import Tweet from "./components/Tweet";
 import UpdateProfile from "./components/UpdateProfile";
+import appStore from "./utils/appStore";
 
 const App = () => {
   return (
-    <React.StrictMode>
+    <Provider store={appStore}>
       <Header />
       <Outlet />
       <Footer />
-    </React.StrictMode>
+    </Provider>
   );
 };
 

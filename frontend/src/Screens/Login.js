@@ -2,10 +2,11 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import { AiOutlineMail, AiOutlineLock } from "react-icons/ai";
-import { checkValidPassword } from "../utils/validate.js";
-import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const [errMessage, setErrorMessage] = useState(null);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
@@ -14,8 +15,6 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const errMessage = checkValidPassword(passwordRef.current.value);
-    // setErrorMessage(errMessage);
     try {
       const userData = {
         email: emailRef.current.value,
@@ -26,18 +25,15 @@ const Login = () => {
         "http://localhost:3000/api/v1/login",
         userData
       );
-      console.log("Login successful:", response?.data);
-      toast.success("Login successful!", {
-        autoClose: 3000,
-      });
-
-      // navigate("/users/" + response?.data?.data?.data?.username);
+      const { data, token } = response?.data?.data;
+      const { username } = data;
+      dispatch(addUser({ username, token }));
+      setErrorMessage("Login Successful");
+      navigate("/users/" + response?.data?.data?.data?.username);
     } catch (error) {
-      console.error("Login error:", error);
-      const errorMessage = error.response?.data?.message || "Login failed.";
-      toast.error(errorMessage, {
-        autoClose: 3000,
-      });
+      const errorMessage =
+        error.response?.data?.err?.message || "Login failed.";
+      setErrorMessage(errorMessage);
     }
   };
 
@@ -78,7 +74,7 @@ const Login = () => {
               required
             />
           </div>
-          <p className="text-red-600 font-bold text-lg ">{errMessage}</p>
+          <p className="text-red-500 font-bold text-lg ">{errMessage}</p>
           <button
             type="submit"
             className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue"

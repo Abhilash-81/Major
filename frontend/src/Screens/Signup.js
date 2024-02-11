@@ -23,30 +23,29 @@ const Signup = () => {
     const skills = skillsRef.current.value;
     const seeking = seekingRef.current.value;
 
-    const errMessage = checkValidPassword(password);
-    setErrorMessage(errMessage);
+    const res = checkValidPassword(password);
+    setErrorMessage(res);
+    if (res !== null) return;
 
-    // try {
-    //   const userData = {
-    //     username,
-    //     email,
-    //     password,
-    //     userId,
-    //     skills: skills.split(",").map((skill) => skill.trim()),
-    //     seeking: seeking.split(",").map((item) => item.trim()),
-    //   };
-
-    //   const response = await Axios.post(
-    //     "http://localhost:3000/api/v1/signup",
-    //     userData
-    //   );
-
-    //   console.log("Signup successful:", response.data);
-    //   // navigate("/api/v1/login");
-    // } catch (error) {
-    //   console.error("Signup error:", error);
-    //   throw error;
-    // }
+    try {
+      const userData = {
+        username,
+        email,
+        password,
+        userId,
+        skills: skills.split(",").map((skill) => skill.trim()),
+        seeking: seeking.split(",").map((item) => item.trim()),
+      };
+      const response = await Axios.post(
+        "http://localhost:3000/api/v1/signup",
+        userData
+      );
+      setErrorMessage("SignUp Successful");
+      navigate("/api/v1/login");
+    } catch (error) {
+      setErrorMessage("SignUp failure");
+      throw error;
+    }
   };
 
   return (
