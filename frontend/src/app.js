@@ -26,11 +26,13 @@ import Logout from "./Screens/Logout";
 
 const App = () => {
   return (
-    <Provider store={appStore}>
-      <Header />
-      <Outlet />
-      <Footer />
-    </Provider>
+    <React.StrictMode>
+      <Provider store={appStore}>
+        <Header />
+        <Outlet />
+        <Footer />
+      </Provider>
+    </React.StrictMode>
   );
 };
 
@@ -40,6 +42,7 @@ const appRouter = (
       <Route path="/" element={<App />}>
         <Route index element={<HomeScreen />} />
         <Route path="/users" element={<Body />} />
+        <Route path="/users/:username" element={<UserProfile />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/communities" element={<Communities />} />
@@ -48,10 +51,7 @@ const appRouter = (
         <Route path="/api/v1/login" element={<Login />} />
         <Route path="/api/v1/logout" element={<Logout />} />
         <Route path="/api/v1/tweets" element={<Tweet />} />
-        <Route path="/users/profile" element={<UpdateProfile />} />
-        <Route path="/users/:username" element={<UserProfile />} />
       </Route>
-
       <Route path="*" element={<Error />} />
     </Routes>
   </Router>

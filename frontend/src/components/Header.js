@@ -7,6 +7,7 @@ import appStore from "../utils/appStore";
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store?.user?.username);
+
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };

@@ -14,6 +14,7 @@ const Userprofile = () => {
       const response = await Axios.get(
         `http://localhost:3000/users/${username}`
       );
+      console.log(response.data);
       setUser(response.data);
     } catch (error) {
       throw error;
