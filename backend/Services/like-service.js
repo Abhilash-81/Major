@@ -1,5 +1,4 @@
 import { LikeRespository, TweetRepository } from "../repository/index.js";
-import Tweet from "../models/tweet.js";
 
 class LikeService {
   constructor() {
@@ -8,35 +7,44 @@ class LikeService {
   }
 
   async toggleLike(modelId, modelType, userId) {
-    // /api/v1/likes/toggle?id=modelid&type=Tweet
-    if (modelType == "Tweet") {
-      var likeable = await this.tweetRepository.find(modelId);
-    } else if (modelType == "Comment") {
-      // TODO
-    } else {
-      throw new Error("unknown model type");
+    if (userId === undefined) {
+      throw new Error("Please login");
     }
-    const exists = await this.likeRepository.findByUserAndLikeable({
+
+    let likeable;
+    if (modelType === "Tweet") {
+      likeable = await this.tweetRepository.find(modelId);
+    } else if (modelType === "Comment") {
+      // Handle comment logic if needed
+    } else {
+      throw new Error("Unknown model type");
+    }
+
+    const existingLike = await this.likeRepository.findByUserAndLikeable({
       user: userId,
       onModel: modelType,
       likeable: modelId,
     });
-    if (exists) {
-      likeable.likes.pull(exists.id);
+
+    let isAdded;
+    if (existingLike) {
+      // Unlike the entity
+      likeable.likes.pull(existingLike._id); // Remove the like from the likes array
       await likeable.save();
-      await exists.remove();
-      var isAdded = false;
+      await this.likeRepository.destroy(existingLike._id); // Delete the like entry
+      isAdded = false;
     } else {
+      // Like the entity
       const newLike = await this.likeRepository.create({
         user: userId,
         onModel: modelType,
         likeable: modelId,
       });
-      likeable.likes.push(newLike);
+      likeable.likes.push(newLike); // Add the new like to the likes array
       await likeable.save();
-
-      var isAdded = true;
+      isAdded = true;
     }
+
     return isAdded;
   }
 }

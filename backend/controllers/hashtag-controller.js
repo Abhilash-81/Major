@@ -4,7 +4,7 @@ const hashtagService = new HashtagService();
 export const getHashtag = async (req, res) => {
   try {
     const response = await hashtagService.get(req.params.id);
-    console.log(response);
+    // console.log(response);
     return res.status(200).json({
       success: true,
       message: "Successfully fetched a tweet from service",

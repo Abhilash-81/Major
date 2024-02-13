@@ -12,6 +12,7 @@ const userSlice = createSlice({
         ...state,
         username: action.payload.username,
         token: action.payload.token,
+        userId: action.payload._id,
       };
     },
     removeUser: (state, action) => {

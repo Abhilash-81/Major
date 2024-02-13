@@ -19,7 +19,7 @@ import HomeScreen from "./Screens/HomeScreen";
 import Signup from "./Screens/Signup";
 import Communities from "./components/communities/Communities";
 import Community from "./components/communities/Community";
-import Tweet from "./components/Tweet";
+import CreateTweet from "./components/CreateTweet";
 import UpdateProfile from "./components/UpdateProfile";
 import appStore from "./utils/appStore";
 import Logout from "./Screens/Logout";
@@ -50,7 +50,7 @@ const appRouter = (
         <Route path="/api/v1/signup" element={<Signup />} />
         <Route path="/api/v1/login" element={<Login />} />
         <Route path="/api/v1/logout" element={<Logout />} />
-        <Route path="/api/v1/tweets" element={<Tweet />} />
+        <Route path="/api/v1/tweets" element={<CreateTweet />} />
       </Route>
       <Route path="*" element={<Error />} />
     </Routes>

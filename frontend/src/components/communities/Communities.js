@@ -1,6 +1,7 @@
 import React from "react";
 import CommunityBody from "./CommunityBody";
 import { Link } from "react-router-dom";
+
 const Communities = () => {
   return (
     <div className="m-2 p-2 relative">

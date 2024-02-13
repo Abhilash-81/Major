@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { MdPerson, MdSend } from "react-icons/md";
 import Axios from "axios";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 
-const Tweet = () => {
+const CreateTweet = () => {
   const [tweetText, setTweetText] = useState("");
-  const navigate = useNavigate(); // Define useNavigate
+  const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     setTweetText(event.target.value);
@@ -21,7 +21,7 @@ const Tweet = () => {
         "http://localhost:3000/api/v1/tweets",
         tweetData
       );
-      console.log("Creating a tweet successful:", response);
+      // console.log("Creating a tweet successful:", response);
       navigate("/communities");
     } catch (error) {
       console.error("error:", error);
@@ -58,4 +58,4 @@ const Tweet = () => {
   );
 };
 
-export default Tweet;
+export default CreateTweet;
