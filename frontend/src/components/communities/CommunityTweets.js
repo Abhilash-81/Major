@@ -19,25 +19,10 @@ const CommunityTweets = ({ id }) => {
         data
       );
       console.log("LikeData", likeData);
-      setLiked(!liked); // Toggle the liked state
+      // Update the liked state based on the response from the server
+      setLiked(!liked);
       // Update the like count based on the response from the server
-      setLikeCount((prevCount) => (liked ? prevCount - 1 : prevCount + 1));
-    } catch (err) {
-      console.log("Error while liking a tweet", err);
-    }
-  }
-  async function handleComment() {
-    const userId = user.userId;
-    const data = { userId };
-    try {
-      const commentData = await Axios.post(
-        `http://localhost:3000/api/v1/likes/toggle?modelId=${id}&modelType=Comment`,
-        data
-      );
-      console.log("commentData", commentData);
-      // setLiked(!liked); // Toggle the liked state
-      // Update the like count based on the response from the server
-      // setLikeCount((prevCount) => (liked ? prevCount - 1 : prevCount + 1));
+      setLikeCount(likeData.data.data.likesCount);
     } catch (err) {
       console.log("Error while liking a tweet", err);
     }
@@ -49,8 +34,10 @@ const CommunityTweets = ({ id }) => {
         `http://localhost:3000/api/v1/tweets/${id}`
       );
       setTweet(response.data.data);
-      setLiked(response.data.data.likes.includes(user.userId)); // Check if the user has already liked the tweet
-      setLikeCount(response.data.data.likes.length); // Set the initial like count
+      // Check if the user has already liked the tweet
+      setLiked(response.data.data.likes.includes(user.userId));
+      // Set the initial like count
+      setLikeCount(response.data.data.likes.length);
     } catch (error) {
       console.error("Error fetching tweet:", error);
     }
@@ -59,9 +46,10 @@ const CommunityTweets = ({ id }) => {
   useEffect(() => {
     if (user.userId === undefined) {
       navigate("/api/v1/login");
+    } else {
+      fetchData();
     }
-    fetchData();
-  }, []);
+  }, [user.userId]); // Fetch data when user changes
 
   if (!tweet) return null;
 
@@ -87,10 +75,7 @@ const CommunityTweets = ({ id }) => {
           ></i>
           Like ({likeCount})
         </button>
-        <button
-          onClick={handleComment}
-          className="flex items-center text-green-500 hover:text-green-700 focus:outline-none"
-        >
+        <button className="flex items-center text-green-500 hover:text-green-700 focus:outline-none">
           <i className="far fa-comment mr-2"></i>
           Comment
         </button>
