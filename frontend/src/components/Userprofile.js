@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import Axios from "axios";
-import profilepic from "../assets/profilepic.png";
-import UpdateProfile from "./UpdateProfile";
 import ImageCard from "./ImageCard";
+import { useSelector } from "react-redux";
 
 const Userprofile = () => {
   const { username } = useParams();
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+  const logInUsername = useSelector((store) => store?.user?.username);
 
   async function getData() {
     try {
       const response = await Axios.get(
         `http://localhost:3000/users/${username}`
       );
-      console.log(response.data);
       setUser(response.data);
     } catch (error) {
       throw error;
@@ -22,6 +22,9 @@ const Userprofile = () => {
   }
 
   useEffect(() => {
+    if (!logInUsername) {
+      navigate("/api/v1/login");
+    }
     getData();
   }, []);
 
@@ -29,7 +32,7 @@ const Userprofile = () => {
 
   return (
     <div className="mx-auto p-6 bg-white rounded-md shadow-md max-w-screen-md relative">
-      <ImageCard name={user?.name || username} />
+      <ImageCard name={username} />
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Skills</h2>
         <ul className="list-disc ml-6">
@@ -38,13 +41,15 @@ const Userprofile = () => {
           ))}
         </ul>
       </div>
-      <div className="absolute top-0 right-0 mt-4 mr-4">
-        <Link to="/users/profile">
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
-            Update Profile
-          </button>
-        </Link>
-      </div>
+      {username === logInUsername && (
+        <div className="absolute top-0 right-0 mt-4 mr-4">
+          <Link to="/users/profile">
+            <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
+              Update Profile
+            </button>
+          </Link>
+        </div>
+      )}
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Interested in Learning</h2>
         <ul className="list-disc ml-6">

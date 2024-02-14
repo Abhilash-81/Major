@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdPerson, MdSend } from "react-icons/md";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const CreateTweet = () => {
+  const user = useSelector((store) => store?.user);
   const [tweetText, setTweetText] = useState("");
   const navigate = useNavigate();
 
@@ -22,11 +25,20 @@ const CreateTweet = () => {
         tweetData
       );
       // console.log("Creating a tweet successful:", response);
+      toast("Successfully Created a Tweet");
       navigate("/communities");
     } catch (error) {
       console.error("error:", error);
+      toast.error("Creating a tweet failed");
     }
   };
+
+  useEffect(() => {
+    if (user.userId === undefined) {
+      navigate("/api/v1/login");
+      toast("Please Login to continue");
+    }
+  }, []);
 
   return (
     <div className="max-w-md mx-auto mt-8 bg-white shadow-md rounded px-8 py-6">

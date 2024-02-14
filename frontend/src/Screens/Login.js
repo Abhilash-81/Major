@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { AiOutlineMail, AiOutlineLock } from "react-icons/ai";
 import { addUser } from "../utils/userSlice";
 import { useState, useRef } from "react";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -28,13 +29,13 @@ const Login = () => {
       const { data, token } = response?.data?.data;
       const { username, _id } = data;
       dispatch(addUser({ username, token, _id }));
-      console.log(username, token, _id);
-      setErrorMessage("Login Successful");
+      toast("Login Successful");
       navigate("/users/" + username);
     } catch (error) {
       const errorMessage =
         error.response?.data?.err?.message || "Login failed.";
       setErrorMessage(errorMessage);
+      toast(error.response?.data?.err?.message || "Login failed.");
     }
   };
 

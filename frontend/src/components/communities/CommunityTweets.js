@@ -6,8 +6,8 @@ import { useSelector } from "react-redux";
 const CommunityTweets = ({ id }) => {
   const navigate = useNavigate();
   const [tweet, setTweet] = useState(null);
-  const [liked, setLiked] = useState(false); // State to track if the tweet is liked
-  const [likeCount, setLikeCount] = useState(0); // State to track the number of likes
+  const [liked, setLiked] = useState();
+  const [likeCount, setLikeCount] = useState(0);
   const user = useSelector((store) => store?.user);
 
   async function handleLike() {
@@ -19,9 +19,7 @@ const CommunityTweets = ({ id }) => {
         data
       );
       console.log("LikeData", likeData);
-      // Update the liked state based on the response from the server
       setLiked(!liked);
-      // Update the like count based on the response from the server
       setLikeCount(likeData.data.data.likesCount);
     } catch (err) {
       console.log("Error while liking a tweet", err);
@@ -33,31 +31,29 @@ const CommunityTweets = ({ id }) => {
       const response = await Axios.get(
         `http://localhost:3000/api/v1/tweets/${id}`
       );
-      setTweet(response.data.data);
-      // Check if the user has already liked the tweet
-      setLiked(response.data.data.likes.includes(user.userId));
-      // Set the initial like count
-      setLikeCount(response.data.data.likes.length);
+      setTweet(response?.data?.data);
+      setLiked(response?.data?.data?.likes?.includes(user.userId));
+      setLikeCount(response?.data?.data?.likes?.length);
     } catch (error) {
       console.error("Error fetching tweet:", error);
     }
   }
 
   useEffect(() => {
-    if (user.userId === undefined) {
+    if (user?.userId === undefined) {
       navigate("/api/v1/login");
     } else {
       fetchData();
     }
-  }, [user.userId]); // Fetch data when user changes
+  }, [user?.userId, handleLike]);
 
   if (!tweet) return null;
 
   return (
     <div className="max-w-md mx-auto bg-white shadow-md rounded-md p-4 mb-4">
       <div className="mb-4">
-        <p className="text-lg font-semibold">{tweet.user}</p>
-        <p>{tweet.content}</p>
+        <p className="text-lg font-semibold">{tweet?.user}</p>
+        <p>{tweet?.content}</p>
       </div>
       <div className="flex justify-between items-center">
         <button

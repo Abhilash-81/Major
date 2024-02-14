@@ -1,30 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { Link } from "react-router-dom";
-
-function timeAgo(timestamp) {
-  const now = new Date();
-  const createdAt = new Date(timestamp);
-
-  const timeDifference = now - createdAt;
-  const seconds = Math.floor(timeDifference / 1000);
-  const minutes = Math.floor(seconds / 60);
-  const hours = Math.floor(minutes / 60);
-  const days = Math.floor(hours / 24);
-
-  if (days > 0) {
-    return `${days} ${days === 1 ? "day" : "days"} ago`;
-  } else if (hours > 0) {
-    return `${hours} ${hours === 1 ? "hour" : "hours"} ago`;
-  } else if (minutes > 0) {
-    return `${minutes} ${minutes === 1 ? "minute" : "minutes"} ago`;
-  } else {
-    return "Just now";
-  }
-}
-
-const timestamp = "2024-01-23T09:22:58.154Z";
-const formattedTime = timeAgo(timestamp);
+import useTimeAgo from "../../hooks/useTimeAgo";
 
 const communityBody = () => {
   let [searchText, setSearchText] = useState("");
@@ -44,6 +21,10 @@ const communityBody = () => {
   useEffect(() => {
     getData();
   }, []);
+
+  if (totalData?.length === 0) {
+    <h1>loading...</h1>;
+  }
 
   {
     return (
@@ -88,7 +69,7 @@ const communityBody = () => {
                       <h1 className="mb-2 text-center">{item.title}</h1>
                     </Link>
                     <h2 className="absolute bottom-0 right-0 p-2 text-xs text-gray-500">
-                      Created {timeAgo(item.createdAt)}
+                      Created {useTimeAgo(item.createdAt)}
                     </h2>
                   </div>
                 ))

@@ -6,6 +6,8 @@ import {
   Route,
   Outlet,
 } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Provider } from "react-redux";
 import Header from "./components/Header";
 import Body from "./components/Body";
@@ -23,6 +25,7 @@ import CreateTweet from "./components/CreateTweet";
 import UpdateProfile from "./components/UpdateProfile";
 import appStore from "./utils/appStore";
 import Logout from "./Screens/Logout";
+import Tweets from "./components/Tweets";
 
 const App = () => {
   return (
@@ -31,6 +34,7 @@ const App = () => {
         <Header />
         <Outlet />
         <Footer />
+        <ToastContainer />
       </Provider>
     </React.StrictMode>
   );
@@ -51,6 +55,8 @@ const appRouter = (
         <Route path="/api/v1/login" element={<Login />} />
         <Route path="/api/v1/logout" element={<Logout />} />
         <Route path="/api/v1/tweets" element={<CreateTweet />} />
+        <Route path="/api/v1/users/profile" element={<UpdateProfile />} />
+        <Route path="/api/v1/AllTweets" element={<Tweets />} />
       </Route>
       <Route path="*" element={<Error />} />
     </Routes>

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import logo from "../assets/logo.jpg";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import appStore from "../utils/appStore";
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -39,11 +38,12 @@ const Header = () => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/about">About</Link>
+            <Link to="/users">Users</Link>
           </li>
           <li>
-            <Link to="/contact">ContactUs</Link>
+            <Link to="/communities">Communities</Link>
           </li>
+
           {!user && (
             <li>
               <Link to="/api/v1/login">Login</Link>

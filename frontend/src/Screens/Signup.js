@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { AiOutlineUser, AiOutlineMail, AiOutlineLock } from "react-icons/ai";
 import { checkValidPassword } from "../utils/validate.js";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const [errMessage, setErrorMessage] = useState(null);
@@ -25,6 +26,7 @@ const Signup = () => {
 
     const res = checkValidPassword(password);
     setErrorMessage(res);
+    toast(res);
     if (res !== null) return;
 
     try {
@@ -41,6 +43,7 @@ const Signup = () => {
         userData
       );
       setErrorMessage("SignUp Successful");
+      toast("SignUp Successful");
       navigate("/api/v1/login");
     } catch (error) {
       setErrorMessage("SignUp failure");

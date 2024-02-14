@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Card from "./Card";
-import Axios from "axios";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import Axios from "axios";
 
 const Body = () => {
   const [totalData, setTotalData] = useState([]);
@@ -54,6 +54,13 @@ const Body = () => {
           >
             Search
           </button>
+        </div>
+        <div className="flex-grow md:w-1/2 m-2 p-2">
+          <Link to="/api/v1/AllTweets">
+            <button className="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-lg shadow-md">
+              Tweets
+            </button>
+          </Link>
         </div>
         <div className="flex-grow md:w-1/2 m-2 p-2">
           <Link to="/communities">
