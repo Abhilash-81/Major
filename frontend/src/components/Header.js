@@ -49,9 +49,11 @@ const Header = () => {
           <Link to="/api/v1/signup">Signup</Link>
         </NavbarLink>
         {!user && (
-          <Link to="/api/v1/login">
-            <span>Login</span>
-          </Link>
+          <NavbarLink>
+            <Link to="/api/v1/login">
+              <span>Login</span>
+            </Link>
+          </NavbarLink>
         )}
         {user && (
           <Dropdown
@@ -61,14 +63,12 @@ const Header = () => {
           >
             <DropdownHeader>
               <Link to={`/users/${user}`}>
-                <DropdownItem>
-                  <span className="block text-sm">{user}</span>
-                </DropdownItem>
+                <DropdownItem>{user}</DropdownItem>
               </Link>
             </DropdownHeader>
-            <Link to="/api/v1/logout">
-              <DropdownItem> Logout</DropdownItem>
-            </Link>
+            <DropdownItem>
+              <Link to="/api/v1/logout">Logout</Link>
+            </DropdownItem>
           </Dropdown>
         )}
       </NavbarCollapse>

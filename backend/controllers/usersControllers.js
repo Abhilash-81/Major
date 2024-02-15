@@ -47,25 +47,26 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
     Gender,
   } = req.body;
 
-  const user =
-    (await User.findOne({ username }).exec()) ||
-    (await User.findOne({ email }).exec());
+  const user = await User.findOne({ email }).exec();
 
   if (!user) {
-    return res.status(400).json({ message: "User for given data Not Found" });
+    return res.status(400).json({ message: "User not found,With given Email" });
   }
 
-  //checking duplicates
-  const duplicate = await User.findOne({ username }).lean().exec();
+  if (username) {
+    const duplicate = await User.findOne({ username }).lean().exec();
+    if (duplicate && user?.username !== username)
+      return res
+        .status(400)
+        .json({ message: "Username Already Exists!,Try Another" });
+  }
+
   const duplicateEmail = await User.findOne({ email }).lean().exec();
-  //Allow updates to the original user
-  if (duplicate && user?.username !== username)
-    return res
-      .status(400)
-      .json({ message: "Duplicate username Found,please change username" });
 
   if (duplicateEmail && user?.email !== email)
-    return res.status(400).json({ message: "Duplicate EmailID Found" });
+    return res
+      .status(400)
+      .json({ message: "EmailID Already Exists!,Try Another" });
 
   if (username) user.username = username;
   if (skills && skills?.length !== 0) user.Skills = skills;
@@ -75,13 +76,13 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
   if (Company) user.Company = Company;
   if (Address) user.Address = Address;
   if (Gender) user.Gender = Gender;
-  if (password) {
+  if (password && password.length() > 0) {
     const SALT = bcrypt.genSaltSync(9);
     const encryptedPassword = bcrypt.hashSync(user.password, SALT);
     user.password = encryptedPassword;
   }
   const updatedUser = await user.save();
-  res.status(200).json({ message: `${updatedUser.username} Updated` });
+  res.status(200).json({ message: `${updatedUser.username} Updated ` });
 });
 
 export const deleteUser = asyncHandler(async (req, res) => {
@@ -90,7 +91,6 @@ export const deleteUser = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: "Username required" });
   }
   const user = await User.findOne({ username }).exec();
-  // console.log(user);
   if (!user) {
     return res.status(400).json({ message: "User Not Found" });
   }

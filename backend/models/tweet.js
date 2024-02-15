@@ -18,6 +18,13 @@ const tweetSchema = new mongoose.Schema(
         ref: "Comment",
       },
     ],
+    user: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+      },
+    ],
     image: {
       type: String,
     },
