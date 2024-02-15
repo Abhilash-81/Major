@@ -46,6 +46,7 @@ const appRouter = (
       <Route path="/" element={<App />}>
         <Route index element={<HomeScreen />} />
         <Route path="/users" element={<Body />} />
+        <Route path="/api/v1/users/profile" element={<UpdateProfile />} />
         <Route path="/users/:username" element={<UserProfile />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
@@ -55,7 +56,6 @@ const appRouter = (
         <Route path="/api/v1/login" element={<Login />} />
         <Route path="/api/v1/logout" element={<Logout />} />
         <Route path="/api/v1/tweets" element={<CreateTweet />} />
-        <Route path="/api/v1/users/profile" element={<UpdateProfile />} />
         <Route path="/api/v1/AllTweets" element={<Tweets />} />
       </Route>
       <Route path="*" element={<Error />} />

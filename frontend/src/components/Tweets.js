@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import useAllTweets from "../hooks/useAllTweets";
 import { useSelector } from "react-redux";
 import useTimeAgo from "../hooks/useTimeAgo";
+import { Avatar } from "flowbite-react";
+import profilepic from "../assets/profilepic.png";
 
 const Tweets = () => {
   const [showMore, setShowMore] = useState(false);
@@ -25,18 +27,25 @@ const Tweets = () => {
   }
 
   return (
-    <div className="m-2 p-4 w-3/4 mx-auto">
+    <div className="m-2 p-4 w-3/5 mx-auto">
       <ul>
         {tweets.map((tweet) => (
           <li
-            key={tweet.id}
+            key={tweet._id}
             className="border rounded-md p-4 mb-4 relative flex items-start"
           >
-            <div className="w-8 h-8 rounded-full bg-gray-500 mr-2"></div>
-            <div className="flex-grow">
-              <p className="text-gray-800 text-md">{tweet.content}</p>
+            <div className="mr-2 flex flex-wrap ">
+              <Avatar
+                img={profilepic}
+                rounded
+                bordered
+                className="w-10 h-10 sm:w-12 sm:h-12"
+              />
             </div>
-            <p className="text-sm text-gray-500">
+            <div className="align-middle flex-grow">
+              <p className="mr-4 text-gray-800 text-md">{tweet.content}</p>
+            </div>
+            <p className="p-1 absolute bottom-0 right-0 text-sm text-gray-500">
               {useTimeAgo(tweet.createdAt)}
             </p>
           </li>

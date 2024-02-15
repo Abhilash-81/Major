@@ -35,7 +35,7 @@ const Userprofile = () => {
       <ImageCard name={username} />
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Skills</h2>
-        <ul className="list-disc ml-6">
+        <ul className="mt-1 list-disc ml-6">
           {user?.Skills?.map((skill, index) => (
             <li key={index}>{skill}</li>
           ))}
@@ -43,9 +43,18 @@ const Userprofile = () => {
       </div>
       {username === logInUsername && (
         <div className="absolute top-0 right-0 mt-4 mr-4">
-          <Link to="/users/profile">
+          <Link to="/api/v1/users/profile">
             <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
               Update Profile
+            </button>
+          </Link>
+        </div>
+      )}
+      {username === logInUsername && (
+        <div className="absolute bottom-0 right-0 mb-4 mr-4">
+          <Link to="/api/v1/tweets">
+            <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
+              Create Tweet
             </button>
           </Link>
         </div>

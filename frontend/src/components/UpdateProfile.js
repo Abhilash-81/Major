@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const UpdateProfile = () => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [skills, setSkills] = useState("");
-  const [seeking, setSeeking] = useState("");
-  const [job, setJob] = useState("");
-  const [company, setCompany] = useState("");
-  const [address, setAddress] = useState("");
-  const [gender, setGender] = useState("");
+  const [username, setUsername] = useState(undefined);
+  const [password, setPassword] = useState(undefined);
+  const [email, setEmail] = useState(undefined);
+  const [skills, setSkills] = useState(undefined);
+  const [seeking, setSeeking] = useState(undefined);
+  const [job, setJob] = useState(undefined);
+  const [company, setCompany] = useState(undefined);
+  const [address, setAddress] = useState(undefined);
+  const [gender, setGender] = useState(undefined);
 
   useEffect(() => {
     getUserProfile();
@@ -24,15 +25,16 @@ const UpdateProfile = () => {
       const userData = response.data;
       setUsername(userData.username);
       setPassword(userData.password);
-      setEmail(userData.email || "");
+      setEmail(userData.email || undefined);
       setSkills(userData.skills);
       setSeeking(userData.seeking);
-      setJob(userData.Job || "");
-      setCompany(userData.Company || "");
-      setAddress(userData.Address || "");
-      setGender(userData.Gender || "");
+      setJob(userData.Job || undefined);
+      setCompany(userData.Company || undefined);
+      setAddress(userData.Address || undefined);
+      setGender(userData.Gender || undefined);
     } catch (error) {
-      console.error("Error fetching user profile:", error);
+      console.error(error);
+      toast("error");
     }
   };
 
@@ -52,11 +54,13 @@ const UpdateProfile = () => {
       if (address) updatedProfile.Address = address;
       if (gender) updatedProfile.Gender = gender;
 
-      await Axios.put("http://localhost:3000/users/profile", updatedProfile);
-      console.log("Profile updated successfully");
-      navigate("/users/" + username);
+      const response = await Axios.put(
+        "http://localhost:3000/users/profile",
+        updatedProfile
+      );
+      toast(response.data.message);
     } catch (error) {
-      console.error("Error updating profile:", error);
+      toast(error?.response?.data?.message);
     }
   };
 
@@ -89,7 +93,7 @@ const UpdateProfile = () => {
             type="email"
             id="email"
             className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
-            placeholder="Enter your email"
+            placeholder="Enter your email "
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required={!username} // Email is required if username is not provided

@@ -1,19 +1,35 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Carousel } from "flowbite-react";
 
 const HomeScreen = () => {
   return (
-    <div className="bg-gray-100 h-screen flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 text-blue-600">SkillShare</h1>
-        <p className="text-gray-700 mb-8">Learn, Share, and Grow Together</p>
-        <Link to="/users">
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Explore
-          </button>
-        </Link>
+    <Link to="/users">
+      <div className="m-4 sm:h-64 xl:h-80 2xl:h-96">
+        <Carousel>
+          <img
+            src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
+            alt="..."
+          />
+          <img
+            src="https://flowbite.com/docs/images/carousel/carousel-2.svg"
+            alt="..."
+          />
+          <img
+            src="https://flowbite.com/docs/images/carousel/carousel-3.svg"
+            alt="..."
+          />
+          <img
+            src="https://flowbite.com/docs/images/carousel/carousel-4.svg"
+            alt="..."
+          />
+          <img
+            src="https://flowbite.com/docs/images/carousel/carousel-5.svg"
+            alt="..."
+          />
+        </Carousel>
       </div>
-    </div>
+    </Link>
   );
 };
 

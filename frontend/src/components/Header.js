@@ -2,6 +2,15 @@ import React, { useState } from "react";
 import logo from "../assets/logo.jpg";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import profilepic from "../assets/profilepic.png";
+import { Avatar, Dropdown, DropdownHeader, DropdownItem } from "flowbite-react";
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarCollapse,
+  NavbarLink,
+  NavbarToggle,
+} from "flowbite-react";
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -12,54 +21,58 @@ const Header = () => {
   };
 
   return (
-    <nav className="flex flex-wrap w-full items-center justify-between bg-slate-100 shadow-md px-6 py-4">
-      <div>
-        <Link
-          to="/"
-          className="text-xl sm:text-2xl font-semibold flex items-center space-x-3"
-        >
-          <img src={logo} alt="Skill Share logo" className="w-35 h-20 " />
-          <span>SkillShare</span>
+    <Navbar fluid rounded>
+      <NavbarBrand>
+        <Link to="/">
+          <div className="flex">
+            <img src={logo} className="mr-3 h-6 sm:h-9" alt="SkillShare Logo" />
+            <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+              SkillShare
+            </span>
+          </div>
         </Link>
-      </div>
-      <div className="text-lg sm:text-xl">
-        <button
-          className="sm:hidden px-2 py-1 bg-teal-200 border border-black rounded-lg"
-          onClick={toggleMenu}
-        >
-          {showMenu ? "Close" : "Menu"}
-        </button>
-        <ul
-          className={`sm:flex flex-col sm:flex-row ${
-            showMenu ? "flex" : "hidden"
-          } items-center space-y-2 sm:space-y-0 sm:space-x-4 mt-4 sm:mt-0`}
-        >
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/users">Users</Link>
-          </li>
-          <li>
-            <Link to="/communities">Communities</Link>
-          </li>
-
-          {!user && (
-            <li>
-              <Link to="/api/v1/login">Login</Link>
-            </li>
-          )}
-          {user && (
-            <li>
-              <Link to="/api/v1/logout">Logout</Link>
-            </li>
-          )}
-          <li>
-            <Link to="/api/v1/signup">Signup</Link>
-          </li>
-        </ul>
-      </div>
-    </nav>
+      </NavbarBrand>
+      <NavbarToggle />
+      <NavbarCollapse>
+        <NavbarLink>
+          <Link to="/">Home</Link>
+        </NavbarLink>
+        <NavbarLink>
+          <Link to="/users">
+            <span>Users</span>
+          </Link>
+        </NavbarLink>
+        <NavbarLink>
+          <Link to="/communities">Communities</Link>
+        </NavbarLink>
+        <NavbarLink>
+          <Link to="/api/v1/signup">Signup</Link>
+        </NavbarLink>
+        {!user && (
+          <Link to="/api/v1/login">
+            <span>Login</span>
+          </Link>
+        )}
+        {user && (
+          <Dropdown
+            label={<Avatar alt="User settings" img={profilepic} rounded />}
+            arrowIcon={false}
+            inline
+          >
+            <DropdownHeader>
+              <Link to={`/users/${user}`}>
+                <DropdownItem>
+                  <span className="block text-sm">{user}</span>
+                </DropdownItem>
+              </Link>
+            </DropdownHeader>
+            <Link to="/api/v1/logout">
+              <DropdownItem> Logout</DropdownItem>
+            </Link>
+          </Dropdown>
+        )}
+      </NavbarCollapse>
+    </Navbar>
   );
 };
 
