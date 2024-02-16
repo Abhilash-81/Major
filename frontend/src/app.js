@@ -26,6 +26,7 @@ import UpdateProfile from "./components/UpdateProfile";
 import appStore from "./utils/appStore";
 import Logout from "./Screens/Logout";
 import Tweets from "./components/Tweets";
+import UserprofileAvatar from "./components/UserProfileAvatar";
 
 const App = () => {
   return (
@@ -46,6 +47,7 @@ const appRouter = (
       <Route path="/" element={<App />}>
         <Route index element={<HomeScreen />} />
         <Route path="/users" element={<Body />} />
+        <Route path="/users/v1/:id" element={<UserprofileAvatar />} />
         <Route path="/api/v1/users/profile" element={<UpdateProfile />} />
         <Route path="/users/:username" element={<UserProfile />} />
         <Route path="/about" element={<About />} />

@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import useTimeAgo from "../hooks/useTimeAgo";
 import { Avatar } from "flowbite-react";
 import profilepic from "../assets/profilepic.png";
+import { Link } from "react-router-dom";
 
 const Tweets = () => {
   const [showMore, setShowMore] = useState(false);
@@ -35,12 +36,15 @@ const Tweets = () => {
             className="border rounded-md p-4 mb-4 relative flex items-start"
           >
             <div className="mr-2 flex flex-wrap ">
-              <Avatar
-                img={profilepic}
-                rounded
-                bordered
-                className="w-10 h-10 sm:w-12 sm:h-12"
-              />
+              {console.log(tweet)}
+              <Link to={`/users/v1/${tweet.user}`}>
+                <Avatar
+                  img={profilepic}
+                  rounded
+                  bordered
+                  className="w-10 h-10 sm:w-12 sm:h-12"
+                />
+              </Link>
             </div>
             <div className="align-middle flex-grow">
               <p className="mr-4 text-gray-800 text-md">{tweet.content}</p>

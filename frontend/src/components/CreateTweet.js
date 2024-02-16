@@ -19,12 +19,14 @@ const CreateTweet = () => {
     try {
       const tweetData = {
         tweetText,
+        userId: user.userId,
       };
+      console.log(tweetData);
       const response = await Axios.post(
         "http://localhost:3000/api/v1/tweets",
         tweetData
       );
-      // console.log("Creating a tweet successful:", response);
+      console.log(response);
       toast("Successfully Created a Tweet");
       navigate("/communities");
     } catch (error) {
@@ -35,8 +37,8 @@ const CreateTweet = () => {
 
   useEffect(() => {
     if (user.userId === undefined) {
-      navigate("/api/v1/login");
       toast("Please Login to continue");
+      navigate("/api/v1/login");
     }
   }, []);
 
@@ -51,12 +53,12 @@ const CreateTweet = () => {
             placeholder="Create a Tweet with some communities starting with #"
             value={tweetText}
             onChange={handleInputChange}
-            maxLength={500}
+            maxLength={250}
             required
           ></textarea>
         </div>
         <div className="flex justify-between items-center">
-          <span className="text-gray-500 text-sm">{tweetText.length}/500</span>
+          <span className="text-gray-500 text-sm">{tweetText.length}/250</span>
           <button
             type="submit"
             className="flex items-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:border-blue-300"

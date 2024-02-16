@@ -14,6 +14,15 @@ export const getUser = asyncHandler(async (req, res) => {
   res.status(200).json(user);
 });
 
+export const getUserWithId = asyncHandler(async (req, res) => {
+  const id = req.body.id;
+  const user = await User.findOne({ id }).select("-password").lean().exec();
+  if (!user) {
+    return res.status(400).json({ message: "User Not Found" });
+  }
+  res.status(200).json(user);
+});
+
 export const getUsers = asyncHandler(async (req, res) => {
   const users = await User.find().select("-password").lean().exec();
   if (!users) {
@@ -47,42 +56,52 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
     Gender,
   } = req.body;
 
-  const user = await User.findOne({ email }).exec();
+  const user = await User.findOne({ email }).lean().exec();
 
   if (!user) {
-    return res.status(400).json({ message: "User not found,With given Email" });
+    return res.status(400).json({ message: "User not found with given Email" });
   }
 
   if (username) {
     const duplicate = await User.findOne({ username }).lean().exec();
-    if (duplicate && user?.username !== username)
+    if (duplicate && user.username === username) {
       return res
         .status(400)
-        .json({ message: "Username Already Exists!,Try Another" });
+        .json({ message: "Username already exists! Please try another one" });
+    }
   }
 
   const duplicateEmail = await User.findOne({ email }).lean().exec();
 
-  if (duplicateEmail && user?.email !== email)
+  if (duplicateEmail && user.email === email) {
     return res
       .status(400)
-      .json({ message: "EmailID Already Exists!,Try Another" });
+      .json({ message: "Email already exists! Please try another one" });
+  }
 
   if (username) user.username = username;
-  if (skills && skills?.length !== 0) user.Skills = skills;
-  if (seeking && seeking?.length !== 0) user.Seeking = seeking;
+  if (skills && skills.length !== 0) user.Skills = skills;
+  if (seeking && seeking.length !== 0) user.Seeking = seeking;
   if (email) user.email = email;
   if (Job) user.Job = Job;
   if (Company) user.Company = Company;
   if (Address) user.Address = Address;
   if (Gender) user.Gender = Gender;
-  if (password && password.length() > 0) {
+  if (password && password.length > 0) {
     const SALT = bcrypt.genSaltSync(9);
-    const encryptedPassword = bcrypt.hashSync(user.password, SALT);
+    const encryptedPassword = bcrypt.hashSync(password, SALT);
     user.password = encryptedPassword;
   }
-  const updatedUser = await user.save();
-  res.status(200).json({ message: `${updatedUser.username} Updated ` });
+
+  try {
+    const updatedUser = await user.save();
+    res
+      .status(200)
+      .json({ message: `${updatedUser.username} updated successfully` });
+  } catch (error) {
+    console.error("Error updating user profile:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 });
 
 export const deleteUser = asyncHandler(async (req, res) => {

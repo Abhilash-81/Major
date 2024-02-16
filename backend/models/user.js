@@ -28,6 +28,9 @@ const userSchema = new mongoose.Schema(
     Gender: {
       type: String,
     },
+    Bio: {
+      type: String,
+    },
     email: {
       type: String,
       required: true,

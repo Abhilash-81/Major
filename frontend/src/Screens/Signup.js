@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { AiOutlineUser, AiOutlineMail, AiOutlineLock } from "react-icons/ai";
-import { checkValidPassword } from "../utils/validate.js";
+import { checkValid } from "../utils/validate.js";
 import { toast } from "react-toastify";
 
 const Signup = () => {
@@ -24,7 +24,7 @@ const Signup = () => {
     const skills = skillsRef.current.value;
     const seeking = seekingRef.current.value;
 
-    const res = checkValidPassword(password);
+    const res = checkValid(password, email);
     setErrorMessage(res);
     toast(res);
     if (res !== null) return;
