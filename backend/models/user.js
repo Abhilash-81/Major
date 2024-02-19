@@ -31,6 +31,9 @@ const userSchema = new mongoose.Schema(
     Bio: {
       type: String,
     },
+    image: {
+      type: String,
+    },
     email: {
       type: String,
       required: true,

@@ -19,7 +19,7 @@ import {
 const MyFooter = () => {
   return (
     <FlowbiteFooter bgDark>
-      <div className="w-full">
+      <div className="pt-4 w-full">
         <div className="grid w-full grid-cols-2 gap-8 px-6 py-8 md:grid-cols-4">
           <div>
             <FooterTitle title="Company" />

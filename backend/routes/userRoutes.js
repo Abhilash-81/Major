@@ -7,6 +7,7 @@ import {
   getUserWithId,
   deleteUser,
   getUser,
+  updateProfile,
 } from "../controllers/usersControllers.js";
 
 router.get("/", getUsers);
@@ -15,5 +16,6 @@ router.put("/profile", updateUserProfile);
 router.delete("/profile", deleteUser);
 router.get("/v1/:id", getUserWithId);
 router.get("/:username", getUser);
+router.post("/profile", updateProfile);
 
 export default router;

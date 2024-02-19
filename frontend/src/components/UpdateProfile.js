@@ -14,6 +14,7 @@ const UpdateProfile = () => {
   const [company, setCompany] = useState(undefined);
   const [address, setAddress] = useState(undefined);
   const [gender, setGender] = useState(undefined);
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
     getUserProfile();
@@ -38,6 +39,10 @@ const UpdateProfile = () => {
     }
   };
 
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -53,6 +58,7 @@ const UpdateProfile = () => {
       if (company) updatedProfile.Company = company;
       if (address) updatedProfile.Address = address;
       if (gender) updatedProfile.Gender = gender;
+      if (image) updatedProfile.image = image;
 
       const response = await Axios.put(
         "http://localhost:3000/users/profile",
@@ -180,6 +186,12 @@ const UpdateProfile = () => {
             <option value="other">Other</option>
           </select>
         </div>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+          className="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
+        />
         <button
           type="submit"
           className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue"

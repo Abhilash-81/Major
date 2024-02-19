@@ -15,6 +15,7 @@ import Footer from "./components/Footer";
 import About from "./Screens/About";
 import Contact from "./Screens/Contact";
 import Error from "./components/Error";
+import ProfilePic from "./components/profilePic.js";
 import Login from "./Screens/Login";
 import UserProfile from "./components/Userprofile";
 import HomeScreen from "./Screens/HomeScreen";
@@ -57,6 +58,7 @@ const appRouter = (
         <Route path="/api/v1/signup" element={<Signup />} />
         <Route path="/api/v1/login" element={<Login />} />
         <Route path="/api/v1/logout" element={<Logout />} />
+        <Route path="/api/v1/profilePic" element={<ProfilePic />} />
         <Route path="/api/v1/tweets" element={<CreateTweet />} />
         <Route path="/api/v1/AllTweets" element={<Tweets />} />
       </Route>

@@ -5,6 +5,8 @@ const userSlice = createSlice({
   initialState: {
     username: null,
     token: null,
+    userId: null,
+    image: null,
   },
   reducers: {
     addUser: (state, action) => {
@@ -13,6 +15,7 @@ const userSlice = createSlice({
         username: action.payload.username,
         token: action.payload.token,
         userId: action.payload._id,
+        image: action.payload.image,
       };
     },
     removeUser: (state, action) => {
