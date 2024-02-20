@@ -20,7 +20,6 @@ const CommunityTweets = ({ id }) => {
         `http://localhost:3000/api/v1/likes/toggle?modelId=${id}&modelType=Tweet`,
         data
       );
-      console.log("LikeData", likeData);
       setLiked(!liked);
       setLikeCount(likeData.data.data.likesCount);
     } catch (err) {

@@ -35,7 +35,6 @@ const Tweets = () => {
             className="border rounded-md p-4 mb-4 relative flex items-start"
           >
             <div className="mr-2 flex flex-wrap ">
-              {console.log(tweet)}
               <Link to={`/users/v1/${tweet.user}`}>
                 <AvatarTweet />
               </Link>

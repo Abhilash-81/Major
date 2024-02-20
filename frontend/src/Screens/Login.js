@@ -27,7 +27,6 @@ const Login = () => {
         userData
       );
       const { data, token } = response?.data?.data;
-      console.log(data);
       const { username, _id, image } = data;
       dispatch(addUser({ username, token, _id, image }));
       toast("Login Successful");

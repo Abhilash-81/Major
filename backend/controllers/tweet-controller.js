@@ -8,12 +8,10 @@ const tweetService = new TweetService();
 
 export const createTweet = async (req, res) => {
   try {
-    // console.log(req.body);
     // singleUploader(req, res, async function (err, data) {
     //   if (err) {
     //     return res.status(500).json({ error: err });
     //   }
-    // console.log("Image url is", req.file);
     // const payload = { ...req.body };
     // payload.image = req.file.location;
 

@@ -21,12 +21,10 @@ const CreateTweet = () => {
         tweetText,
         username: user.username,
       };
-      console.log(tweetData);
       const response = await Axios.post(
         "http://localhost:3000/api/v1/tweets",
         tweetData
       );
-      console.log(response);
       toast("Successfully Created a Tweet");
       navigate("/communities");
     } catch (error) {

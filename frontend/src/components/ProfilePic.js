@@ -8,7 +8,6 @@ const ProfilePic = () => {
   const [selectedFile, setSelectedFile] = useState("");
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
-  console.log(user);
 
   const handleSubmitFile = (e) => {
     e.preventDefault();
@@ -27,7 +26,6 @@ const ProfilePic = () => {
           },
         }
       );
-      console.log(response?.data?.data);
       setPreviewSource(response?.data?.data?.url);
     } catch (error) {
       console.error(error);

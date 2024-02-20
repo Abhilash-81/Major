@@ -55,6 +55,7 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
     Company,
     Address,
     Gender,
+    Bio,
   } = req.body;
 
   try {
@@ -72,6 +73,7 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
           Company: Company || undefined,
           Address: Address || undefined,
           Gender: Gender || undefined,
+          Bio: Bio || undefined,
         },
       },
       { new: true }

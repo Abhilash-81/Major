@@ -14,6 +14,7 @@ const UpdateProfile = () => {
   const [company, setCompany] = useState(undefined);
   const [address, setAddress] = useState(undefined);
   const [gender, setGender] = useState(undefined);
+  const [bio, setBio] = useState(undefined);
   const [image, setImage] = useState(null);
 
   useEffect(() => {
@@ -33,6 +34,7 @@ const UpdateProfile = () => {
       setCompany(userData.Company || undefined);
       setAddress(userData.Address || undefined);
       setGender(userData.Gender || undefined);
+      setBio(userData.Bio || undefined);
     } catch (error) {
       console.error(error);
       toast("error");
@@ -58,6 +60,7 @@ const UpdateProfile = () => {
       if (company) updatedProfile.Company = company;
       if (address) updatedProfile.Address = address;
       if (gender) updatedProfile.Gender = gender;
+      if (bio) updatedProfile.Bio = bio;
       if (image) updatedProfile.image = image;
 
       const response = await Axios.put(
@@ -185,6 +188,18 @@ const UpdateProfile = () => {
             <option value="female">Female</option>
             <option value="other">Other</option>
           </select>
+        </div>
+        <div className="mb-4">
+          <label htmlFor="bio" className="block text-sm font-semibold mb-2">
+            Bio
+          </label>
+          <textarea
+            id="bio"
+            className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+            placeholder="Enter your bio"
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+          />
         </div>
         <input
           type="file"

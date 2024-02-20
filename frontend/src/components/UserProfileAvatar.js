@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import ImageCard from "./ImageCard";
 import { useSelector } from "react-redux";
@@ -9,7 +9,6 @@ const UserprofileAvatar = () => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const logInUsername = useSelector((store) => store?.user?.username);
-  const image = useSelector((store) => store?.user?.image);
 
   async function getData() {
     try {
@@ -33,7 +32,7 @@ const UserprofileAvatar = () => {
 
   return (
     <div className="mx-auto p-6 bg-white rounded-md shadow-md max-w-screen-md relative">
-      <ImageCard name={username} image={image} />
+      <ImageCard name={username} image={user.image} />
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Skills</h2>
         <ul className="mt-1 list-disc ml-6">
