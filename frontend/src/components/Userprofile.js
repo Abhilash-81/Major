@@ -1,32 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
-import Axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
 import ImageCard from "./ImageCard";
 import { useSelector } from "react-redux";
+import useUserData from "../hooks/useUserData";
 
 const Userprofile = () => {
   const { username } = useParams();
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const logInUsername = useSelector((store) => store?.user?.username);
-  const image = useSelector((store) => store?.user?.image);
-
-  async function getData() {
-    try {
-      const response = await Axios.get(
-        `http://localhost:3000/users/${username}`
-      );
-      setUser(response.data);
-    } catch (error) {
-      throw error;
-    }
-  }
+  const image =
+    username === logInUsername
+      ? useSelector((store) => store?.user?.image)
+      : undefined;
 
   useEffect(() => {
     if (!logInUsername) {
       navigate("/api/v1/login");
     }
-    getData();
+    setUser(useUserData(username));
   }, []);
 
   if (!user) return null;

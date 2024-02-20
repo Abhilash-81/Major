@@ -3,12 +3,11 @@ import logo from "../assets/logo.jpg";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import profilepic from "../assets/profilepic.png";
-import { Avatar, Dropdown, DropdownHeader, DropdownItem } from "flowbite-react";
+import { Avatar, Dropdown, DropdownHeader } from "flowbite-react";
 import {
   Navbar,
   NavbarBrand,
   NavbarCollapse,
-  NavbarLink,
   NavbarToggle,
 } from "flowbite-react";
 
@@ -35,58 +34,35 @@ const Header = () => {
       </NavbarBrand>
       <NavbarToggle />
       <NavbarCollapse>
-        <NavbarLink>
-          <Link to="/">Home</Link>
-        </NavbarLink>
-        <NavbarLink>
-          <Link to="/users">
-            <span>Users</span>
-          </Link>
-        </NavbarLink>
-        <NavbarLink>
-          <Link to="/communities">Communities</Link>
-        </NavbarLink>
-        <NavbarLink>
-          <Link to="/api/v1/signup">Signup</Link>
-        </NavbarLink>
-        {!user && (
-          <NavbarLink>
-            <Link to="/api/v1/login">
-              <span>Login</span>
-            </Link>
-          </NavbarLink>
-        )}
+        <Link to="/">Home</Link>
+        <Link to="/users">Users</Link>
+        <Link to="/api/v1/AllTweets">Tweets</Link>
+        <Link to="/communities">Communities</Link>
+        <Link to="/api/v1/signup">Signup</Link>
+        {!user && <Link to="/api/v1/login">Login</Link>}
         {user && (
           <Dropdown
             label={
               <Avatar alt="User settings" img={image || profilepic} rounded />
             }
-            arrowIcon={false}
+            arrowIcon={true}
             inline
           >
             <DropdownHeader>
-              <Link to={`/users/${user}`}>
-                <DropdownItem>{user}</DropdownItem>
-              </Link>
+              <Link to={`/users/${user}`}>{user}</Link>
             </DropdownHeader>
             <DropdownHeader>
-              <Link to="/api/v1/users/profile">
-                <DropdownItem>Update Profile</DropdownItem>
-              </Link>
+              <Link to="/api/v1/users/profile">Update Profile</Link>
             </DropdownHeader>
             <DropdownHeader>
-              <Link to="/api/v1/tweets">
-                <DropdownItem>Create Tweet</DropdownItem>
-              </Link>
+              <Link to="/api/v1/tweets">Create Tweet</Link>
             </DropdownHeader>
             <DropdownHeader>
-              <Link to="/api/v1/profilePic">
-                <DropdownItem>Update Image</DropdownItem>
-              </Link>
+              <Link to="/api/v1/profilePic">Update Image</Link>
             </DropdownHeader>
             <DropdownHeader>
-              <Link to="/api/v1/logout">
-                <DropdownItem className="text-red-600">Logout</DropdownItem>
+              <Link className="text-red-600" to="/api/v1/logout">
+                Logout
               </Link>
             </DropdownHeader>
           </Dropdown>

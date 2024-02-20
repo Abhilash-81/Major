@@ -38,7 +38,7 @@ const Body = () => {
   return (
     <div className="px-4 md:px-8">
       <div className="flex flex-col md:flex-row justify-between items-center my-4">
-        <div className="flex-grow md:w-1/2 m-2 p-2">
+        <div className="flex-grow md:w-1/2 ml-2 pl-2">
           <input
             type="text"
             value={searchText}
@@ -47,27 +47,13 @@ const Body = () => {
             placeholder="Search..."
           />
         </div>
-        <div className="flex-grow md:w-1/2 m-2 p-2">
+        <div className="flex-grow md:w-1/2 mr-2 pr-2">
           <button
             onClick={handleSearch}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md"
           >
             Search
           </button>
-        </div>
-        <div className="flex-grow md:w-1/2 m-2 p-2">
-          <Link to="/api/v1/AllTweets">
-            <button className="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-lg shadow-md">
-              Tweets
-            </button>
-          </Link>
-        </div>
-        <div className="flex-grow md:w-1/2 m-2 p-2">
-          <Link to="/communities">
-            <button className="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-lg shadow-md">
-              Communities
-            </button>
-          </Link>
         </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center">
