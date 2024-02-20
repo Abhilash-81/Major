@@ -15,6 +15,7 @@ import {
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store?.user?.username);
+  const image = useSelector((store) => store?.user?.image);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -57,7 +58,9 @@ const Header = () => {
         )}
         {user && (
           <Dropdown
-            label={<Avatar alt="User settings" img={profilepic} rounded />}
+            label={
+              <Avatar alt="User settings" img={image || profilepic} rounded />
+            }
             arrowIcon={false}
             inline
           >

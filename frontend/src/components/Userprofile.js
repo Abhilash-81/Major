@@ -9,6 +9,7 @@ const Userprofile = () => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const logInUsername = useSelector((store) => store?.user?.username);
+  const image = useSelector((store) => store?.user?.image);
 
   async function getData() {
     try {
@@ -32,7 +33,7 @@ const Userprofile = () => {
 
   return (
     <div className="mx-auto p-6 bg-white rounded-md shadow-md max-w-screen-md relative">
-      <ImageCard name={username} />
+      <ImageCard name={username} image={image} />
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Skills</h2>
         <ul className="mt-1 list-disc ml-6">
