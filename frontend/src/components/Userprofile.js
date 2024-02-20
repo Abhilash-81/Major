@@ -1,32 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import Axios from "axios";
 import ImageCard from "./ImageCard";
 import { useSelector } from "react-redux";
-import useUserData from "../hooks/useUserData";
 
 const Userprofile = () => {
   const { username } = useParams();
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const logInUsername = useSelector((store) => store?.user?.username);
-  const image =
-    username === logInUsername
-      ? useSelector((store) => store?.user?.image)
-      : undefined;
+
+  async function getData() {
+    try {
+      const response = await Axios.get(
+        `http://localhost:3000/users/${username}`
+      );
+      setUser(response.data);
+    } catch (error) {
+      throw error;
+    }
+  }
 
   useEffect(() => {
     if (!logInUsername) {
       navigate("/api/v1/login");
     }
-    setUser(useUserData(username));
+    getData();
   }, []);
 
-  if (!user) return null;
+  if (!user) return null; //return loading
 
   return (
     <div className="mx-auto p-6 bg-white rounded-md shadow-md max-w-screen-md relative">
       <div className="flex items-center justify-between">
-        <ImageCard name={username} image={image} />
+        <ImageCard name={username} image={user.image} />
       </div>
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2 border-b-2 pb-2">Skills</h2>
