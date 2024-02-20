@@ -33,43 +33,21 @@ const Userprofile = () => {
 
   return (
     <div className="mx-auto p-6 bg-white rounded-md shadow-md max-w-screen-md relative">
-      <ImageCard name={username} image={image} />
+      <div className="flex items-center justify-between">
+        <ImageCard name={username} image={image} />
+      </div>
       <div className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">Skills</h2>
-        <ul className="mt-1 list-disc ml-6">
+        <h2 className="text-xl font-semibold mb-2 border-b-2 pb-2">Skills</h2>
+        <ul className="mt-1 list-disc ml-6 border-l-2 pl-6">
           {user?.Skills?.map((skill, index) => (
             <li key={index}>{skill}</li>
           ))}
         </ul>
       </div>
-      {username === logInUsername && (
-        <div className="absolute top-0 right-0 mt-4 mr-4">
-          <Link to="/api/v1/users/profile">
-            <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
-              Update Profile
-            </button>
-          </Link>
-        </div>
-      )}
-      {username === logInUsername && (
-        <div className="absolute bottom-0 right-0 mb-4 mr-4">
-          <Link to="/api/v1/tweets">
-            <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
-              Create Tweet
-            </button>
-          </Link>
-        </div>
-      )}
-      {username === logInUsername && (
-        <div>
-          <Link to="/api/v1/profilePic">
-            <span className="hover:bg-blue-500">Choose Image</span>
-          </Link>
-        </div>
-      )}
+
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Interested in Learning</h2>
-        <ul className="list-disc ml-6">
+        <ul className="list-disc ml-6 border-l-2 pl-6">
           {!user?.Seeking || user?.Seeking?.length === 0 ? (
             <h1>Not Mentioned</h1>
           ) : (
@@ -79,19 +57,27 @@ const Userprofile = () => {
           )}
         </ul>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <h3 className="textmd font-semibold">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-gray-100 p-4 rounded">
+        <div className="bg-white p-4 rounded">
+          <h3 className="text-sm font-semibold">
             E-MailID: {user?.email || "Not specified"}
           </h3>
-          <h3 className="textmd font-semibold">
+          <h3 className="text-md font-semibold">
             Job: {user?.Job || "Not specified"}
           </h3>
-          <h3 className="textmd font-semibold">
+          <h3 className="text-sm font-semibold">
             Company: {user?.Company || "Not specified"}
           </h3>
-          <h3 className="textmd font-semibold">
+          <h3 className="text-sm font-semibold">
             Gender: {user?.Gender || "Not specified"}
+          </h3>
+        </div>
+        <div className="bg-white p-4 rounded">
+          <h3 className="text-sm font-semibold">
+            Name: {user?.username || "Not specified"}
+          </h3>
+          <h3 className="text-sm font-semibold">
+            Address: {user?.Address || "Not specified"}
           </h3>
         </div>
       </div>

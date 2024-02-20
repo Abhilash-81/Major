@@ -69,9 +69,26 @@ const Header = () => {
                 <DropdownItem>{user}</DropdownItem>
               </Link>
             </DropdownHeader>
-            <DropdownItem>
-              <Link to="/api/v1/logout">Logout</Link>
-            </DropdownItem>
+            <DropdownHeader>
+              <Link to="/api/v1/users/profile">
+                <DropdownItem>Update Profile</DropdownItem>
+              </Link>
+            </DropdownHeader>
+            <DropdownHeader>
+              <Link to="/api/v1/tweets">
+                <DropdownItem>Create Tweet</DropdownItem>
+              </Link>
+            </DropdownHeader>
+            <DropdownHeader>
+              <Link to="/api/v1/profilePic">
+                <DropdownItem>Update Image</DropdownItem>
+              </Link>
+            </DropdownHeader>
+            <DropdownHeader>
+              <Link to="/api/v1/logout">
+                <DropdownItem className="text-red-600">Logout</DropdownItem>
+              </Link>
+            </DropdownHeader>
           </Dropdown>
         )}
       </NavbarCollapse>

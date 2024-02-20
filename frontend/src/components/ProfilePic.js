@@ -11,9 +11,7 @@ const ProfilePic = () => {
   console.log(user);
 
   const handleSubmitFile = (e) => {
-    console.log("Submit");
     e.preventDefault();
-    console.log(previewSource);
     if (!previewSource) return;
     uploadImage(previewSource);
   };
