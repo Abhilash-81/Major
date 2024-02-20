@@ -6,6 +6,8 @@ import {
   Route,
   Outlet,
 } from "react-router-dom";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistStore } from "redux-persist";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Provider } from "react-redux";
@@ -30,13 +32,16 @@ import Tweets from "./components/Tweets";
 import UserprofileAvatar from "./components/UserProfileAvatar";
 
 const App = () => {
+  let persistor = persistStore(appStore);
   return (
     <React.StrictMode>
       <Provider store={appStore}>
-        <Header />
-        <Outlet />
-        <Footer />
-        <ToastContainer />
+        <PersistGate persistor={persistor}>
+          <Header />
+          <Outlet />
+          <Footer />
+          <ToastContainer />
+        </PersistGate>
       </Provider>
     </React.StrictMode>
   );
