@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import useAllTweets from "../hooks/useAllTweets";
 import { useSelector } from "react-redux";
 import useTimeAgo from "../hooks/useTimeAgo";
-import { Avatar } from "flowbite-react";
-import profilepic from "../assets/profilepic.png";
 import { Link } from "react-router-dom";
+import AvatarTweet from "./AvatarTweet";
 
 const Tweets = () => {
   const [showMore, setShowMore] = useState(false);
@@ -38,12 +37,7 @@ const Tweets = () => {
             <div className="mr-2 flex flex-wrap ">
               {console.log(tweet)}
               <Link to={`/users/v1/${tweet.user}`}>
-                <Avatar
-                  img={profilepic}
-                  rounded
-                  bordered
-                  className="w-10 h-10 sm:w-12 sm:h-12"
-                />
+                <AvatarTweet />
               </Link>
             </div>
             <div className="align-middle flex-grow">

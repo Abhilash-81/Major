@@ -8,9 +8,9 @@ export const signup = async (req, res) => {
       email: req.body.email,
       password: req.body.password,
       username: req.body.username,
-      userId: req.body.userId,
       Skills: req.body.skills,
       Seeking: req.body.seeking,
+      image: req.body.image || undefined,
     });
     return res.status(201).json({
       success: true,

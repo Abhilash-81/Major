@@ -48,7 +48,7 @@ const appRouter = (
       <Route path="/" element={<App />}>
         <Route index element={<HomeScreen />} />
         <Route path="/users" element={<Body />} />
-        <Route path="/users/v1/:id" element={<UserprofileAvatar />} />
+        <Route path="/users/v1/:username" element={<UserprofileAvatar />} />
         <Route path="/api/v1/users/profile" element={<UpdateProfile />} />
         <Route path="/users/:username" element={<UserProfile />} />
         <Route path="/about" element={<About />} />

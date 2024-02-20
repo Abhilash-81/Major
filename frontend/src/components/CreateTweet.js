@@ -19,7 +19,7 @@ const CreateTweet = () => {
     try {
       const tweetData = {
         tweetText,
-        userId: user.userId,
+        username: user.username,
       };
       console.log(tweetData);
       const response = await Axios.post(
@@ -36,7 +36,7 @@ const CreateTweet = () => {
   };
 
   useEffect(() => {
-    if (user.userId === undefined) {
+    if (user.username === undefined) {
       toast("Please Login to continue");
       navigate("/api/v1/login");
     }

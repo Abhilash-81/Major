@@ -55,50 +55,44 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
     Company,
     Address,
     Gender,
-    image,
   } = req.body;
 
-  const user = await User.findOne({ email }).lean().exec();
+  try {
+    const user = await User.findOneAndUpdate(
+      { email },
+      {
+        $set: {
+          username: username || undefined,
+          password: password
+            ? bcrypt.hashSync(password, bcrypt.genSaltSync(9))
+            : undefined,
+          Skills: skills && skills.length !== 0 ? skills : undefined,
+          Seeking: seeking && seeking.length !== 0 ? seeking : undefined,
+          Job: Job || undefined,
+          Company: Company || undefined,
+          Address: Address || undefined,
+          Gender: Gender || undefined,
+        },
+      },
+      { new: true }
+    );
 
-  if (!user) {
-    return res.status(400).json({ message: "User not found with given Email" });
-  }
-
-  if (username) {
-    const duplicate = await User.findOne({ username }).lean().exec();
-    if (duplicate && user.username === username) {
+    if (!user) {
       return res
         .status(400)
-        .json({ message: "Username already exists! Please try another one" });
+        .json({ message: "User not found with given Email" });
     }
-  }
 
-  // const duplicateEmail = await User.findOne({ email }).lean().exec();
+    // Check for duplicate username if it has changed
+    if (username && user.username !== username) {
+      const duplicate = await User.findOne({ username }).lean().exec();
+      if (duplicate) {
+        return res
+          .status(400)
+          .json({ message: "Username already exists! Please try another one" });
+      }
+    }
 
-  // if (duplicateEmail && user.email === email) {
-  //   return res
-  //     .status(400)
-  //     .json({ message: "Email already exists! Please try another one" });
-  // }
-
-  if (username) user.username = username;
-  if (skills && skills.length !== 0) user.Skills = skills;
-  if (seeking && seeking.length !== 0) user.Seeking = seeking;
-  // if (email) user.email = email;
-  if (Job) user.Job = Job;
-  if (Company) user.Company = Company;
-  if (Address) user.Address = Address;
-  if (Gender) user.Gender = Gender;
-  if (image) user.image = image;
-  if (password && password.length > 0) {
-    const SALT = bcrypt.genSaltSync(9);
-    const encryptedPassword = bcrypt.hashSync(password, SALT);
-    user.password = encryptedPassword;
-  }
-
-  try {
-    // console.log(user);
-    // const updatedUser = await user.save();
     res.status(200).json({ message: "Updated successfully" });
   } catch (error) {
     console.error("Error updating user profile:", error);
@@ -110,15 +104,26 @@ export const updateProfile = asyncHandler(async (req, res) => {
   try {
     const fileStr = req.body.data;
     const username = req.body.username;
-    const user = await User.findOne({ username }).lean().exec();
 
     const uploadResponse = await cloudinary.uploader.upload(fileStr, {
       upload_preset: "profilepics",
     });
-    if (user) {
-      user.image = uploadResponse.url;
+
+    const user = await User.findOneAndUpdate(
+      { username },
+      { $set: { image: uploadResponse.url } }, // Update the user's image field with the Cloudinary URL
+      { new: true }
+    );
+    if (!user) {
+      return res
+        .status(400)
+        .json({ message: "User not found with given username" });
     }
-    res.json({ msg: "success", data: uploadResponse });
+
+    res.json({
+      msg: "success",
+      image: uploadResponse.url,
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ err: "Something went wrong" });

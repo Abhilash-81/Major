@@ -11,7 +11,6 @@ const Signup = () => {
   const usernameRef = useRef(null);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
-  const userIdRef = useRef(null);
   const skillsRef = useRef(null);
   const seekingRef = useRef(null);
 
@@ -20,7 +19,6 @@ const Signup = () => {
     const username = usernameRef.current.value;
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    const userId = userIdRef.current.value;
     const skills = skillsRef.current.value;
     const seeking = seekingRef.current.value;
 
@@ -34,7 +32,6 @@ const Signup = () => {
         username,
         email,
         password,
-        userId,
         skills: skills.split(",").map((skill) => skill.trim()),
         seeking: seeking.split(",").map((item) => item.trim()),
       };
@@ -104,22 +101,6 @@ const Signup = () => {
               ref={passwordRef}
               className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter your password"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="userId"
-              className="block text-gray-600 text-sm font-semibold mb-2"
-            >
-              User ID
-            </label>
-            <input
-              type="number"
-              id="userId"
-              ref={userIdRef}
-              className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
-              placeholder="Enter your user ID"
               required
             />
           </div>

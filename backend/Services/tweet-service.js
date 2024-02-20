@@ -8,7 +8,7 @@ class TweetService {
 
   async create(data) {
     const content = data.tweetText;
-    const userId = data.userId;
+    const username = data.username;
     const tags = content
       .match(/#[a-zA-Z0-9_]+/g)
       .map((tag) => tag.substring(1).toLowerCase());
@@ -24,8 +24,7 @@ class TweetService {
       tag.tweets.push(tweet.id);
       tag.save();
     });
-    console.log(tweet);
-    tweet?.user?.push(userId);
+    tweet?.user?.push(username);
     await tweet.save();
     return tweet;
   }

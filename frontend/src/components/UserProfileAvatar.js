@@ -5,15 +5,17 @@ import ImageCard from "./ImageCard";
 import { useSelector } from "react-redux";
 
 const UserprofileAvatar = () => {
-  const { id } = useParams();
+  const { username } = useParams();
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const logInUsername = useSelector((store) => store?.user?.username);
-  const logInUserId = useSelector((store) => store?.user?._id);
+  const image = useSelector((store) => store?.user?.image);
 
   async function getData() {
     try {
-      const response = await Axios.get(`http://localhost:3000/users/v1/${id}`);
+      const response = await Axios.get(
+        `http://localhost:3000/users/${username}`
+      );
       setUser(response.data);
     } catch (error) {
       throw error;
@@ -31,7 +33,7 @@ const UserprofileAvatar = () => {
 
   return (
     <div className="mx-auto p-6 bg-white rounded-md shadow-md max-w-screen-md relative">
-      <ImageCard name={logInUsername} />
+      <ImageCard name={username} image={image} />
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Skills</h2>
         <ul className="mt-1 list-disc ml-6">
@@ -40,7 +42,7 @@ const UserprofileAvatar = () => {
           ))}
         </ul>
       </div>
-      {logInUserId === id && (
+      {logInUsername === username && (
         <div className="absolute top-0 right-0 mt-4 mr-4">
           <Link to="/api/v1/users/profile">
             <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
@@ -49,7 +51,7 @@ const UserprofileAvatar = () => {
           </Link>
         </div>
       )}
-      {logInUserId === id && (
+      {logInUsername === username && (
         <div className="absolute bottom-0 right-0 mb-4 mr-4">
           <Link to="/api/v1/tweets">
             <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">

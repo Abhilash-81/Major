@@ -59,6 +59,13 @@ const Userprofile = () => {
           </Link>
         </div>
       )}
+      {username === logInUsername && (
+        <div>
+          <Link to="/api/v1/profilePic">
+            <span className="hover:bg-blue-500">Choose Image</span>
+          </Link>
+        </div>
+      )}
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Interested in Learning</h2>
         <ul className="list-disc ml-6">
