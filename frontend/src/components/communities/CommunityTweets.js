@@ -74,11 +74,12 @@ const CommunityTweets = ({ id }) => {
         >
           <i
             className={`far fa-thumbs-up mr-2 ${
-              liked ? "text-green-500" : "text-blue-500"
+              liked ? "text-red-500" : "text-blue-500"
             }`}
           ></i>
           Like ({likeCount})
         </button>
+
         <button className="flex items-center text-green-500 hover:text-green-700 focus:outline-none">
           <i className="far fa-comment mr-2"></i>
           Comment
