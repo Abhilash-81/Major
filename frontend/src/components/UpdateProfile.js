@@ -72,41 +72,90 @@ const UpdateProfile = () => {
       toast(error?.response?.data?.message);
     }
   };
-
   return (
     <div className="mx-auto p-6 bg-white rounded-md shadow-md max-w-screen-md">
       <h1 className="text-3xl font-bold mb-4">Update Profile</h1>
       <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label
-            htmlFor="username"
-            className="block text-sm font-semibold mb-2"
-          >
-            Username
-          </label>
-          <input
-            type="text"
-            id="username"
-            className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
-            placeholder="Enter your username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required={!email} // Username is required if email is not provided
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-sm font-semibold mb-2">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
-            placeholder="Enter your email "
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required={!username} // Email is required if username is not provided
-          />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="mb-4">
+            <label
+              htmlFor="username"
+              className="block text-sm font-semibold mb-2"
+            >
+              Username
+            </label>
+            <input
+              type="text"
+              id="username"
+              className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+              placeholder="Enter your username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required={!email}
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-sm font-semibold mb-2">
+              Email<span className="text-red-500">*</span>
+            </label>
+            <input
+              type="email"
+              id="email"
+              className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required={!username}
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="job" className="block text-sm font-semibold mb-2">
+              Job
+            </label>
+            <input
+              type="text"
+              id="job"
+              className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+              placeholder="Enter your job"
+              value={job}
+              onChange={(e) => setJob(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="company"
+              className="block text-sm font-semibold mb-2"
+            >
+              Company
+            </label>
+            <input
+              type="text"
+              id="company"
+              className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+              placeholder="Enter your company"
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="gender"
+              className="block text-sm font-semibold mb-2"
+            >
+              Gender
+            </label>
+            <select
+              id="gender"
+              className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
+            >
+              <option value="">Select your gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
         </div>
         <div className="mb-4">
           <label htmlFor="skills" className="block text-sm font-semibold mb-2">
@@ -116,7 +165,7 @@ const UpdateProfile = () => {
             type="text"
             id="skills"
             className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
-            placeholder="Enter your skills as , separated values"
+            placeholder="Enter your skills as comma-separated values"
             value={skills}
             onChange={(e) => setSkills(e.target.value)}
           />
@@ -129,35 +178,9 @@ const UpdateProfile = () => {
             type="text"
             id="seeking"
             className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
-            placeholder="Enter what you are seeking as , separated values"
+            placeholder="Enter what you are seeking as comma-separated values"
             value={seeking}
             onChange={(e) => setSeeking(e.target.value)}
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="job" className="block text-sm font-semibold mb-2">
-            Job
-          </label>
-          <input
-            type="text"
-            id="job"
-            className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
-            placeholder="Enter your job"
-            value={job}
-            onChange={(e) => setJob(e.target.value)}
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="company" className="block text-sm font-semibold mb-2">
-            Company
-          </label>
-          <input
-            type="text"
-            id="company"
-            className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
-            placeholder="Enter your company"
-            value={company}
-            onChange={(e) => setCompany(e.target.value)}
           />
         </div>
         <div className="mb-4">
@@ -172,22 +195,6 @@ const UpdateProfile = () => {
             value={address}
             onChange={(e) => setAddress(e.target.value)}
           />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="gender" className="block text-sm font-semibold mb-2">
-            Gender
-          </label>
-          <select
-            id="gender"
-            className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
-            value={gender}
-            onChange={(e) => setGender(e.target.value)}
-          >
-            <option value="">Select your gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
-          </select>
         </div>
         <div className="mb-4">
           <label htmlFor="bio" className="block text-sm font-semibold mb-2">

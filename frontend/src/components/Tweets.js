@@ -29,21 +29,21 @@ const Tweets = () => {
   return (
     <div className="m-2 p-4 w-3/5 mx-auto">
       <ul>
-        {tweets.map((tweet) => (
+        {tweets?.map((tweet) => (
           <li
-            key={tweet._id}
+            key={tweet?._id}
             className="border rounded-md p-4 mb-4 relative flex items-start"
           >
             <div className="mr-2 flex flex-wrap ">
-              <Link to={`/users/v1/${tweet.user}`}>
+              <Link to={`/users/v1/${tweet?.user}`}>
                 <AvatarTweet />
               </Link>
             </div>
             <div className="align-middle flex-grow">
-              <p className="mr-4 text-gray-800 text-md">{tweet.content}</p>
+              <p className="mr-4 text-gray-800 text-md">{tweet?.content}</p>
             </div>
             <p className="p-1 absolute bottom-0 right-0 text-sm text-gray-500">
-              {useTimeAgo(tweet.createdAt)}
+              {useTimeAgo(tweet?.createdAt)}
             </p>
           </li>
         ))}
