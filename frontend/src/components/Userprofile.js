@@ -20,7 +20,6 @@ const Userprofile = () => {
         const response = await Axios.get(
           `http://localhost:3000/users/${username}`
         );
-        console.log(response);
         setUser(response.data);
       } catch (error) {
         throw error;
@@ -81,7 +80,9 @@ const Userprofile = () => {
           </h3>
         </div>
       </div>
-      <div>{logInUsername !== username && <RatingComponent />}</div>
+      <div>
+        {logInUsername !== username && <RatingComponent props={user._id} />}
+      </div>
     </div>
   );
 };

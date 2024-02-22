@@ -1,18 +1,28 @@
 import React, { useState } from "react";
+import Axios from "axios";
+import { useSelector } from "react-redux";
 
-const RatingComponent = () => {
+const RatingComponent = (props) => {
+  const takinguserid = props.props;
   const [userRating, setUserRating] = useState(null);
   const [rating, setRating] = useState(null);
   const [reason, setReason] = useState("");
+  const logInUserId = useSelector((store) => store?.user?.userId);
 
   const handleRate = (value) => {
     setUserRating(value);
   };
 
-  const handleSubmitRating = () => {
+  const handleSubmitRating = async () => {
     setRating(userRating);
     setReason(reason);
     //post request and send data to backend  here
+    const response = await Axios.post("http://localhost:3000/api/v1/ratings", {
+      rating: userRating,
+      review: reason,
+      givinguserId: logInUserId,
+      takinguserId: takinguserid,
+    });
   };
 
   const isSubmitDisabled = userRating === null || reason.trim() === "";

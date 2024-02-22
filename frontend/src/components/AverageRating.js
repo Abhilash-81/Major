@@ -6,7 +6,7 @@ import { addRatings } from "../utils/ratingSlice";
 
 const AverageRating = ({ takinguserId }) => {
   const dispatch = useDispatch();
-  const [avg, setAvg] = useState(null);
+  const [avg, setAvg] = useState(0);
 
   async function getData() {
     try {
@@ -27,7 +27,10 @@ const AverageRating = ({ takinguserId }) => {
         0
       );
 
-      const averageRating = totalRatingSum / ratingsAndReviews.length;
+      const averageRating =
+        ratingsAndReviews.length === 0
+          ? 0
+          : totalRatingSum / ratingsAndReviews.length;
 
       const obj = {};
       ratingsAndReviews.forEach((ratingObj) => {
@@ -41,8 +44,7 @@ const AverageRating = ({ takinguserId }) => {
           obj[rating].push({ review, givinguserId });
         }
       });
-      setAvg(averageRating);
-      console.log(obj);
+      setAvg(averageRating.toFixed(2));
       dispatch(addRatings({ obj }));
     } catch (error) {
       console.log(error);
