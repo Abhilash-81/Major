@@ -3,8 +3,10 @@ import expressAsyncHandler from "express-async-handler";
 
 export const getRating = expressAsyncHandler(async (req, res) => {
   try {
-    const ratings = await Rating.find({ takinguserId: req.params.userId });
-    res.status(200).json(ratings);
+    const response = await Rating.find({
+      takinguserId: req.params.userId,
+    });
+    res.status(200).json(response);
   } catch (error) {
     console.log(error);
     res.status(500).json({

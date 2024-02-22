@@ -1,0 +1,76 @@
+import React, { useState } from "react";
+
+const RatingComponent = () => {
+  const [userRating, setUserRating] = useState(null);
+  const [rating, setRating] = useState(null);
+  const [reason, setReason] = useState("");
+
+  const handleRate = (value) => {
+    setUserRating(value);
+  };
+
+  const handleSubmitRating = () => {
+    setRating(userRating);
+    setReason(reason);
+    //post request and send data to backend  here
+  };
+
+  const isSubmitDisabled = userRating === null || reason.trim() === "";
+
+  return (
+    <div className=" mb-8 flex flex-col items-center">
+      <h2 className="text-xl font-semibold mb-4">Rate Me</h2>
+      <div className="flex items-center">
+        {[...Array(5)].map((_, index) => (
+          <button
+            key={index}
+            onClick={() => handleRate(index + 1)}
+            className={`${
+              userRating !== null && index < userRating
+                ? "text-yellow-400"
+                : "text-gray-300"
+            } focus:outline-none focus:ring-2 focus:ring-yellow-400`}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-8 w-8 cursor-pointer"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 1l2.747 5.627 6.238.91-4.514 4.396 1.07 6.219-5.541-2.91L5.52 17.15l1.07-6.218L1 7.538l6.238-.911L10 1zm0 2.441l-1.31 2.68H3.37l2 1.947-.472 2.75 2.278-1.2 2.272 1.2-.462-2.748 2-1.947h-5.32l-1.31-2.68z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
+        ))}
+      </div>
+      <br />
+      <div className="flex flex-col items-center">
+        <p className="text-lg mb-2">Your Rating: {userRating}</p>
+        <input
+          type="text"
+          value={reason}
+          onChange={(e) => setReason(e.target.value)}
+          placeholder="Why are you giving this rating?"
+          className="w-64 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+        <button
+          onClick={handleSubmitRating}
+          disabled={isSubmitDisabled}
+          className={`mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 ${
+            isSubmitDisabled ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+        >
+          Submit Rating
+        </button>
+      </div>
+      {rating !== null && (
+        <p className="mt-4">Thank you for rating! Your rating: {rating}</p>
+      )}
+    </div>
+  );
+};
+
+export default RatingComponent;

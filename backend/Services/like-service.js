@@ -1,9 +1,14 @@
-import { LikeRespository, TweetRepository } from "../repository/index.js";
+import {
+  LikeRespository,
+  TweetRepository,
+  CommentRepository,
+} from "../repository/index.js";
 
 class LikeService {
   constructor() {
     this.likeRepository = new LikeRespository();
     this.tweetRepository = new TweetRepository();
+    this.commentRepository = new CommentRepository();
   }
 
   async toggleLike(modelId, modelType, userId) {
@@ -15,7 +20,7 @@ class LikeService {
     if (modelType === "Tweet") {
       likeable = await this.tweetRepository.find(modelId);
     } else if (modelType === "Comment") {
-      // Handle comment logic if needed
+      likeable = await this.commentRepository.find(modelId);
     } else {
       throw new Error("Unknown model type");
     }
@@ -28,19 +33,17 @@ class LikeService {
 
     let isAdded;
     if (existingLike) {
-      // Unlike the entity
-      likeable.likes.pull(existingLike._id); // Remove the like from the likes array
+      likeable.likes.pull(existingLike._id);
       await likeable.save();
-      await this.likeRepository.destroy(existingLike._id); // Delete the like entry
+      await this.likeRepository.destroy(existingLike._id);
       isAdded = false;
     } else {
-      // Like the entity
       const newLike = await this.likeRepository.create({
         user: userId,
         onModel: modelType,
         likeable: modelId,
       });
-      likeable.likes.push(newLike); // Add the new like to the likes array
+      likeable.likes.push(newLike);
       await likeable.save();
       isAdded = true;
     }

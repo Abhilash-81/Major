@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import ImageCard from "./ImageCard";
 import { useSelector } from "react-redux";
+import RatingComponent from "./Rating";
 
 const Userprofile = () => {
   const { username } = useParams();
@@ -10,20 +11,20 @@ const Userprofile = () => {
   const navigate = useNavigate();
   const logInUsername = useSelector((store) => store?.user?.username);
 
-  async function getData() {
-    try {
-      const response = await Axios.get(
-        `http://localhost:3000/users/${username}`
-      );
-      setUser(response.data);
-    } catch (error) {
-      throw error;
-    }
-  }
-
   useEffect(() => {
     if (!logInUsername) {
       navigate("/api/v1/login");
+    }
+    async function getData() {
+      try {
+        const response = await Axios.get(
+          `http://localhost:3000/users/${username}`
+        );
+        console.log(response);
+        setUser(response.data);
+      } catch (error) {
+        throw error;
+      }
     }
     getData();
   }, []);
@@ -33,7 +34,7 @@ const Userprofile = () => {
   return (
     <div className="mx-auto p-6 bg-white rounded-md shadow-md max-w-screen-md relative">
       <div className="flex items-center justify-between">
-        <ImageCard name={username} image={user.image} />
+        <ImageCard name={username} image={user?.image} id={user?._id} />
       </div>
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2 border-b-2 pb-2">Skills</h2>
@@ -80,6 +81,7 @@ const Userprofile = () => {
           </h3>
         </div>
       </div>
+      <div>{logInUsername !== username && <RatingComponent />}</div>
     </div>
   );
 };

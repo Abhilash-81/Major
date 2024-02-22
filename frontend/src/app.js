@@ -30,6 +30,9 @@ import appStore from "./utils/appStore";
 import Logout from "./Screens/Logout";
 import Tweets from "./components/Tweets";
 import UserprofileAvatar from "./components/UserProfileAvatar";
+import CreateComment from "./components/CreateComment.js";
+import Rating from "./components/Rating.js";
+import RatingsWithReviews from "./components/RatingsWithReviews.js";
 
 const App = () => {
   let persistor = persistStore(appStore);
@@ -65,7 +68,13 @@ const appRouter = (
         <Route path="/api/v1/logout" element={<Logout />} />
         <Route path="/api/v1/profilePic" element={<ProfilePic />} />
         <Route path="/api/v1/tweets" element={<CreateTweet />} />
+        <Route path="/api/v1/comments" element={<CreateComment />} />
         <Route path="/api/v1/AllTweets" element={<Tweets />} />
+        <Route path="/api/v1/Rating" element={<Rating />} />
+        <Route
+          path="/api/v1/RatingWithReviews"
+          element={<RatingsWithReviews />}
+        />
       </Route>
       <Route path="*" element={<Error />} />
     </Routes>
