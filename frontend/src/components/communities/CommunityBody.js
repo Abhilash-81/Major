@@ -51,8 +51,8 @@ const communityBody = () => {
             Search
           </button>
         </div>
-        <div className="flex flex-wrap justify-center">
-          <div className="w-full lg:w-2/5 bg-blue-200 p-4 rounded-lg">
+        <div className="flex flex-wrap justify-center ">
+          <div className="w-full lg:w-2/5 bg-blue-200 p-4 rounded-lg h-screen overflow-y-auto">
             {filteredData?.length === 0 ? (
               <div>
                 <h1 className="m-4 p-4 font-bold text-2xl text-pretty">
@@ -64,7 +64,10 @@ const communityBody = () => {
                 ?.slice()
                 .reverse()
                 .map((item) => (
-                  <div key={item?._id} className="m-4 p-4 bg-gray-100 relative">
+                  <div
+                    key={item?._id}
+                    className="m-4 p-4 bg-gray-100 relative "
+                  >
                     <Link to={"/api/v1/hashtags/" + item?._id} key={item?._id}>
                       <h1 className="mb-2 text-center">{item.title}</h1>
                     </Link>

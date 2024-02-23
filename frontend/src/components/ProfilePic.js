@@ -5,7 +5,6 @@ import Axios from "axios";
 
 const ProfilePic = () => {
   const [previewSource, setPreviewSource] = useState("");
-  const [selectedFile, setSelectedFile] = useState("");
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
 

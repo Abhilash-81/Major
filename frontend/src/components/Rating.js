@@ -16,7 +16,6 @@ const RatingComponent = (props) => {
   const handleSubmitRating = async () => {
     setRating(userRating);
     setReason(reason);
-    //post request and send data to backend  here
     const response = await Axios.post("http://localhost:3000/api/v1/ratings", {
       rating: userRating,
       review: reason,

@@ -13,7 +13,7 @@ const Logout = () => {
   };
 
   return (
-    <div className="bg-gray-100 p-6 rounded-md shadow-md text-center">
+    <div className="bg-gray-100 p-6 rounded-md shadow-md text-center h-screen">
       <h3 className="text-lg font-medium text-gray-800 mb-4">
         Are you sure you want to logout?
       </h3>

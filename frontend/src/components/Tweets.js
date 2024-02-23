@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import useTimeAgo from "../hooks/useTimeAgo";
 import { Link } from "react-router-dom";
 import AvatarTweet from "./AvatarTweet";
+import Loading from "./Loading";
 
 const Tweets = () => {
   const [showMore, setShowMore] = useState(false);
@@ -23,11 +24,11 @@ const Tweets = () => {
   };
 
   if (allTweets === null) {
-    return null;
+    return <Loading />;
   }
 
   return (
-    <div className="m-2 p-4 w-3/5 mx-auto">
+    <div className="m-2 p-4 w-3/5 mx-auto overflow-y-auto h-screen">
       <ul>
         {tweets?.map((tweet) => (
           <li

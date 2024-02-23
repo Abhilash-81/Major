@@ -4,6 +4,7 @@ import Axios from "axios";
 import ImageCard from "./ImageCard";
 import { useSelector } from "react-redux";
 import RatingComponent from "./Rating";
+import Loading from "./Loading";
 
 const Userprofile = () => {
   const { username } = useParams();
@@ -28,7 +29,7 @@ const Userprofile = () => {
     getData();
   }, []);
 
-  if (!user) return null; //return loading
+  if (!user) return <Loading />;
 
   return (
     <div className="mx-auto p-6 bg-white rounded-md shadow-md max-w-screen-md relative">
