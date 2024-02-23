@@ -6,7 +6,7 @@ const Card = (props) => {
   const { username, Skills, image } = resData;
   return (
     <>
-      <button className="m-4 p-4 max-w-xs container border-2 border-slate-900 bg-gray-100 overflow-y-auto w-64 h-80 rounded-md shadow-md">
+      <button className="m-4 p-4 max-w-xs container border-2 border-slate-900 bg-gray-100 overflow-y-auto w-64 h-80 rounded-md shadow-md text-wrap">
         <img src={image || profilepic} alt="Profile Pic" />
         <b className="py-2">{username}</b>
         <h3>

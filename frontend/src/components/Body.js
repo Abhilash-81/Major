@@ -3,8 +3,11 @@ import Card from "./Card";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import Axios from "axios";
+import { useDispatch } from "react-redux";
+import { addUsers } from "../utils/usersSlice";
 
 const Body = () => {
+  const dispatch = useDispatch();
   const [totalData, setTotalData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [searchText, setSearchText] = useState("");
@@ -15,6 +18,7 @@ const Body = () => {
         const response = await Axios.get("http://localhost:3000/users");
         setTotalData(response.data);
         setFilteredData(response.data);
+        dispatch(addUsers(response.data));
       } catch (error) {
         console.log(error);
       }
