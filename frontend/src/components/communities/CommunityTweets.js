@@ -52,20 +52,13 @@ const CommunityTweets = ({ id }) => {
   if (!tweet) return <Loading />;
 
   return (
-    <div className="">
+    <React.Fragment>
       <div className="max-w-md mx-auto border border-gray-500 bg-white shadow-md rounded-md p-4 mb-4 overflow-y-auto">
-        <div className="mr-2 flex flex-wrap ">
+        <div className="flex">
           <Link to={`/users/v1/${tweet.user}`}>
-            <Avatar
-              img={profilepic}
-              rounded
-              bordered
-              className="w-10 h-10 sm:w-12 sm:h-12"
-            />
+            <Avatar img={profilepic} rounded bordered className="w-10 h-10 " />
           </Link>
-          <p className=" ml-2 mt-3 items-center align-middle">
-            {tweet?.content}
-          </p>
+          <p className="ml-2 items-center align-middle">{tweet?.content}</p>
         </div>
         <div className="flex justify-between items-center">
           {liked === true ? (
@@ -84,7 +77,7 @@ const CommunityTweets = ({ id }) => {
             </button>
           )}
 
-          <Link to="/api/v1/comments">
+          <Link to={"/api/v1/comments/" + id}>
             <button className="flex items-center text-green-500 hover:text-green-700 focus:outline-none">
               <i className="far fa-comment mr-2"></i>
               Comment
@@ -92,7 +85,7 @@ const CommunityTweets = ({ id }) => {
           </Link>
         </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 

@@ -27,6 +27,7 @@ router.get("/hashtags", getAllHashtags);
 router.get("/hashtags/:id", getHashtag);
 router.post("/likes/toggle", toggleLike);
 router.post("/comments", createComment);
+router.get("/comments/:id", getTweet);
 router.post("/signup", signup);
 router.post("/login", login);
 router.post("/ratings", createRating);

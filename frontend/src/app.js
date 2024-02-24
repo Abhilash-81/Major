@@ -165,7 +165,7 @@ const appRouter = (
           }
         />
         <Route
-          path="/api/v1/comments"
+          path="/api/v1/comments/:id"
           element={
             <Suspense fallback={<Loading />}>
               <CreateComment />
