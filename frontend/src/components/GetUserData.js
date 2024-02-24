@@ -15,8 +15,8 @@ const GetUserData = ({ id }) => {
   }
 
   return (
-    <div className="flex">
-      Given By:<Link to={"/users/" + user.username}>{user?.username}</Link>
+    <div className="flex font-bold text-md">
+      <Link to={"/users/" + user.username}>{user?.username}</Link>
     </div>
   );
 };
