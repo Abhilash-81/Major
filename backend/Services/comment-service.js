@@ -28,6 +28,17 @@ class CommentService {
 
     return comment;
   }
+  async get(commentId) {
+    try {
+      const comment = await this.commentRepository.get(commentId);
+      if (!comment) {
+        throw new Error("Comment not found");
+      }
+      return comment;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default CommentService;

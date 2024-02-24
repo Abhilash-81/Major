@@ -15,7 +15,10 @@ import {
   getHashtag,
 } from "../../controllers/hashtag-controller.js";
 import { toggleLike } from "../../controllers/like-controller.js";
-import { createComment } from "../../controllers/comment-controller.js";
+import {
+  createComment,
+  getComment,
+} from "../../controllers/comment-controller.js";
 import { signup, login } from "../../controllers/auth-controller.js";
 
 const router = express.Router();
@@ -27,7 +30,8 @@ router.get("/hashtags", getAllHashtags);
 router.get("/hashtags/:id", getHashtag);
 router.post("/likes/toggle", toggleLike);
 router.post("/comments", createComment);
-router.get("/comments/:id", getTweet);
+router.get("/comments/:id", getTweet); //to get Comments on a tweet
+router.get("/commentsoncomment/:id", getComment);
 router.post("/signup", signup);
 router.post("/login", login);
 router.post("/ratings", createRating);
