@@ -4,7 +4,6 @@ import Axios from "axios";
 import { useSelector } from "react-redux";
 import { Avatar } from "flowbite-react";
 import profilepic from "../../assets/profilepic.png";
-import Loading from "../Loading";
 
 const CommunityTweets = ({ id }) => {
   const navigate = useNavigate();
@@ -49,13 +48,13 @@ const CommunityTweets = ({ id }) => {
     }
   }, [user?.userId, handleLike]);
 
-  if (!tweet) return <Loading />;
+  if (!tweet) return null;
 
   return (
     <React.Fragment>
       <div className="max-w-md mx-auto border border-gray-500 bg-white shadow-md rounded-md p-4 mb-4 overflow-y-auto">
         <div className="flex">
-          <Link to={`/users/v1/${tweet.user}`}>
+          <Link to={`/users/v1/${tweet?.user}`}>
             <Avatar img={profilepic} rounded bordered className="w-10 h-10 " />
           </Link>
           <p className="ml-2 items-center align-middle">{tweet?.content}</p>
