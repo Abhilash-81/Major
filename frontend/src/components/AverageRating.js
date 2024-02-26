@@ -3,6 +3,7 @@ import Axios from "axios";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addRatings } from "../utils/ratingSlice";
+import Loading from "../components/Loading";
 
 const AverageRating = ({ takinguserId }) => {
   const dispatch = useDispatch();
@@ -14,13 +15,11 @@ const AverageRating = ({ takinguserId }) => {
         `http://localhost:3000/api/v1/ratings/${takinguserId}`
       );
 
-      const ratingsAndReviews = response.data.map((ratingObj) => {
-        return {
-          rating: parseInt(ratingObj.rating),
-          review: ratingObj.review,
-          givinguserId: ratingObj.givinguserId,
-        };
-      });
+      const ratingsAndReviews = response.data.map((ratingObj) => ({
+        rating: parseInt(ratingObj.rating),
+        review: ratingObj.review,
+        givinguserId: ratingObj.givinguserId,
+      }));
 
       const totalRatingSum = ratingsAndReviews.reduce(
         (sum, ratingObj) => sum + ratingObj.rating,
@@ -40,10 +39,9 @@ const AverageRating = ({ takinguserId }) => {
         if (!obj[rating]) {
           obj[rating] = [];
         }
-        for (let i = 0; i < 3; i++) {
-          obj[rating].push({ review, givinguserId });
-        }
+        obj[rating].push({ review, givinguserId });
       });
+
       setAvg(averageRating.toFixed(2));
       dispatch(addRatings({ obj }));
     } catch (error) {
@@ -53,10 +51,10 @@ const AverageRating = ({ takinguserId }) => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [avg]);
 
   if (!avg) {
-    return null; //loading
+    return <Loading />; //loading
   }
 
   return (

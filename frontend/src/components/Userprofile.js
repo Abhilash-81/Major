@@ -4,7 +4,6 @@ import Axios from "axios";
 import ImageCard from "./ImageCard";
 import { useSelector } from "react-redux";
 import RatingComponent from "./Rating";
-import Loading from "./Loading";
 
 const Userprofile = () => {
   const { username } = useParams();
@@ -22,19 +21,25 @@ const Userprofile = () => {
           `http://localhost:3000/users/${username}`
         );
         setUser(response.data);
+        console.log(user);
       } catch (error) {
         throw error;
       }
     }
     getData();
-  }, []);
+  }, [username]);
 
-  if (!user) return <Loading />;
+  if (!user) return null;
 
   return (
     <div className="mx-auto p-6 bg-white rounded-md shadow-md max-w-screen-md relative">
       <div className="flex items-center justify-between">
-        <ImageCard name={username} image={user?.image} id={user?._id} />
+        <ImageCard
+          name={username}
+          image={user?.image}
+          id={user?._id}
+          bio={user.Bio}
+        />
       </div>
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2 border-b-2 pb-2">Skills</h2>

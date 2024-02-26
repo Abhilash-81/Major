@@ -15,7 +15,6 @@ const UpdateProfile = () => {
   const [address, setAddress] = useState(undefined);
   const [gender, setGender] = useState(undefined);
   const [bio, setBio] = useState(undefined);
-  const [image, setImage] = useState(null);
 
   useEffect(() => {
     getUserProfile();
@@ -41,10 +40,6 @@ const UpdateProfile = () => {
     }
   };
 
-  const handleImageChange = (e) => {
-    setImage(e.target.files[0]);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -61,22 +56,23 @@ const UpdateProfile = () => {
       if (address) updatedProfile.Address = address;
       if (gender) updatedProfile.Gender = gender;
       if (bio) updatedProfile.Bio = bio;
-      if (image) updatedProfile.image = image;
 
       const response = await Axios.put(
         "http://localhost:3000/users/profile",
         updatedProfile
       );
       toast(response.data.message);
+      navigate("/users");
     } catch (error) {
       toast(error?.response?.data?.message);
     }
   };
+
   return (
     <div className="mx-auto p-6 bg-white rounded-md shadow-md max-w-screen-md">
       <h1 className="text-3xl font-bold mb-4">Update Profile</h1>
       <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="mb-4">
             <label
               htmlFor="username"
@@ -156,64 +152,67 @@ const UpdateProfile = () => {
               <option value="other">Other</option>
             </select>
           </div>
+          <div className="mb-4">
+            <label
+              htmlFor="skills"
+              className="block text-sm font-semibold mb-2"
+            >
+              Skills
+            </label>
+            <input
+              type="text"
+              id="skills"
+              className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+              placeholder="Enter your skills as comma-separated values"
+              value={skills}
+              onChange={(e) => setSkills(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="seeking"
+              className="block text-sm font-semibold mb-2"
+            >
+              Seeking
+            </label>
+            <input
+              type="text"
+              id="seeking"
+              className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+              placeholder="Enter what you are seeking as comma-separated values"
+              value={seeking}
+              onChange={(e) => setSeeking(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="address"
+              className="block text-sm font-semibold mb-2"
+            >
+              Address
+            </label>
+            <input
+              type="text"
+              id="address"
+              className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+              placeholder="Enter your address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+            />
+          </div>
+          <div className="mb-4 col-span-2">
+            <label htmlFor="bio" className="block text-sm font-semibold mb-2">
+              Bio
+            </label>
+            <textarea
+              id="bio"
+              className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+              placeholder="Enter your bio"
+              value={bio}
+              onChange={(e) => setBio(e.target.value)}
+            />
+          </div>
         </div>
-        <div className="mb-4">
-          <label htmlFor="skills" className="block text-sm font-semibold mb-2">
-            Skills
-          </label>
-          <input
-            type="text"
-            id="skills"
-            className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
-            placeholder="Enter your skills as comma-separated values"
-            value={skills}
-            onChange={(e) => setSkills(e.target.value)}
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="seeking" className="block text-sm font-semibold mb-2">
-            Seeking
-          </label>
-          <input
-            type="text"
-            id="seeking"
-            className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
-            placeholder="Enter what you are seeking as comma-separated values"
-            value={seeking}
-            onChange={(e) => setSeeking(e.target.value)}
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="address" className="block text-sm font-semibold mb-2">
-            Address
-          </label>
-          <input
-            type="text"
-            id="address"
-            className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
-            placeholder="Enter your address"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="bio" className="block text-sm font-semibold mb-2">
-            Bio
-          </label>
-          <textarea
-            id="bio"
-            className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
-            placeholder="Enter your bio"
-            value={bio}
-            onChange={(e) => setBio(e.target.value)}
-          />
-        </div>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleImageChange}
-          className="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
-        />
         <button
           type="submit"
           className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue"

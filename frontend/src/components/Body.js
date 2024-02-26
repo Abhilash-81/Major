@@ -42,7 +42,7 @@ const Body = () => {
   return (
     <div className="px-4 md:px-8">
       <div className="flex flex-col md:flex-row justify-between items-center my-4">
-        <div className="flex-grow md:w-1/2 ml-2 pl-2">
+        <div className="flex-grow md:w-1/2 ml-2 pl-2 mb-4 md:mb-0">
           <input
             type="text"
             value={searchText}
@@ -54,7 +54,7 @@ const Body = () => {
         <div className="flex-grow md:w-1/2 mr-2 pr-2">
           <button
             onClick={handleSearch}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md w-full md:w-auto"
           >
             Search
           </button>
@@ -62,7 +62,7 @@ const Body = () => {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center">
         {filteredData.length === 0 ? (
-          <div className="text-center">
+          <div className="text-center col-span-4">
             <h1 className="font-bold text-xl text-gray-800">
               No Result Found 😔
             </h1>

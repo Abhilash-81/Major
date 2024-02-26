@@ -2,23 +2,25 @@ import React from "react";
 import profilepic from "../assets/profilepic.png";
 import AverageRating from "./AverageRating";
 
-const ImageCard = ({ name, image, id }) => {
+const ImageCard = ({ name, image, id, bio }) => {
   return (
-    <div className="">
-      <h1 className="font-semibold mt-8 mb-4 text-3xl" id="title">
-        {name}
-      </h1>
-      <h3 className="mb-4">{<AverageRating takinguserId={id} />}</h3>
-      <div className="flex flex-wrap justify-center">
-        <div className="w-6/12 sm:w-4/12">
+    <div className="max-w-lg mx-auto px-4 py-8 bg-white shadow-md rounded-lg">
+      <div>
+        <h1 className="font-semibold text-3xl mb-2">{name}</h1>
+        <h3 className="mb-4 font-semibold">{bio}</h3>
+      </div>
+      <AverageRating takinguserId={id} />
+      <div className="flex justify-center">
+        <div className="w-full sm:w-2/3">
           <img
             src={image || profilepic}
             alt="Profile Picture"
-            className="shadow-md rounded-full w-96 h-48"
+            className="shadow-md rounded-full w-full h-auto"
           />
         </div>
       </div>
     </div>
   );
 };
+
 export default ImageCard;

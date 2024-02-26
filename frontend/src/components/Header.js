@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../assets/logo.jpg";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -19,6 +19,8 @@ const Header = () => {
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
+
+  useEffect(() => {}, [user]);
 
   return (
     <Navbar fluid rounded>

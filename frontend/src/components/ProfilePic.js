@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
+import { toast } from "react-toastify";
 
 const ProfilePic = () => {
   const [previewSource, setPreviewSource] = useState("");
@@ -26,6 +27,8 @@ const ProfilePic = () => {
         }
       );
       setPreviewSource(response?.data?.data?.url);
+      toast("Successfully updated profile Pictures");
+      // navigate(" /api/v1/profilePic");
     } catch (error) {
       console.error(error);
     }

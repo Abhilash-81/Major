@@ -27,9 +27,9 @@ const RatingComponent = (props) => {
   const isSubmitDisabled = userRating === null || reason.trim() === "";
 
   return (
-    <div className=" mb-8 flex flex-col items-center">
-      <h2 className="text-xl font-semibold mb-4">Rate Me</h2>
-      <div className="flex items-center">
+    <div className="mx-auto max-w-md md:max-w-lg lg:max-w-xl mb-8">
+      <h2 className="text-2xl font-semibold mb-4 text-center">Rate Me</h2>
+      <div className="flex items-center justify-center mb-4">
         {[...Array(5)].map((_, index) => (
           <button
             key={index}
@@ -55,7 +55,6 @@ const RatingComponent = (props) => {
           </button>
         ))}
       </div>
-      <br />
       <div className="flex flex-col items-center">
         <p className="text-lg mb-2">Your Rating: {userRating}</p>
         <input
@@ -63,12 +62,12 @@ const RatingComponent = (props) => {
           value={reason}
           onChange={(e) => setReason(e.target.value)}
           placeholder="Why are you giving this rating?"
-          className="w-64 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
         <button
           onClick={handleSubmitRating}
           disabled={isSubmitDisabled}
-          className={`mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 ${
+          className={`mt-2 w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 ${
             isSubmitDisabled ? "opacity-50 cursor-not-allowed" : ""
           }`}
         >
@@ -76,7 +75,9 @@ const RatingComponent = (props) => {
         </button>
       </div>
       {rating !== null && (
-        <p className="mt-4">Thank you for rating! Your rating: {rating}</p>
+        <p className="mt-4 text-center">
+          Thank you for rating! Your rating: {rating}
+        </p>
       )}
     </div>
   );

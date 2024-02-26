@@ -47,7 +47,7 @@ const CreateTweet = () => {
         <div className="flex items-center border-b border-gray-300 pb-2 mb-4">
           <MdPerson className="text-gray-600 text-2xl mr-2" />
           <textarea
-            className="w-full h-32 px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            className="w-full h-32 px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300 resize-none"
             placeholder="Create a Tweet with some communities starting with #"
             value={tweetText}
             onChange={handleInputChange}
