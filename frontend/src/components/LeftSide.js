@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 import { Avatar } from "flowbite-react";
 import profilepic from "../assets/profilepic.png";
-import Loading from "../components/Loading";
 import UserData from "./GetUserData";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -16,7 +15,6 @@ const LeftSide = ({ tweetId }) => {
   const userId = useSelector((state) => state.user.userId);
 
   const handlePost = async (commentId) => {
-    // Handle the post request here
     const response = await Axios.post(
       `http://localhost:3000/api/v1/comments?modelId=${commentId}&modelType=Comment`,
       {
@@ -92,7 +90,7 @@ const LeftSide = ({ tweetId }) => {
     getData(tweetId.id);
   }, []);
 
-  if (!data) return <Loading />;
+  if (!data) return null;
 
   return (
     <React.Fragment>

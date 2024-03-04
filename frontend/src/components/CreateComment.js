@@ -1,6 +1,5 @@
 import React from "react";
 import LeftSide from "./LeftSide";
-import RightSide from "./RightSide";
 import { useParams } from "react-router-dom";
 import RightSide from "./RightSide";
 

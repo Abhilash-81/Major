@@ -54,7 +54,7 @@ const AverageRating = ({ takinguserId }) => {
   }, [avg]);
 
   if (!avg) {
-    return <Loading />; //loading
+    return null; //loading
   }
 
   return (
