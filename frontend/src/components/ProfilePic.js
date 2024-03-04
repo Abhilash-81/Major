@@ -54,7 +54,7 @@ const ProfilePic = () => {
   }, []);
 
   return (
-    <div className="max-w-md mx-auto mt-8 bg-white shadow-md rounded px-8 py-6">
+    <div className="max-w-md mx-auto mt-8 bg-white shadow-md rounded p-8">
       <div className="mb-4">
         <input
           type="file"
@@ -65,14 +65,14 @@ const ProfilePic = () => {
         />
         <button
           onClick={handleSubmitFile}
-          className="m-2 p-2 text-white bg-blue-500 "
+          className="mt-2 px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none"
         >
           Submit
         </button>
       </div>
 
       {previewSource && (
-        <div className="w-6/12 sm:w-4/12 mx-auto">
+        <div className="w-8/12 sm:w-6/12 mx-auto">
           <img
             src={previewSource}
             alt="Profile Picture"

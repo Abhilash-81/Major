@@ -20,7 +20,10 @@ const Header = () => {
     setShowMenu(!showMenu);
   };
 
-  useEffect(() => {}, [user]);
+  useEffect(() => {
+    // This effect will run whenever the `image` changes
+    console.log("Image changed:", image);
+  }, [image]); // Adding `image` as a dependency
 
   return (
     <Navbar fluid rounded>
