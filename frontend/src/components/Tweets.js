@@ -1,13 +1,16 @@
-import React, { useState } from "react";
-import useAllTweets from "../hooks/useAllTweets";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Axios from "axios";
 import { useSelector } from "react-redux";
-import useTimeAgo from "../hooks/useTimeAgo";
-import { Link } from "react-router-dom";
 import AvatarTweet from "./AvatarTweet";
 import Loading from "./Loading";
+import useTimeAgo from "../hooks/useTimeAgo";
+import useAllTweets from "../hooks/useAllTweets";
 
 const Tweets = () => {
   const [showMore, setShowMore] = useState(false);
+  const [likes, setLikes] = useState({});
+  const user = useSelector((store) => store.user);
   useAllTweets();
   const allTweets = useSelector((store) => store.tweets.allTweets);
 
@@ -23,6 +26,20 @@ const Tweets = () => {
     setShowMore(false);
   };
 
+  async function handleLike(id) {
+    const userId = user?.userId;
+    const data = { userId };
+    try {
+      const likeData = await Axios.post(
+        `http://localhost:3000/api/v1/likes/toggle?modelId=${id}&modelType=Tweet`,
+        data
+      );
+      setLikes({ ...likes, [id]: likeData?.data?.data?.likesCount });
+    } catch (err) {
+      console.log("Error while liking a tweet", err);
+    }
+  }
+
   if (allTweets === null) {
     return <Loading />;
   }
@@ -33,19 +50,39 @@ const Tweets = () => {
         {tweets?.map((tweet) => (
           <li
             key={tweet?._id}
-            className="border rounded-md p-4 mb-4 relative flex items-start"
+            className="border rounded-md p-4 mb-4 relative flex flex-col"
           >
-            <div className="mr-2 flex flex-wrap ">
-              <Link to={`/users/v1/${tweet?.user}`}>
-                <AvatarTweet />
-              </Link>
+            <div className="flex items-start">
+              <div className="mr-2 flex flex-wrap ">
+                <Link to={`/users/v1/${tweet?.user}`}>
+                  <AvatarTweet />
+                </Link>
+              </div>
+              <div className="align-middle flex-grow">
+                <p className="mr-4 text-gray-800 text-md">{tweet?.content}</p>
+              </div>
             </div>
-            <div className="align-middle flex-grow">
-              <p className="mr-4 text-gray-800 text-md">{tweet?.content}</p>
+            <div className="mt-auto flex justify-between items-center">
+              <div>
+                <button
+                  onClick={() => handleLike(tweet._id)}
+                  className="flex items-center focus:outline-none text-white-500 "
+                >
+                  Like ({likes[tweet._id] || tweet.likes.length})
+                </button>
+              </div>
+              <div>
+                <Link to={"/api/v1/comments/" + tweet._id}>
+                  <button className="flex items-center text-green-500 hover:text-green-700 focus:outline-none">
+                    <i className="far fa-comment mr-2"></i>
+                    Comment
+                  </button>
+                  <p className="absolute bottom-0 right-0 text-sm text-gray-500 p-1 opacity-55 ">
+                    {useTimeAgo(tweet?.createdAt)}
+                  </p>
+                </Link>
+              </div>
             </div>
-            <p className="p-1 absolute bottom-0 right-0 text-sm text-gray-500">
-              {useTimeAgo(tweet?.createdAt)}
-            </p>
           </li>
         ))}
       </ul>

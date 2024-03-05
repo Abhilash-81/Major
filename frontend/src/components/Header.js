@@ -21,10 +21,8 @@ const Header = () => {
   };
 
   useEffect(() => {
-    // This effect will run whenever the `image` changes
     console.log("Image changed:", image);
-  }, [image]); // Adding `image` as a dependency
-
+  }, [image]);
   return (
     <Navbar fluid rounded>
       <NavbarBrand>

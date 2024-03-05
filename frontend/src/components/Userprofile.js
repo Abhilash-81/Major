@@ -21,7 +21,6 @@ const Userprofile = () => {
           `http://localhost:3000/users/${username}`
         );
         setUser(response.data);
-        console.log(user);
       } catch (error) {
         throw error;
       }
