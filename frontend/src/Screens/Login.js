@@ -11,7 +11,6 @@ const Login = () => {
   const [errMessage, setErrorMessage] = useState(null);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
-
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -35,21 +34,20 @@ const Login = () => {
       const errorMessage =
         error.response?.data?.err?.message || "Login failed.";
       setErrorMessage(errorMessage);
-      toast(error.response?.data?.err?.message || "Login failed.");
+      toast(errorMessage);
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded shadow-md w-full sm:w-96">
+      <div className="bg-white p-8 rounded shadow-md max-w-md w-full mx-auto">
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4 flex items-center">
             <AiOutlineMail className="text-gray-600 mr-2" />
-            <label
-              htmlFor="email"
-              className="block text-gray-600 text-sm font-semibold mb-2"
-            ></label>
+            <label htmlFor="email" className="sr-only">
+              Email
+            </label>
             <input
               type="email"
               id="email"
@@ -62,10 +60,9 @@ const Login = () => {
           </div>
           <div className="mb-4 flex items-center">
             <AiOutlineLock className="text-gray-600 mr-2" />
-            <label
-              htmlFor="password"
-              className="block text-gray-600 text-sm font-semibold mb-2"
-            ></label>
+            <label htmlFor="password" className="sr-only">
+              Password
+            </label>
             <input
               type="password"
               id="password"
@@ -76,17 +73,16 @@ const Login = () => {
               required
             />
           </div>
-          <p className="text-red-500 font-bold text-lg ">{errMessage}</p>
+          <p className="text-red-500 font-bold text-lg mb-4">{errMessage}</p>
           <button
             type="submit"
             className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue"
           >
             Log In
           </button>
-          <Link to="/api/v1/signup">
-            <h3 className="p-2">
-              Do Not have an Account? <b>Signup</b>
-            </h3>
+          <Link to="/api/v1/signup" className="block text-center mt-4">
+            <span className="text-blue-500">Do Not have an Account?</span>{" "}
+            <b>Signup</b>
           </Link>
         </form>
       </div>

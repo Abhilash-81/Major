@@ -16,6 +16,8 @@ const Userprofile = () => {
         `http://localhost:3000/users/${username}`
       );
       setUser(response.data);
+      console.log(user);
+      console.log(response.data);
     } catch (error) {
       throw error;
     }
@@ -33,7 +35,12 @@ const Userprofile = () => {
   return (
     <div className="mx-auto p-6 bg-white rounded-md shadow-md max-w-screen-md relative">
       <div className="flex items-center justify-between">
-        <ImageCard name={username} image={user.image} />
+        <ImageCard
+          name={username}
+          image={user.image}
+          id={user._id}
+          bio={user.Bio}
+        />
       </div>
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2 border-b-2 pb-2">Skills</h2>
