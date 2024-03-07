@@ -63,6 +63,24 @@ socket.on("message", (data) => {
   chatDisplay.scrollTop = chatDisplay.scrollHeight;
 });
 
+socket.on("initialMessages", (messages) => {
+  chatDisplay.innerHTML = "";
+  messages.forEach(({ username, text, time }) => {
+    const li = document.createElement("li");
+    li.className = "post";
+    li.innerHTML = `<div class="post__header ${
+      username === nameInput.value
+        ? "post__header--user"
+        : "post__header--reply"
+    }">
+            <span class="post__header--name">${username}</span> 
+            <span class="post__header--time">${time}</span> 
+            </div>
+            <div class="post__text">${text}</div>`;
+    chatDisplay.appendChild(li);
+  });
+});
+
 let activityTimer;
 socket.on("activity", (name) => {
   activity.textContent = `${name} is typing...`;
@@ -71,7 +89,7 @@ socket.on("activity", (name) => {
   clearTimeout(activityTimer);
   activityTimer = setTimeout(() => {
     activity.textContent = "";
-  }, 3000);
+  }, 2000);
 });
 
 socket.on("userList", ({ users }) => {

@@ -1,7 +1,12 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import { Server } from "socket.io";
 import path from "path";
 import { fileURLToPath } from "url";
+import Chat from "./models/chat.js";
+import connectDB from "./config/dbConfig.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -10,6 +15,8 @@ const PORT = process.env.PORT || 3500;
 const ADMIN = "Admin";
 
 const app = express();
+
+connectDB();
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -36,9 +43,34 @@ const io = new Server(expressServer, {
 
 io.on("connection", (socket) => {
   console.log(`User ${socket.id} connected`);
-
-  // Upon connection - only to user
   socket.emit("message", buildMsg(ADMIN, "Welcome to Chat App!"));
+  socket.on("enterRoom", async ({ name, room }) => {
+    try {
+      const chat = await Chat.findOne({ room });
+      if (chat) {
+        socket.emit("initialMessages", chat.messages);
+      }
+    } catch (error) {
+      console.error("Error retrieving messages from database:", error);
+    }
+  });
+
+  socket.on("message", async ({ name, text }) => {
+    const room = getUser(socket.id)?.room;
+    if (room) {
+      const time = new Date();
+      try {
+        await Chat.findOneAndUpdate(
+          { room },
+          { $push: { messages: { username: name, text, time } } },
+          { upsert: true }
+        );
+        io.to(room).emit("message", buildMsg(name, text));
+      } catch (error) {
+        console.error("Error saving message to database:", error);
+      }
+    }
+  });
 
   socket.on("enterRoom", ({ name, room }) => {
     // leave previous room
@@ -54,7 +86,6 @@ io.on("connection", (socket) => {
 
     const user = activateUser(socket.id, name, room);
 
-    // Cannot update previous room users list until after the state update in activate user
     if (prevRoom) {
       io.to(prevRoom).emit("userList", {
         users: getUsersInRoom(prevRoom),

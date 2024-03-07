@@ -1,7 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
 import passport from "passport";
-import mongoose from "mongoose";
 const app = express();
 import cors from "cors";
 import connectDB from "./config/dbConnection.js";
