@@ -9,6 +9,7 @@
 body {
   background-color: #1a1a1a;
   color: #fff;
+  line-height: 1.6;
 }
 
 main {
@@ -37,6 +38,11 @@ input {
   border: 2px solid #555;
   border-radius: 20px;
   padding: 0.75rem;
+  transition: border-color 0.3s;
+}
+
+input:focus {
+  border-color: #007bff;
 }
 
 button {
@@ -47,6 +53,11 @@ button {
   border-radius: 20px;
   padding: 0.75rem;
   cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
 }
 
 .chat-display {
@@ -63,7 +74,6 @@ button {
   overflow-y: auto;
   flex-grow: 1;
 }
-
 .post {
   background-color: #666;
   border-radius: 20px;
