@@ -19,6 +19,9 @@ const app = express();
 connectDB();
 
 app.use(express.static(path.join(__dirname, "public")));
+app.get("/:username", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
 const expressServer = app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);

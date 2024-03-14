@@ -22,7 +22,7 @@ function sendMessage(e) {
 
 function enterRoom(e) {
   e.preventDefault();
-  if (nameInput.value && chatRoom.value) {
+  if (nameInput?.value && chatRoom?.value) {
     socket.emit("enterRoom", {
       name: nameInput.value,
       room: chatRoom.value,
@@ -38,7 +38,6 @@ msgInput.addEventListener("keypress", () => {
   socket.emit("activity", nameInput.value);
 });
 
-// Listen for messages
 socket.on("message", (data) => {
   activity.textContent = "";
   const { name, text, time } = data;
@@ -65,7 +64,7 @@ socket.on("message", (data) => {
 
 socket.on("initialMessages", (messages) => {
   chatDisplay.innerHTML = "";
-  messages.forEach(({ username, text, time }) => {
+  messages.forEach(({ username, text }) => {
     const li = document.createElement("li");
     li.className = "post";
     li.innerHTML = `<div class="post__header ${
@@ -74,9 +73,8 @@ socket.on("initialMessages", (messages) => {
         : "post__header--reply"
     }">
             <span class="post__header--name">${username}</span> 
-            <span class="post__header--time">${time}</span> 
             </div>
-            <div class="post__text">${text}</div>`;
+            <div class="post__text">${text}</div>`; // Remove time from template
     chatDisplay.appendChild(li);
   });
 });
@@ -85,7 +83,6 @@ let activityTimer;
 socket.on("activity", (name) => {
   activity.textContent = `${name} is typing...`;
 
-  // Clear after 3 seconds
   clearTimeout(activityTimer);
   activityTimer = setTimeout(() => {
     activity.textContent = "";

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import useTimeAgo from "../../hooks/useTimeAgo";
+import { useSelector } from "react-redux";
 
 const communityBody = () => {
+  const logInUser = useSelector((store) => store?.user?.username);
   let [searchText, setSearchText] = useState("");
   let [totalData, settotalData] = useState([]);
   let [filteredData, setfilteredData] = useState([]);
@@ -29,6 +31,13 @@ const communityBody = () => {
   {
     return (
       <>
+        {logInUser && (
+          <button className="m-2 p-2 justify-center whitespace-break-spaces  ring-1 border-b-slate-500 hover:bg-blue-200">
+            <Link to={"http://localhost:3500/" + logInUser}>
+              Chat in Communtiy Rooms
+            </Link>
+          </button>
+        )}
         <div className="m-2 p-2 flex flex-wrap justify-center">
           <input
             type="text"
