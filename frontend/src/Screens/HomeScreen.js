@@ -8,7 +8,7 @@ import image from "../assets/images.jpg";
 const HomeScreen = () => {
   return (
     // <Link to="/users">
-    <div className="m-8 sm:h-64 md:h-72 xl:h-80 2xl:h-96">
+    <div className=" bg-[#cdd1ce] m-8 sm:h-64 md:h-72 xl:h-80 2xl:h-96">
       <Carousel>
         <img src={skill} alt="Skill Image" />
         <img src={design} alt="Design" />

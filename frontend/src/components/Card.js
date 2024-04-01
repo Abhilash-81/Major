@@ -5,7 +5,7 @@ const Card = (props) => {
   const { resData } = props;
   const { username, Skills, image } = resData;
   return (
-    <div className="m-4 p-4 max-w-xs container border-2 border-slate-900 bg-gray-100  w-64 h-80 rounded-md shadow-md">
+    <div className="m-4 p-4 max-w-xs container border-2 border-slate-900 bg-gray-100  w-64 h-80 rounded-md shadow-md overflow-auto">
       <img
         src={image || profilepic}
         alt="Profile Pic"
