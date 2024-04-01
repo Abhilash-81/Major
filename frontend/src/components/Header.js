@@ -24,12 +24,12 @@ const Header = () => {
     console.log("Image changed:", image);
   }, [image]);
   return (
-    <Navbar fluid rounded>
+    <Navbar fluid rounded className="bg-[#47B9BC] min-h-full ">
       <NavbarBrand>
         <Link to="/">
-          <div className="flex">
+          <div className="flex ">
             <img src={logo} className="mr-3 h-6 sm:h-9" alt="SkillShare Logo" />
-            <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+            <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white text-white">
               SkillShare
             </span>
           </div>

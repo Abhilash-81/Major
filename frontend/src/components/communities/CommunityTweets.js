@@ -20,8 +20,12 @@ const CommunityTweets = ({ id }) => {
         `http://localhost:3000/api/v1/likes/toggle?modelId=${id}&modelType=Tweet`,
         data
       );
-      setLiked(!liked);
-      setLikeCount(likeData?.data?.data?.likesCount);
+      setLiked(likeData?.data?.data);
+      if (likeData?.data?.data === true) {
+        setLikeCount(likeCount + 1);
+      } else {
+        setLikeCount(likeCount - 1);
+      }
     } catch (err) {
       console.log("Error while liking a tweet", err);
     }
@@ -46,35 +50,25 @@ const CommunityTweets = ({ id }) => {
     } else {
       fetchData();
     }
-  }, [user?.userId, handleLike]);
+  }, [user?.userId]);
 
   if (!tweet) return null;
 
   return (
-    <React.Fragment>
+    <>
       <div className="max-w-md mx-auto border border-gray-500 bg-white shadow-md rounded-md p-4 mb-4 overflow-y-auto">
         <div className="flex">
           <Link to={`/users/v1/${tweet?.user}`}>
             <Avatar img={profilepic} rounded bordered className="w-10 h-10 " />
           </Link>
-          <p className="ml-2 items-center align-middle">{tweet?.content}</p>
+          <p className="ml-2 items-center align-middle leading-tight tracking-tight">
+            {tweet?.content}
+          </p>
         </div>
         <div className="flex justify-between items-center">
-          {liked === true ? (
-            <button
-              onClick={handleLike}
-              className="flex items-center focus:outline-none text-red-500 hover:text-red-700"
-            >
-              Like ({likeCount})
-            </button>
-          ) : (
-            <button
-              onClick={handleLike}
-              className="flex items-center focus:outline-none text-white-500 "
-            >
-              Like ({likeCount})
-            </button>
-          )}
+          {console.log(tweet.likes.length)}
+          {liked && <button onClick={handleLike}>❤️ ({likeCount})</button>}
+          {!liked && <button onClick={handleLike}>🤍 ({likeCount})</button>}
 
           <Link to={"/api/v1/comments/" + id}>
             <button className="flex items-center text-green-500 hover:text-green-700 focus:outline-none">
@@ -84,7 +78,7 @@ const CommunityTweets = ({ id }) => {
           </Link>
         </div>
       </div>
-    </React.Fragment>
+    </>
   );
 };
 

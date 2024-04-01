@@ -59,7 +59,9 @@ const Tweets = () => {
                 </Link>
               </div>
               <div className="align-middle flex-grow">
-                <p className="mr-4 text-gray-800 text-md">{tweet?.content}</p>
+                <p className="mr-4 text-gray-800 text-md font-sans leading-tight tracking-tight ">
+                  {tweet?.content}
+                </p>
               </div>
             </div>
             <div className="mt-auto flex justify-between items-center">
@@ -77,7 +79,7 @@ const Tweets = () => {
                     <i className="far fa-comment mr-2"></i>
                     Comment
                   </button>
-                  <p className="absolute bottom-0 right-0 text-sm text-gray-500 p-1 opacity-55 ">
+                  <p className="absolute top-0 right-0 text-xs text-gray-500 p-1 opacity-50 ">
                     {useTimeAgo(tweet?.createdAt)}
                   </p>
                 </Link>

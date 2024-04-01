@@ -3,7 +3,7 @@ import React from "react";
 const Error = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-md shadow-md text-center">
+      <div className="bg-[#cdd1ce] p-8 rounded-md shadow-md text-center">
         <h1 className="text-4xl text-red-600 font-bold mb-4">Oops!</h1>
         <p className="text-gray-700 mb-4">
           Something went wrong. We apologize for the inconvenience.

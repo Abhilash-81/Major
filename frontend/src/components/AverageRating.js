@@ -62,7 +62,7 @@ const AverageRating = ({ takinguserId }) => {
       <h3 className="font-bold text-sm">
         AverageRating: <span className="text-pretty text-sm">{avg}</span>
       </h3>
-      <div className="fixed bottom-4 left-4 bg-white p-4 rounded-md shadow-md">
+      <div className="fixed bottom-4 left-4 bg-[#cdd1ce] p-4 rounded-md shadow-md">
         <Link
           to="/api/v1/RatingWithReviews"
           className="block text-sm mt-2 underline hover:no-underline hover:text-blue-600"

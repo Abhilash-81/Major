@@ -31,8 +31,8 @@ const Userprofile = () => {
   if (!user) return null;
 
   return (
-    <div className="mx-auto p-6 bg-white rounded-md shadow-md max-w-screen-md relative">
-      <div className="flex items-center justify-between">
+    <div className="mx-auto my-2 p-6 bg-[#F5F5F5] rounded-md shadow-md max-w-screen-md relative">
+      <div className="flex items-center justify-between ">
         <ImageCard
           name={username}
           image={user?.image}
@@ -51,7 +51,7 @@ const Userprofile = () => {
 
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Interested in Learning</h2>
-        <ul className="list-disc ml-6 border-l-2 pl-6">
+        <ul className="list-disc ml-6 border-l-2 pl-6 ">
           {!user?.Seeking || user?.Seeking?.length === 0 ? (
             <h1>Not Mentioned</h1>
           ) : (

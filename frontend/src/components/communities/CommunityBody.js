@@ -61,7 +61,7 @@ const communityBody = () => {
           </button>
         </div>
         <div className="flex flex-wrap justify-center ">
-          <div className="w-full lg:w-2/5 bg-blue-200 p-4 rounded-lg h-screen overflow-y-scroll hide-scrollbar">
+          <div className="w-full lg:w-2/5 bg-blue-200 p-4 rounded-lg h-screen overflow-y-scroll hide-scrollbar tracking-wide">
             {filteredData?.length === 0 ? (
               <div>
                 <h1 className="m-4 p-4 font-bold text-2xl text-pretty">

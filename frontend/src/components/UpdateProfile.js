@@ -69,7 +69,7 @@ const UpdateProfile = () => {
   };
 
   return (
-    <div className="mx-auto p-6 bg-white rounded-md shadow-md max-w-screen-md">
+    <div className="mx-auto p-6 bg-[#cdd1ce] rounded-md shadow-md max-w-screen-md">
       <h1 className="text-3xl font-bold mb-4">Update Profile</h1>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

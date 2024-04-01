@@ -105,12 +105,12 @@ const LeftSide = ({ tweetId }) => {
         </div>
       </div>
       <div className="m-2">
-        <div className="max-h-72 max-w-md mx-auto overflow-y-auto border border-gray-200 bg-white shadow-md rounded-md p-4 mb-4 items-center align-middle">
+        <div className="max-h-72 max-w-md mx-auto overflow-y-auto border border-gray-200 bg-[#cdd1ce] shadow-md rounded-md p-4 mb-4 items-center align-middle">
           <div className="flex flex-col items-center align-middle">
             <h1 className="text-md font-bold">Comments</h1>
             <div className="text-sm text-wrap">
               {data?.comments.length === 0 ? (
-                <h1 className="m-2 p-2 text-2xl">No Comments...</h1>
+                <h1 className="text-2xl">No Comments...</h1>
               ) : (
                 renderComments(data?.comments)
               )}

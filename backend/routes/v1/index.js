@@ -30,7 +30,7 @@ router.get("/hashtags", getAllHashtags);
 router.get("/hashtags/:id", getHashtag);
 router.post("/likes/toggle", toggleLike);
 router.post("/comments", createComment);
-router.get("/comments/:id", getTweet); //to get Comments on a tweet
+router.get("/comments/:id", getTweet);
 router.get("/commentsoncomment/:id", getComment);
 router.post("/signup", signup);
 router.post("/login", login);
