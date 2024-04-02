@@ -56,7 +56,7 @@ const CommunityTweets = ({ id }) => {
 
   return (
     <>
-      <div className="max-w-md mx-auto border border-gray-500 bg-white shadow-md rounded-md p-4 mb-4 overflow-y-auto">
+      <div className="max-w-md mx-auto border border-[#6edde0] bg-white shadow-lg rounded-md p-4 mb-4 overflow-y-auto">
         <div className="flex">
           <Link to={`/users/v1/${tweet?.user}`}>
             <Avatar img={profilepic} rounded bordered className="w-10 h-10 " />
