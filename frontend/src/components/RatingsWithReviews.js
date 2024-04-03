@@ -20,7 +20,7 @@ const RatingsWithReviews = () => {
   }
 
   return (
-    <div className="mx-auto max-w-lg md:max-w-3xl my-8">
+    <div className="mx-auto max-w-lg md:max-w-3xl my-8 max-h-screen min-h-fit">
       <Accordion
         collapseAll
         className="divide-y divide-gray-200 rounded-lg shadow-md"

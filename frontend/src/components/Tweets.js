@@ -45,7 +45,7 @@ const Tweets = () => {
   }
 
   return (
-    <div className="m-2 p-4 w-3/5 mx-auto overflow-y-auto h-screen">
+    <div className="m-2 p-4  w-4/5  mx-auto overflow-y-auto h-screen">
       <ul>
         {tweets?.map((tweet) => (
           <li

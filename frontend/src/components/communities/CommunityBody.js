@@ -45,7 +45,7 @@ const communityBody = () => {
             onChange={(e) => {
               setSearchText(e.target.value);
             }}
-            className="border border-solid border-black w-full lg:w-1/5 bg-blue-200 p-2 rounded-lg shadow-lg bg-transparent "
+            className="border border-solid border-black w-full lg:w-1/5 bg-blue-200 p-2 rounded-lg shadow-lg bg-transparent"
             placeholder=" Search for Communities.."
           />
           <button
@@ -55,7 +55,7 @@ const communityBody = () => {
               );
               setfilteredData(filteredList);
             }}
-            className="px-4 py-2 bg-blue-200 align-middle rounded-lg shadow-md"
+            className="transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300  font-bold py-2 px-4 rounded-lg shadow-md w-full md:w-auto text-white"
           >
             Search
           </button>

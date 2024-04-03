@@ -12,7 +12,7 @@ const HomeScreen = () => {
       const t1 = gsap.timeline();
       t1.from("#intro-slider", {
         xPercent: "-100",
-        duration: 1.3,
+        duration: 0.7,
         delay: 0.3,
       })
         .from(["#title-1", "#title-2", "#title-3"], {
@@ -53,9 +53,9 @@ const HomeScreen = () => {
           SkillShare
         </h1>
       </div>
-      <div className=" flex h-screen bg-[#D0D8DC] justify-center place-items-center ">
+      <div className="flex h-screen bg-[#D0D8DC] justify-center place-items-center ">
         <h1
-          className="text-[10vw] font-bold text-black font-serif"
+          className="text-[10vw] font-bold text-black font-serif "
           id="welcome"
         >
           SkillShare

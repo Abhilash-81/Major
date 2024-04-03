@@ -54,7 +54,7 @@ const Body = () => {
         <div className="flex-grow md:w-1/2 mr-2 pr-2">
           <button
             onClick={handleSearch}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md w-full md:w-auto"
+            className="transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300  font-bold py-2 px-4 rounded-lg shadow-md w-full md:w-auto text-white"
           >
             Search
           </button>
