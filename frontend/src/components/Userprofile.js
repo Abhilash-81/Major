@@ -1,46 +1,57 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Axios from "axios";
-import profilepic from "../assets/profilepic.png";
+import ImageCard from "./ImageCard";
+import { useSelector } from "react-redux";
+import RatingComponent from "./Rating";
 
 const Userprofile = () => {
   const { username } = useParams();
   const [user, setUser] = useState(null);
-
-  async function getData() {
-    try {
-      const response = await Axios.get(
-        `http://localhost:3000/users/${username}`
-      );
-      setUser(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  const navigate = useNavigate();
+  const logInUsername = useSelector((store) => store?.user?.username);
 
   useEffect(() => {
+    if (!logInUsername) {
+      navigate("/api/v1/login");
+    }
+    async function getData() {
+      try {
+        const response = await Axios.get(
+          `http://localhost:3000/users/${username}`
+        );
+        setUser(response.data);
+      } catch (error) {
+        throw error;
+      }
+    }
     getData();
-  }, []);
+  }, [username]);
 
   if (!user) return null;
 
   return (
-    <div className="mx-auto p-6 bg-white rounded-md shadow-md max-w-screen-md">
-      <img src={profilepic} alt="Profile Pic" />
-      <h1 className="text-3xl font-bold mb-4 justify-center">
-        {user?.name || username}
-      </h1>
+    <div className="mx-auto my-2 p-6 bg-[#F5F5F5] rounded-md shadow-md max-w-screen-md relative">
+      <div className="flex items-center justify-between ">
+        <ImageCard
+          name={username}
+          image={user?.image}
+          id={user?._id}
+          bio={user.Bio}
+        />
+      </div>
       <div className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">Skills</h2>
-        <ul className="list-disc ml-6">
+        <h2 className="text-xl font-semibold mb-2 border-b-2 pb-2">Skills</h2>
+        <ul className="mt-1 list-disc ml-6 border-l-2 pl-6">
           {user?.Skills?.map((skill, index) => (
             <li key={index}>{skill}</li>
           ))}
         </ul>
       </div>
+
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Interested in Learning</h2>
-        <ul className="list-disc ml-6">
+        <ul className="list-disc ml-6 border-l-2 pl-6 ">
           {!user?.Seeking || user?.Seeking?.length === 0 ? (
             <h1>Not Mentioned</h1>
           ) : (
@@ -50,21 +61,32 @@ const Userprofile = () => {
           )}
         </ul>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <h3 className="textmd font-semibold">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-gray-100 p-4 rounded">
+        <div className="bg-white p-4 rounded">
+          <h3 className="text-sm font-semibold">
             E-MailID: {user?.email || "Not specified"}
           </h3>
-          <h3 className="textmd font-semibold">
+          <h3 className="text-md font-semibold">
             Job: {user?.Job || "Not specified"}
           </h3>
-          <h3 className="textmd font-semibold">
+          <h3 className="text-sm font-semibold">
             Company: {user?.Company || "Not specified"}
           </h3>
-          <h3 className="textmd font-semibold">
+          <h3 className="text-sm font-semibold">
             Gender: {user?.Gender || "Not specified"}
           </h3>
         </div>
+        <div className="bg-white p-4 rounded">
+          <h3 className="text-sm font-semibold">
+            Name: {user?.username || "Not specified"}
+          </h3>
+          <h3 className="text-sm font-semibold">
+            Address: {user?.Address || "Not specified"}
+          </h3>
+        </div>
+      </div>
+      <div>
+        {logInUsername !== username && <RatingComponent props={user._id} />}
       </div>
     </div>
   );

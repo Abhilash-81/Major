@@ -1,58 +1,27 @@
-require("dotenv").config();
-const express = require("express");
+import express from "express";
+import bodyParser from "body-parser";
+import passport from "passport";
 const app = express();
-const path = require("path");
-const { logger } = require("./middleware/logger");
-const errorHandler = require("./middleware/errorHandler");
-const cookieParser = require("cookie-parser");
-const cors = require("cors");
-const corsOptions = require("./config/corsOptions");
-const connectDB = require("./config/dbConnection");
-const mongoose = require("mongoose");
-const { logEvents } = require("./middleware/logger");
+import cors from "cors";
+import connectDB from "./config/dbConnection.js";
+import { passportAuth } from "./config/jwt-middleware.js";
+import apiRoutes from "./routes/index.js";
+import users from "./routes/userRoutes.js";
 const PORT = process.env.PORT;
 
 connectDB();
 
-app.use(logger);
+app.use(cors());
 
-app.use(cors(corsOptions));
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
+app.use(passport.initialize());
+passportAuth(passport);
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use("/api", apiRoutes);
+app.use("/users", users);
 
-app.use(cookieParser());
-
-app.use("/", express.static(path.join(__dirname, "public")));
-
-// app.use("/", require("./routes/root"));
-
-app.use("/users", require("./routes/userRoutes"));
-
-app.all("*", (req, res) => {
-  res.status(404);
-  if (req.accepts("html")) {
-    res.sendFile(path.join(__dirname, "views", "404.html"));
-  } else if (req.accepts("json")) {
-    res.json({ message: "404 Not Found" });
-  } else {
-    res.type("txt").send("404 Page Not Found");
-  }
-});
-
-app.use(errorHandler);
-
-mongoose.connection.once("open", () => {
+app.listen(PORT, async () => {
   console.log("Connected to MongoDB");
-  app.listen(PORT, () => {
-    console.log("Server started at port", PORT);
-  });
-});
-
-mongoose.connection.on("error", (err) => {
-  console.log(err);
-  logEvents(
-    `${err.no}: ${err.code}\t ${err.syscall}\t${err.hostname}`,
-    "mongoErrLog.log"
-  );
+  console.log("Server started at port", PORT);
 });

@@ -1,5 +1,6 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const userSchema = new mongoose.Schema(
   {
@@ -24,6 +25,12 @@ const userSchema = new mongoose.Schema(
     Gender: {
       type: String,
     },
+    Bio: {
+      type: String,
+    },
+    image: {
+      type: String,
+    },
     email: {
       type: String,
       required: true,
@@ -41,13 +48,11 @@ const userSchema = new mongoose.Schema(
     Skills: [
       {
         type: String,
-        required: true,
       },
     ],
     Seeking: [
       {
         type: String,
-        required: true,
       },
     ],
   },
@@ -56,16 +61,24 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-// userSchema.pre("save", async function (next) {
-//   if (!this.isModified("password")) {
-//     next();
-//   }
-//   const salt = await bcrypt.genSalt(10);
-//   this.password = await bcrypt.hash(this.password, salt);
-// });
+userSchema.pre("save", function (next) {
+  const user = this;
+  const SALT = bcrypt.genSaltSync(9);
+  const encryptedPassword = bcrypt.hashSync(user.password, SALT);
+  user.password = encryptedPassword;
+  next();
+});
 
-// userSchema.methods.matchPassword = async function (enteredPassword) {
-//   return await bcrypt.compare(enteredPassword, this.password);
-// };
+userSchema.methods.comparePassword = function compare(password) {
+  return bcrypt.compareSync(password, this.password);
+};
 
-module.exports = mongoose.model("User", userSchema);
+userSchema.methods.genJWT = function generate() {
+  return jwt.sign({ id: this._id, email: this.email }, "twitter_secret", {
+    expiresIn: "1h",
+  });
+};
+
+const User = mongoose.model("User", userSchema);
+
+export default User;

@@ -1,53 +1,77 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../assets/logo.jpg";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import profilepic from "../assets/profilepic.png";
+import { Avatar, Dropdown, DropdownHeader } from "flowbite-react";
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarCollapse,
+  NavbarToggle,
+} from "flowbite-react";
 
 const Header = () => {
-  let [searchText, setSearchText] = useState("login");
+  const [showMenu, setShowMenu] = useState(false);
+  const user = useSelector((store) => store?.user?.username);
+  const image = useSelector((store) => store?.user?.image);
+
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+  };
+
+  useEffect(() => {
+    console.log("Image changed:", image);
+  }, [image]);
   return (
-    <nav className="flex flex-wrap w-90 h-90 items-center border-2 justify-between  bg-slate-100 shadow-md">
-      <div className="m-2 p-2">
-        <Link
-          to="/"
-          className="text-2xl font-semibold flex items-center space-x-3"
-        >
-          <img src={logo} alt="Skill Share logo" className="w-35 h-20 " />
-          <span>SkillShare</span>
+    <Navbar fluid rounded className="bg-[#47B9BC] min-h-full ">
+      <NavbarBrand>
+        <Link to="/">
+          <div className="flex ">
+            <img src={logo} className="mr-3 h-6 sm:h-9" alt="SkillShare Logo" />
+            <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white text-white">
+              SkillShare
+            </span>
+          </div>
         </Link>
-      </div>
-      <div className="m-2 p-2 text-xl font-semibold flex items-center ">
-        <ul className="flex flex-wrap px-2">
-          <li className="p-2">
-            <Link to="/">Home</Link>
-          </li>
-          <li className="p-2">
-            <Link to="/about">About</Link>
-          </li>
-          <li className="p-2">
-            <Link to="/contact">ContactUs</Link>
-          </li>
-        </ul>
-        <div>
-          <Link to="/users/auth">
-            <button
-              onClick={() => {
-                searchText === "login"
-                  ? setSearchText("logout")
-                  : setSearchText("login");
-              }}
-              className=" px-1 m-2 border-2 bg-teal-200 border-black rounded-lg"
-            >
-              {searchText}
-            </button>
-          </Link>
-          <Link to="/users/register">
-            <button className=" px-1 m-2 border-2 bg-teal-200 border-black rounded-lg">
-              Signup
-            </button>
-          </Link>
-        </div>
-      </div>
-    </nav>
+      </NavbarBrand>
+      <NavbarToggle />
+      <NavbarCollapse>
+        <Link to="/">Home</Link>
+        <Link to="/users">Users</Link>
+        <Link to="/api/v1/AllTweets">Tweets</Link>
+        <Link to="/communities">Communities</Link>
+        <Link to="/api/v1/signup">Signup</Link>
+        {!user && <Link to="/api/v1/login">Login</Link>}
+        {user && (
+          <Dropdown
+            label={
+              <Avatar alt="User settings" img={image || profilepic} rounded />
+            }
+            arrowIcon={true}
+            inline
+          >
+            <DropdownHeader>
+              <Link to={`/users/${user}`}>{user}</Link>
+            </DropdownHeader>
+            <DropdownHeader>
+              <Link to="/api/v1/users/profile">Update Profile</Link>
+            </DropdownHeader>
+            <DropdownHeader>
+              <Link to="/api/v1/tweets">Create Tweet</Link>
+            </DropdownHeader>
+            <DropdownHeader>
+              <Link to="/api/v1/profilePic">Update Image</Link>
+            </DropdownHeader>
+            <DropdownHeader>
+              <Link className="text-red-600" to="/api/v1/logout">
+                Logout
+              </Link>
+            </DropdownHeader>
+          </Dropdown>
+        )}
+      </NavbarCollapse>
+    </Navbar>
   );
 };
 

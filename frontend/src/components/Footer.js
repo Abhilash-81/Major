@@ -1,42 +1,81 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import {
+  Footer as FlowbiteFooter,
+  FooterCopyright,
+  FooterIcon,
+  FooterLink,
+  FooterLinkGroup,
+  FooterTitle,
+} from "flowbite-react";
+import {
+  BsDribbble,
+  BsFacebook,
+  BsGithub,
+  BsInstagram,
+  BsTwitter,
+} from "react-icons/bs";
 
-const Footer = () => {
+const MyFooter = () => {
   return (
-    <footer className="bg-gray-800 text-white py-8">
-      <div className="container mx-auto flex flex-wrap justify-between items-center">
-        <div className="mb-4 lg:mb-0">
-          <p className="text-lg font-bold text-white">Skill Share</p>
-          <p className="text-sm text-gray-300">
-            &copy; 2024. All rights reserved.
-          </p>
+    <FlowbiteFooter bgDark>
+      <div className="pt-4 w-full ">
+        <div className="grid w-full grid-cols-2 gap-8 px-6 py-8 md:grid-cols-4 text-white">
+          <div>
+            <FooterTitle title="Company" />
+            <FooterLinkGroup col>
+              <Link to="/about">
+                <FooterLink>About</FooterLink>
+              </Link>
+              <FooterLink>Careers</FooterLink>
+              <FooterLink>Brand Center</FooterLink>
+              <FooterLink>Blog</FooterLink>
+            </FooterLinkGroup>
+          </div>
+          <div>
+            <FooterTitle title="help center" />
+            <FooterLinkGroup col>
+              <FooterLink>Discord Server</FooterLink>
+              <Link to="https://twitter.com/JampaniAbhi81">
+                <FooterLink>Twitter</FooterLink>
+              </Link>
+              <FooterLink>Facebook</FooterLink>
+              <Link to="/contact">
+                <FooterLink>Contact Us</FooterLink>
+              </Link>
+            </FooterLinkGroup>
+          </div>
+          <div>
+            <FooterTitle title="legal" />
+            <FooterLinkGroup col>
+              <FooterLink>Privacy Policy</FooterLink>
+              <FooterLink>Licensing</FooterLink>
+              <FooterLink>Terms &amp; Conditions</FooterLink>
+            </FooterLinkGroup>
+          </div>
+          <div>
+            <FooterTitle title="download" />
+            <FooterLinkGroup col>
+              <FooterLink>iOS</FooterLink>
+              <FooterLink>Android</FooterLink>
+              <FooterLink>Windows</FooterLink>
+              <FooterLink>MacOS</FooterLink>
+            </FooterLinkGroup>
+          </div>
         </div>
-        <div className="mb-4 lg:mb-0">
-          <p className="text-lg font-bold text-white">Contact Us</p>
-          <ul className="text-sm text-gray-300">
-            <li>Email: jampaniabhilash81@gmail.com</li>
-            <li>Phone: 9191919191</li>
-          </ul>
-        </div>
-        <div>
-          <p className="text-lg font-bold text-white mb-4">Follow Us</p>
-          <div className="flex space-x-4">
-            <a
-              href="https://twitter.com/JampaniAbhi81"
-              className="text-gray-300 hover:text-white transition duration-300"
-            >
-              Twitter <i className="fab fa-twitter"></i>
-            </a>
-            <a
-              href="#"
-              className="text-gray-300 hover:text-white transition duration-300"
-            >
-              <i className="fab fa-instagram"></i>
-            </a>
+        <div className="w-full bg-gray-700 px-4 py-6 sm:flex sm:items-center sm:justify-between">
+          <FooterCopyright by="Skill Share" year={2024} />
+          <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
+            <FooterIcon icon={BsFacebook} />
+            <FooterIcon icon={BsInstagram} />
+            <FooterIcon icon={BsTwitter} />
+            <FooterIcon icon={BsGithub} />
+            <FooterIcon icon={BsDribbble} />
           </div>
         </div>
       </div>
-    </footer>
+    </FlowbiteFooter>
   );
 };
 
-export default Footer;
+export default MyFooter;
