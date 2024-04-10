@@ -31,13 +31,6 @@ const communityBody = () => {
   {
     return (
       <>
-        {logInUser && (
-          <button className="m-2 p-2 justify-center whitespace-break-spaces  ring-1 border-b-slate-500 hover:bg-blue-200">
-            <Link to={"http://localhost:3500/" + logInUser}>
-              Chat in Communtiy Rooms
-            </Link>
-          </button>
-        )}
         <div className="m-2 p-2 flex flex-wrap justify-center">
           <input
             type="text"
